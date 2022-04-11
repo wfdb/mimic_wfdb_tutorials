@@ -2,14 +2,14 @@
 
 This book presents tutorials on using the MIMIC Waveform Database.
 
-The book forms the basis for the following workshop scheduled for the 11th July 2022 at the IEEE EMBC Conference:
-
-'Open research in Biomedical Signal Processing: Cuffless Blood Pressure Estimation Using the MIMIC-IV Database'
+```{note}
+These resources are currently being developed.
+```
 
 The book includes:
 
-- [Workshop](../workshop): Details of the workshop
-- [MIMIC Database](../mimic-database): An overview of the MIMIC Waveform Database
+- [Workshop](../workshop): Details of the workshop for which these resources were designed.
+- [MIMIC Database](../mimic-database): An overview of the MIMIC Waveform Database.
 - [Case Study](../case-study): A case study on cuffless blood pressure estimation using the MIMIC Database.
 
 ---

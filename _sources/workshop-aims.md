@@ -1,6 +1,8 @@
 # Aims
 
-The aims of this workshop are:
-1. To provide students with experience at each stage of a research project.
-2. To equip students with essential skills for conducting scientific research.
-3. To provide opportunity to perform novel research which could impact healthcare.
+The aim of this interactive workshop is to provide participants with the knowledge, skills and tools required to conduct open research in the field of Biomedical Signal Processing.
+
+The objectives are:
+1. To provide participants with an understanding of publicly available datasets containing physiological signals, focusing on those on _PhysioNet_.
+2. To provide participants with essential skills for conducting high quality research with openly available data.
+3. To give participants the opportunity to work in groups on a cuffless blood pressure estimation case study.
