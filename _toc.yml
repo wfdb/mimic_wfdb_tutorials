@@ -15,6 +15,7 @@
     - file: mimic-context
     - file: mimic-structure
     - file: mimic-formatting
+    - file: mimic-wfdb-tutorials
 - file: tutorials
   sections:
     - file: data-exploration

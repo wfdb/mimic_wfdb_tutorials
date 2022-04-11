@@ -1,6 +1,6 @@
 # Overview
 
-This book presents tutorials on using the MIMIC Waveform Database.
+This book presents tutorials on using the MIMIC Waveform Database for Biomedical Signal Processing.
 
 ```{note}
 These resources are currently being developed.
