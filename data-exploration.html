@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
 
-    <title>Data exploration &#8212; MIMIC WFDB Tutorials</title>
+    <title>Data Exploration &#8212; MIMIC WFDB Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -52,7 +52,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Data extraction" href="data-extraction.html" />
+    <link rel="next" title="Data Extraction" href="data-extraction.html" />
     <link rel="prev" title="Tutorials" href="tutorials.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -177,17 +177,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="current">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Data exploration
+     Data Exploration
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="data-extraction.html">
-     Data extraction
+     Data Extraction
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="data-visualisation.html">
-     Data visualisation
+     Data Visualisation
     </a>
    </li>
    <li class="toctree-l2">
@@ -305,9 +305,9 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/data-exploration.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/data-exploration.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -328,7 +328,7 @@ const thebe_selector_output = ".output, .cell_output"
             href="https://github.com/peterhcharlton/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Fdata-exploration.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/peterhcharlton/mimic_wfdb_tutorials/edit/main/data-exploration.md"><button
+        <a class="edit-button" href="https://github.com/peterhcharlton/mimic_wfdb_tutorials/edit/main/data-exploration.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -343,11 +343,46 @@ const thebe_selector_output = ".output, .cell_output"
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/peterhcharlton/mimic_wfdb_tutorials/main?urlpath=tree/data-exploration.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#identify-records">
+   Identify records
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#look-at-files-in-a-record">
+   Look at files in a record
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -357,8 +392,55 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <section id="data-exploration">
-<h1>Data exploration<a class="headerlink" href="#data-exploration" title="Permalink to this headline">¶</a></h1>
-<p><em>Tutorial on data exploration</em></p>
+<h1>Data Exploration<a class="headerlink" href="#data-exploration" title="Permalink to this headline">¶</a></h1>
+<p>Exploring MIMIC waveform data.</p>
+<section id="identify-records">
+<h2>Identify records<a class="headerlink" href="#identify-records" title="Permalink to this headline">¶</a></h2>
+<p>Identify the records in the MIMIC III Waveform Database</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">wfdb</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get a list of records in the database</span>
+<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb&#39;</span>
+<span class="n">records</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loaded list of records for </span><span class="si">{}</span><span class="s2"> database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">database_name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loaded list of records for mimic3wdb database
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Display the first few records</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; - First ten records: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; - Last ten records: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">records</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - First ten records: [&#39;30/3000003/&#39;, &#39;30/3000031/&#39;, &#39;30/3000051/&#39;, &#39;30/3000060/&#39;, &#39;30/3000063/&#39;, &#39;30/3000065/&#39;, &#39;30/3000086/&#39;, &#39;30/3000100/&#39;, &#39;30/3000103/&#39;, &#39;30/3000105/&#39;]
+ - Last ten records: [&#39;39/3999903/&#39;, &#39;39/3999907/&#39;, &#39;39/3999913/&#39;, &#39;39/3999922/&#39;, &#39;39/3999938/&#39;, &#39;39/3999944/&#39;, &#39;39/3999953/&#39;, &#39;39/3999968/&#39;, &#39;39/3999986/&#39;, &#39;39/3999988/&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="look-at-files-in-a-record">
+<h2>Look at files in a record<a class="headerlink" href="#look-at-files-in-a-record" title="Permalink to this headline">¶</a></h2>
+<p>Inspect the files that make up a record</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -403,7 +485,7 @@ const thebe_selector_output = ".output, .cell_output"
         <a class="right-next" href="data-extraction.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Data extraction</p>
+                <p class="prevnext-title">Data Extraction</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
