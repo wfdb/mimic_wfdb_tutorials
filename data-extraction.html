@@ -380,11 +380,6 @@ const thebe_selector_output = ".output, .cell_output"
    Extract data from this record
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-signals-in-this-record">
-   Plot signals in this record
-  </a>
- </li>
 </ul>
 
             </nav>
@@ -445,60 +440,82 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load data from this record</span>
-<span class="n">no_seconds_to_load</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">selected_record</span><span class="p">,</span> <span class="n">sampfrom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sampto</span><span class="o">=</span><span class="mi">125</span><span class="o">*</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">database_name</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data loaded from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">selected_record</span><span class="p">))</span>
+<span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">selected_record</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">database_name</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from record: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selected_record</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 seconds of data loaded from: bidmc01
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="plot-signals-in-this-record">
-<h2>Plot signals in this record<a class="headerlink" href="#plot-signals-in-this-record" title="Permalink to this headline">¶</a></h2>
-<p>Plot the signals contained in this record</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot the data loaded from this record</span>
-<span class="n">title_text</span> <span class="o">=</span> <span class="s2">&quot;First record from &quot;</span> <span class="o">+</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s2">&quot; (record: &quot;</span> <span class="o">+</span> <span class="n">selected_record</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
-<span class="n">wfdb</span><span class="o">.</span><span class="n">plot_wfdb</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="n">record_data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title_text</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">)</span> 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/data-extraction_8_0.png" src="_images/data-extraction_8_0.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">record_contains_signals_log</span> <span class="o">=</span> <span class="s1">&#39;RESP,&#39;</span> <span class="ow">in</span> <span class="n">record_data</span><span class="o">.</span><span class="n">sig_name</span> <span class="ow">and</span> <span class="s1">&#39;PLETH,&#39;</span> <span class="ow">in</span> <span class="n">record_data</span><span class="o">.</span><span class="n">sig_name</span>
-<span class="k">if</span> <span class="n">record_contains_signals_log</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This record contains the required signals&#39;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This record doesn</span><span class="se">\&#39;</span><span class="s1">t contain the required signals&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This record contains the required signals
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data loaded from record: bidmc01
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot just the signals of interest from this record</span>
-<span class="n">title_text</span> <span class="o">=</span> <span class="s2">&quot;Selected signals from: &quot;</span> <span class="o">+</span> <span class="n">selected_record</span>
-<span class="n">wfdb</span><span class="o">.</span><span class="n">plot_items</span><span class="p">(</span><span class="n">signal</span><span class="o">=</span><span class="n">record_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">title</span> <span class="o">=</span> <span class="n">title_text</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="n">record_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Look at class type of the object in which the data are stored:</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data stored in class of type: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">record_data</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/data-extraction_10_0.png" src="_images/data-extraction_10_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data stored in class of type: &lt;class &#39;wfdb.io.record.Record&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># look at variables contained within the object</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="n">pprint</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">record_data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;adc_gain&#39;: [65534.0, 138229.4494, 32670.9091, 42414.137, 32670.9091],
+ &#39;adc_res&#39;: [0, 0, 0, 0, 0],
+ &#39;adc_zero&#39;: [0, 0, 0, 0, 0],
+ &#39;base_counter&#39;: None,
+ &#39;base_date&#39;: None,
+ &#39;base_time&#39;: None,
+ &#39;baseline&#39;: [-32767, -63710, -16367, -11643, -16367],
+ &#39;block_size&#39;: [0, 0, 0, 0, 0],
+ &#39;byte_offset&#39;: [None, None, None, None, None],
+ &#39;checksum&#39;: [5854, 29272, -17810, -20589, 23277],
+ &#39;comments&#39;: [&#39;&lt;age&gt;: 88 &lt;sex&gt;: M &lt;location&gt;: micu &lt;source&gt;: &#39;
+              &#39;https://physionet.org/physiobank/database/mimic2wdb/matched/s01182/ &#39;
+              &#39;&lt;data segment&gt;: 2688-03-25-23-14&lt;modifications&gt;: this is not a &#39;
+              &#39;verbatim copy of an original file. Please see the accompanying &#39;
+              &#39;LICENSE.txt file for further details.&#39;],
+ &#39;counter_freq&#39;: None,
+ &#39;d_signal&#39;: None,
+ &#39;e_d_signal&#39;: None,
+ &#39;e_p_signal&#39;: None,
+ &#39;file_name&#39;: [&#39;bidmc01.dat&#39;,
+               &#39;bidmc01.dat&#39;,
+               &#39;bidmc01.dat&#39;,
+               &#39;bidmc01.dat&#39;,
+               &#39;bidmc01.dat&#39;],
+ &#39;fmt&#39;: [&#39;16&#39;, &#39;16&#39;, &#39;16&#39;, &#39;16&#39;, &#39;16&#39;],
+ &#39;fs&#39;: 125,
+ &#39;init_value&#39;: [-9577, -3446, 801, 1248, 7335],
+ &#39;n_sig&#39;: 5,
+ &#39;p_signal&#39;: array([[0.35386212, 0.43597077, 0.52548278, 0.30393168, 0.72547721],
+       [0.35679189, 0.43206423, 0.51960599, 0.33528915, 0.67059658],
+       [0.35874508, 0.42815044, 0.51568813, 0.37452135, 0.60980856],
+       ...,
+       [0.14662618, 0.40175954, 0.49998609, 0.53529322, 0.38431744],
+       [0.14174322, 0.40175954, 0.49998609, 0.53920701, 0.38039958],
+       [0.13783685, 0.40273618, 0.4941093 , 0.53529322, 0.38039958]]),
+ &#39;record_name&#39;: &#39;bidmc01&#39;,
+ &#39;samps_per_frame&#39;: [1, 1, 1, 1, 1],
+ &#39;sig_len&#39;: 60001,
+ &#39;sig_name&#39;: [&#39;RESP,&#39;, &#39;PLETH,&#39;, &#39;V,&#39;, &#39;AVR,&#39;, &#39;II,&#39;],
+ &#39;skew&#39;: [None, None, None, None, None],
+ &#39;units&#39;: [&#39;pm&#39;, &#39;NU&#39;, &#39;mV&#39;, &#39;mV&#39;, &#39;mV&#39;]}
+</pre></div>
+</div>
 </div>
 </div>
 </section>
