@@ -1,0 +1,36 @@
+# Table of content
+# Learn more at https://jupyterbook.org/customize/toc.html
+#
+- file: intro
+- file: workshop
+  sections:
+    - file: workshop-aims
+    - file: workshop-synopsis
+    - file: workshop-schedule
+    - file: workshop-booking
+    - file: workshop-prep
+- file: mimic-database
+  sections:
+    - file: mimic-physionet
+    - file: mimic-context
+    - file: mimic-structure
+    - file: mimic-formatting
+- file: tutorials
+  sections:
+    - file: data-exploration
+    - file: data-extraction
+    - file: data-visualisation
+    - file: signal-filtering
+    - file: signal-beat-detection
+    - file: signal-quality-assessment
+    - file: signal-segmentation
+    - file: signal-differentiation
+    - file: pulse-wave-analysis
+    - file: data-modelling
+    - file: data-analysis
+    - file: data-interpretation
+- file: case-study
+- file: about
+  sections:
+    - file: about-contributing
+    - file: about-maintenance
