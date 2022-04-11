@@ -18,6 +18,7 @@
     - file: mimic-wfdb-toolbox
 - file: tutorials
   sections:
+    - file: MIMIC_examples
     - file: data-exploration
     - file: data-extraction
     - file: data-visualisation
