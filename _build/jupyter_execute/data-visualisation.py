@@ -19,8 +19,8 @@ import wfdb
 
 
 # Specify a record
-database_name = 'bidmc'
-selected_record = "bidmc01"
+database_name = 'mimic3wdb/1.0/30/3000063/'
+selected_record = '3000063_0013'
 print("Selected record: {}".format(selected_record))
 
 
@@ -28,8 +28,10 @@ print("Selected record: {}".format(selected_record))
 
 
 # load data from this record
+start_seconds = 0
 no_seconds_to_load = 5
-record_data = wfdb.rdrecord(record_name=selected_record, sampfrom=0, sampto=125*no_seconds_to_load, pn_dir=database_name) 
+fs = 125
+record_data = wfdb.rdrecord(record_name=selected_record, sampfrom=fs*start_seconds, sampto=fs*(start_seconds+no_seconds_to_load), pn_dir=database_name) 
 print("{} seconds of data loaded from: {}".format(no_seconds_to_load, selected_record))
 
 
@@ -47,7 +49,7 @@ wfdb.plot_wfdb(record=record_data, title=title_text, time_units='seconds')
 # In[5]:
 
 
-record_contains_signals_log = 'RESP,' in record_data.sig_name and 'PLETH,' in record_data.sig_name
+record_contains_signals_log = 'II,' in record_data.sig_name and 'PLETH,' in record_data.sig_name
 if record_contains_signals_log:
     print('This record contains the required signals')
 else:
@@ -60,12 +62,6 @@ else:
 # plot just the signals of interest from this record
 title_text = "Selected signals from: " + selected_record
 wfdb.plot_items(signal=record_data.p_signal[:,0:2], title = title_text, ylabel = record_data.sig_name[0:2])
-
-
-# In[ ]:
-
-
-
 
 
 # In[ ]:
