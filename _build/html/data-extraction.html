@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
 
-    <title>Data Extraction &#8212; MIMIC WFDB Tutorials</title>
+    <title>Data extraction &#8212; MIMIC WFDB Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Data Visualisation" href="data-visualisation.html" />
-    <link rel="prev" title="Data Exploration" href="data-exploration.html" />
+    <link rel="next" title="Data visualisation" href="data-visualisation.html" />
+    <link rel="prev" title="Data exploration" href="data-exploration.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -177,17 +177,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="data-exploration.html">
-     Data Exploration
+     Data exploration
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Data Extraction
+     Data extraction
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="data-visualisation.html">
-     Data Visualisation
+     Data visualisation
     </a>
    </li>
    <li class="toctree-l2">
@@ -305,9 +305,9 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/data-extraction.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/data-extraction.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
+                data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -321,14 +321,14 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/peterhcharlton/mimic_wfdb_tutorials"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/mit-lcp/mimic_wfdb_tutorials"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/peterhcharlton/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Fdata-extraction.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/mit-lcp/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Fdata-extraction.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/peterhcharlton/mimic_wfdb_tutorials/edit/main/data-extraction.ipynb"><button
+        <a class="edit-button" href="https://github.com/mit-lcp/mimic_wfdb_tutorials/edit/main/data-extraction.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -343,46 +343,11 @@ const thebe_selector_output = ".output, .cell_output"
 
             <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/peterhcharlton/mimic_wfdb_tutorials/main?urlpath=tree/data-extraction.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#identify-a-record">
-   Identify a record
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-data-from-this-record">
-   Extract data from this record
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -392,133 +357,8 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <section id="data-extraction">
-<h1>Data Extraction<a class="headerlink" href="#data-extraction" title="Permalink to this headline">¶</a></h1>
-<p>Extract data from a MIMIC Waveform record.</p>
-<section id="identify-a-record">
-<h2>Identify a record<a class="headerlink" href="#identify-a-record" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">wfdb</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get a list of records in the database</span>
-<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;bidmc&#39;</span>
-<span class="n">records</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List of records loaded for </span><span class="si">{}</span><span class="s2"> database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">database_name</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>List of records loaded for bidmc database
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the first record</span>
-<span class="n">selected_record</span> <span class="o">=</span> <span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected record: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selected_record</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Selected record: bidmc01
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="extract-data-from-this-record">
-<h2>Extract data from this record<a class="headerlink" href="#extract-data-from-this-record" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load data from this record</span>
-<span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">selected_record</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">database_name</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from record: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selected_record</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data loaded from record: bidmc01
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Look at class type of the object in which the data are stored:</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data stored in class of type: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">record_data</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data stored in class of type: &lt;class &#39;wfdb.io.record.Record&#39;&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># look at variables contained within the object</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
-<span class="n">pprint</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">record_data</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;adc_gain&#39;: [65534.0, 138229.4494, 32670.9091, 42414.137, 32670.9091],
- &#39;adc_res&#39;: [0, 0, 0, 0, 0],
- &#39;adc_zero&#39;: [0, 0, 0, 0, 0],
- &#39;base_counter&#39;: None,
- &#39;base_date&#39;: None,
- &#39;base_time&#39;: None,
- &#39;baseline&#39;: [-32767, -63710, -16367, -11643, -16367],
- &#39;block_size&#39;: [0, 0, 0, 0, 0],
- &#39;byte_offset&#39;: [None, None, None, None, None],
- &#39;checksum&#39;: [5854, 29272, -17810, -20589, 23277],
- &#39;comments&#39;: [&#39;&lt;age&gt;: 88 &lt;sex&gt;: M &lt;location&gt;: micu &lt;source&gt;: &#39;
-              &#39;https://physionet.org/physiobank/database/mimic2wdb/matched/s01182/ &#39;
-              &#39;&lt;data segment&gt;: 2688-03-25-23-14&lt;modifications&gt;: this is not a &#39;
-              &#39;verbatim copy of an original file. Please see the accompanying &#39;
-              &#39;LICENSE.txt file for further details.&#39;],
- &#39;counter_freq&#39;: None,
- &#39;d_signal&#39;: None,
- &#39;e_d_signal&#39;: None,
- &#39;e_p_signal&#39;: None,
- &#39;file_name&#39;: [&#39;bidmc01.dat&#39;,
-               &#39;bidmc01.dat&#39;,
-               &#39;bidmc01.dat&#39;,
-               &#39;bidmc01.dat&#39;,
-               &#39;bidmc01.dat&#39;],
- &#39;fmt&#39;: [&#39;16&#39;, &#39;16&#39;, &#39;16&#39;, &#39;16&#39;, &#39;16&#39;],
- &#39;fs&#39;: 125,
- &#39;init_value&#39;: [-9577, -3446, 801, 1248, 7335],
- &#39;n_sig&#39;: 5,
- &#39;p_signal&#39;: array([[0.35386212, 0.43597077, 0.52548278, 0.30393168, 0.72547721],
-       [0.35679189, 0.43206423, 0.51960599, 0.33528915, 0.67059658],
-       [0.35874508, 0.42815044, 0.51568813, 0.37452135, 0.60980856],
-       ...,
-       [0.14662618, 0.40175954, 0.49998609, 0.53529322, 0.38431744],
-       [0.14174322, 0.40175954, 0.49998609, 0.53920701, 0.38039958],
-       [0.13783685, 0.40273618, 0.4941093 , 0.53529322, 0.38039958]]),
- &#39;record_name&#39;: &#39;bidmc01&#39;,
- &#39;samps_per_frame&#39;: [1, 1, 1, 1, 1],
- &#39;sig_len&#39;: 60001,
- &#39;sig_name&#39;: [&#39;RESP,&#39;, &#39;PLETH,&#39;, &#39;V,&#39;, &#39;AVR,&#39;, &#39;II,&#39;],
- &#39;skew&#39;: [None, None, None, None, None],
- &#39;units&#39;: [&#39;pm&#39;, &#39;NU&#39;, &#39;mV&#39;, &#39;mV&#39;, &#39;mV&#39;]}
-</pre></div>
-</div>
-</div>
-</div>
-</section>
+<h1>Data extraction<a class="headerlink" href="#data-extraction" title="Permalink to this headline">¶</a></h1>
+<p><em>Tutorial on data extraction</em></p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -555,7 +395,7 @@ const thebe_selector_output = ".output, .cell_output"
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Data Exploration</p>
+                <p class="prevnext-title">Data exploration</p>
             </div>
         </a>
     </div>
@@ -563,7 +403,7 @@ const thebe_selector_output = ".output, .cell_output"
         <a class="right-next" href="data-visualisation.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Data Visualisation</p>
+                <p class="prevnext-title">Data visualisation</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
