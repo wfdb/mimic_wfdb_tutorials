@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
 
-    <title>Database Structure &#8212; MIMIC WFDB Tutorials</title>
+    <title>Reference Blood Pressure Estimation &#8212; MIMIC WFDB Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Data formatting" href="mimic-formatting.html" />
-    <link rel="prev" title="Clinical Context" href="mimic-context.html" />
+    <link rel="next" title="Data modelling" href="data-modelling.html" />
+    <link rel="prev" title="Pulse wave analysis" href="pulse-wave-analysis.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -123,16 +123,16 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="mimic-database.html">
    MIMIC Database
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="mimic-physionet.html">
      PhysioNet
@@ -143,8 +143,8 @@ const thebe_selector_output = ".output, .cell_output"
      Clinical Context
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="mimic-structure.html">
      Database Structure
     </a>
    </li>
@@ -160,16 +160,16 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="tutorials.html">
    Tutorials
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="data-exploration.html">
      Data Exploration
@@ -215,9 +215,9 @@ const thebe_selector_output = ".output, .cell_output"
      Pulse wave analysis
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="extracting-reference-bp.html">
-     Extracting Reference BP
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Reference Blood Pressure Estimation
     </a>
    </li>
    <li class="toctree-l2">
@@ -305,7 +305,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/mimic-structure.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/reference-bp-estimation.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -325,10 +325,10 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/mit-lcp/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Fmimic-structure.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/mit-lcp/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Freference-bp-estimation.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/mit-lcp/mimic_wfdb_tutorials/edit/main/mimic-structure.md"><button
+        <a class="edit-button" href="https://github.com/mit-lcp/mimic_wfdb_tutorials/edit/main/reference-bp-estimation.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -356,9 +356,27 @@ const thebe_selector_output = ".output, .cell_output"
         
               <div>
                 
-  <section id="database-structure">
-<h1>Database Structure<a class="headerlink" href="#database-structure" title="Permalink to this headline">¶</a></h1>
-<p><em>Details of database structure</em></p>
+  <section id="reference-blood-pressure-estimation">
+<h1>Reference Blood Pressure Estimation<a class="headerlink" href="#reference-blood-pressure-estimation" title="Permalink to this headline">¶</a></h1>
+<p><em>Tutorial on obtaining reference BPs from MIMIC</em></p>
+<div class="admonition-suggestions admonition">
+<p class="admonition-title">Suggestions</p>
+<p>There are two potential approaches:</p>
+<ol class="simple">
+<li><p>Obtaining BPs directly from the numerics:</p>
+<ul class="simple">
+<li><p>This has the advantage that no signal processing is required</p></li>
+<li><p>But the disadvantage that it does require reading additional numerics files (although perhaps it would be helpful to provide an example of this anyway).</p></li>
+</ul>
+</li>
+<li><p>Obtaining BPs from the ABP signal</p>
+<ul class="simple">
+<li><p>This has the advantage that the BP signal data are already in the waveform files containing PPG signals.</p></li>
+<li><p>But it would require signal processing. At a minimum, it would require detecting the maximum and minimum values of the BP signal in a given period (to give SBP and DBP), and potentially the signal processing could be much more complex, <em>e.g.</em> BP beat detection, signal quality assessment, detection of systolic peaks and diastolic troughs.</p></li>
+</ul>
+</li>
+</ol>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -391,19 +409,19 @@ const thebe_selector_output = ".output, .cell_output"
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="mimic-context.html" title="previous page">
+        <a class="left-prev" href="pulse-wave-analysis.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Clinical Context</p>
+                <p class="prevnext-title">Pulse wave analysis</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="mimic-formatting.html" title="next page">
+        <a class="right-next" href="data-modelling.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Data formatting</p>
+                <p class="prevnext-title">Data modelling</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
