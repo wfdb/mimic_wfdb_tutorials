@@ -34,14 +34,14 @@ record_data = wfdb.rdrecord(record_name=selected_record, pn_dir=database_name)
 print("Data loaded from record: {}".format(selected_record))
 
 
-# In[4]:
+# In[14]:
 
 
 # Look at class type of the object in which the data are stored:
 print("Data stored in class of type: {}".format(type(record_data)))
 
 
-# In[5]:
+# In[15]:
 
 
 # look at variables contained within the object

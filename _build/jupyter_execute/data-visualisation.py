@@ -38,7 +38,7 @@ print("{} seconds of data loaded from: {}".format(no_seconds_to_load, selected_r
 # ## Plot signals in this record
 # Plot the signals contained in this record
 
-# In[4]:
+# In[35]:
 
 
 # plot the data loaded from this record
@@ -46,7 +46,7 @@ title_text = "First record from " + database_name + " (record: " + selected_reco
 wfdb.plot_wfdb(record=record_data, title=title_text, time_units='seconds') 
 
 
-# In[5]:
+# In[36]:
 
 
 record_contains_signals_log = 'II,' in record_data.sig_name and 'PLETH,' in record_data.sig_name
@@ -56,7 +56,7 @@ else:
     print('This record doesn\'t contain the required signals')
 
 
-# In[6]:
+# In[37]:
 
 
 # plot just the signals of interest from this record

@@ -7,7 +7,6 @@
     - file: workshop-aims
     - file: workshop-synopsis
     - file: workshop-schedule
-    - file: workshop-booking
     - file: workshop-prep
 - file: mimic-database
   sections:
@@ -27,6 +26,7 @@
     - file: signal-segmentation
     - file: signal-differentiation
     - file: pulse-wave-analysis
+    - file: extracting-reference-bp
     - file: data-modelling
     - file: data-analysis
     - file: data-interpretation

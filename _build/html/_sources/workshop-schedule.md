@@ -1,5 +1,7 @@
 # Workshop Schedule
 
+The workshop will last 3.5 hours.
+
 | Time | Content |
 | :--- | :--- |
 | 5 mins | [Welcome and overview](../workshop) |
