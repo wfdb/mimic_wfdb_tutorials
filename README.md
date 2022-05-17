@@ -26,3 +26,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## Development
+
+This website was created with [JupyterBook](https://jupyterbook.org/). To set up a local development environment, follow the steps below:
+
+1. Navigate to the project directory (e.g. `mimic_wfdb_tutorials`)
+2. Install the required packages with `pip install -r requirements.txt` (preferably in a virtual environment using something like venv, virtualenv, conda etc.)
+3. Run `jupyter-book build --all ./` from within the project directory to build the book.
+4. The HTML bookfiles should have been created in a `_build` folder.
