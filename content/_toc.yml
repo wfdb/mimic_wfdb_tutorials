@@ -4,34 +4,34 @@
 - file: intro
 - file: workshop
   sections:
-    - file: workshop-aims
-    - file: workshop-synopsis
-    - file: workshop-schedule
-    - file: workshop-prep
+    - file: workshop/workshop-aims
+    - file: workshop/workshop-synopsis
+    - file: workshop/workshop-schedule
+    - file: workshop/workshop-prep
 - file: mimic-database
   sections:
-    - file: mimic-physionet
-    - file: mimic-context
-    - file: mimic-structure
-    - file: mimic-formatting
-    - file: mimic-wfdb-toolbox
+    - file: mimic/mimic-physionet
+    - file: mimic/mimic-context
+    - file: mimic/mimic-structure
+    - file: mimic/mimic-formatting
+    - file: mimic/mimic-wfdb-toolbox
 - file: tutorials
   sections:
-    - file: data-exploration
-    - file: data-extraction
-    - file: data-visualisation
-    - file: signal-filtering
-    - file: signal-beat-detection
-    - file: signal-quality-assessment
-    - file: signal-segmentation
-    - file: signal-differentiation
-    - file: pulse-wave-analysis
-    - file: extracting-reference-bp
-    - file: data-modelling
-    - file: data-analysis
-    - file: data-interpretation
+    - file: tutorial/data-exploration
+    - file: tutorial/data-extraction
+    - file: tutorial/data-visualisation
+    - file: tutorial/signal-filtering
+    - file: tutorial/signal-beat-detection
+    - file: tutorial/signal-quality-assessment
+    - file: tutorial/signal-segmentation
+    - file: tutorial/signal-differentiation
+    - file: tutorial/pulse-wave-analysis
+    - file: tutorial/extracting-reference-bp
+    - file: tutorial/data-modelling
+    - file: tutorial/data-analysis
+    - file: tutorial/data-interpretation
 - file: case-study
 - file: about
   sections:
-    - file: about-contributing
-    - file: about-maintenance
+    - file: about/about-contributing
+    - file: about/about-maintenance
