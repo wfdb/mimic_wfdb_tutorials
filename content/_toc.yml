@@ -17,9 +17,9 @@
     - file: mimic/mimic-wfdb-toolbox
 - file: tutorials
   sections:
-    - file: tutorial/data-exploration
-    - file: tutorial/data-extraction
-    - file: tutorial/data-visualisation
+    - file: tutorial/notebooks/data-exploration
+    - file: tutorial/notebooks/data-extraction
+    - file: tutorial/notebooks/data-visualisation
     - file: tutorial/signal-filtering
     - file: tutorial/signal-beat-detection
     - file: tutorial/signal-quality-assessment
