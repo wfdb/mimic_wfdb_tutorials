@@ -5,7 +5,7 @@
 
 This repository contains a Jupyter book called 'MIMIC WFDB Tutorials', which presents tutorials on using the MIMIC Waveform Database for Biomedical Signal Processing.
 
-The book is available [here](https://mit-lcp.github.io/mimic_wfdb_tutorials/).
+The book is available [here](https://wfdb.github.io/mimic_wfdb_tutorials/intro.html).
 
 ## Contributors ✨
 
