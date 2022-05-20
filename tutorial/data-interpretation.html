@@ -6,54 +6,54 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
 
-    <title>Case Study &#8212; MIMIC WFDB Tutorials</title>
+    <title>Data interpretation &#8212; MIMIC WFDB Tutorials</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     
       
 
     
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script >const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="author" title="About these documents" href="about.html" />
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="About this Book" href="about.html" />
-    <link rel="prev" title="Data interpretation" href="tutorial/data-interpretation.html" />
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Case Study" href="../case-study.html" />
+    <link rel="prev" title="Data analysis" href="data-analysis.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -70,29 +70,29 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+    <a class="navbar-brand text-wrap" href="../index.html">
       
-      <img src="_static/icon.png" class="logo" alt="logo">
+      <img src="../_static/icon.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">MIMIC WFDB Tutorials</h1>
       
     </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="intro.html">
+  <a class="reference internal" href="../intro.html">
    Overview
   </a>
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="workshop.html">
+  <a class="reference internal" href="../workshop.html">
    Workshop
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -102,29 +102,29 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="workshop/workshop-aims.html">
+    <a class="reference internal" href="../workshop/workshop-aims.html">
      Workshop Aims
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="workshop/workshop-synopsis.html">
+    <a class="reference internal" href="../workshop/workshop-synopsis.html">
      Workshop Synopsis
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="workshop/workshop-schedule.html">
+    <a class="reference internal" href="../workshop/workshop-schedule.html">
      Workshop Schedule
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="workshop/workshop-prep.html">
+    <a class="reference internal" href="../workshop/workshop-prep.html">
      Workshop Preparation
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="mimic-database.html">
+  <a class="reference internal" href="../mimic-database.html">
    MIMIC Database
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -134,116 +134,116 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="mimic/mimic-physionet.html">
+    <a class="reference internal" href="../mimic/mimic-physionet.html">
      PhysioNet
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="mimic/mimic-context.html">
+    <a class="reference internal" href="../mimic/mimic-context.html">
      Clinical Context
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="mimic/mimic-structure.html">
+    <a class="reference internal" href="../mimic/mimic-structure.html">
      Database Structure
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="mimic/mimic-formatting.html">
+    <a class="reference internal" href="../mimic/mimic-formatting.html">
      Data formatting
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="mimic/mimic-wfdb-toolbox.html">
+    <a class="reference internal" href="../mimic/mimic-wfdb-toolbox.html">
      MIMIC WFDB Toolbox
     </a>
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="tutorials.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../tutorials.html">
    Tutorials
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/notebooks/data-exploration.html">
+    <a class="reference internal" href="notebooks/data-exploration.html">
      Data Exploration
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/notebooks/data-extraction.html">
+    <a class="reference internal" href="notebooks/data-extraction.html">
      Data Extraction
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/notebooks/data-visualisation.html">
+    <a class="reference internal" href="notebooks/data-visualisation.html">
      Data Visualisation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/signal-filtering.html">
+    <a class="reference internal" href="signal-filtering.html">
      Signal filtering
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/signal-beat-detection.html">
+    <a class="reference internal" href="signal-beat-detection.html">
      Beat Detection
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/signal-quality-assessment.html">
+    <a class="reference internal" href="signal-quality-assessment.html">
      Signal Quality Assessment
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/signal-segmentation.html">
+    <a class="reference internal" href="signal-segmentation.html">
      Signal segmentation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/signal-differentiation.html">
+    <a class="reference internal" href="signal-differentiation.html">
      Differentiation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/pulse-wave-analysis.html">
+    <a class="reference internal" href="pulse-wave-analysis.html">
      Pulse wave analysis
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/extracting-reference-bp.html">
+    <a class="reference internal" href="extracting-reference-bp.html">
      Extracting Reference BP
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/data-modelling.html">
+    <a class="reference internal" href="data-modelling.html">
      Data modelling
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/data-analysis.html">
+    <a class="reference internal" href="data-analysis.html">
      Data analysis
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="tutorial/data-interpretation.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Data interpretation
     </a>
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../case-study.html">
    Case Study
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="about.html">
+  <a class="reference internal" href="../about.html">
    About this Book
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
@@ -253,12 +253,12 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="about/about-contributing.html">
+    <a class="reference internal" href="../about/about-contributing.html">
      How to Contribute
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="about/about-maintenance.html">
+    <a class="reference internal" href="../about/about-maintenance.html">
      Maintenance
     </a>
    </li>
@@ -305,7 +305,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/case-study.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/tutorial/data-interpretation.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -325,10 +325,10 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/mit-lcp/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Fcase-study.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/mit-lcp/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Ftutorial/data-interpretation.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/mit-lcp/mimic_wfdb_tutorials/edit/main/case-study.md"><button
+        <a class="edit-button" href="https://github.com/mit-lcp/mimic_wfdb_tutorials/edit/main/tutorial/data-interpretation.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -356,12 +356,12 @@ const thebe_selector_output = ".output, .cell_output"
         
               <div>
                 
-  <section id="case-study">
-<h1>Case Study<a class="headerlink" href="#case-study" title="Permalink to this headline">¶</a></h1>
-<p>Follow the links to explore this case study on cuffless blood pressure estimation using the MIMIC Waveform Database.</p>
+  <section id="data-interpretation">
+<h1>Data interpretation<a class="headerlink" href="#data-interpretation" title="Permalink to this headline">¶</a></h1>
+<p><em>Tutorial on data interpretation</em></p>
 <div class="admonition-suggestions admonition">
 <p class="admonition-title">Suggestions</p>
-<p>I think we should work on this after we’ve finished the tutorials, as the case study will simply involve performing all of the tutorials. Perhaps there will be some additional content on cycling through data from several patients.</p>
+<p>This involves interpreting the results, <em>i.e.</em> how well does the PPG-based approach to estimating BP perform? Perhaps it would be helpful to compare the performance against standards for BP monitors (<em>e.g.</em> the AAMI standard).</p>
 </div>
 </section>
 
@@ -378,7 +378,7 @@ const thebe_selector_output = ".output, .cell_output"
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./."
+            path: "./tutorial"
         },
         predefinedOutput: true
     }
@@ -395,19 +395,19 @@ const thebe_selector_output = ".output, .cell_output"
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="tutorial/data-interpretation.html" title="previous page">
+        <a class="left-prev" href="data-analysis.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Data interpretation</p>
+                <p class="prevnext-title">Data analysis</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="about.html" title="next page">
+        <a class="right-next" href="../case-study.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">About this Book</p>
+                <p class="prevnext-title">Case Study</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
@@ -433,7 +433,7 @@ const thebe_selector_output = ".output, .cell_output"
       </div>
     </div>
     
-  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
 
     
