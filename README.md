@@ -33,5 +33,6 @@ This website was created with [JupyterBook](https://jupyterbook.org/). To set up
 
 1. Navigate to the project directory (e.g. `mimic_wfdb_tutorials`)
 2. Install the required packages with `pip install -r requirements.txt` (preferably in a virtual environment using something like venv, virtualenv, conda etc.)
-3. Run `jupyter-book build --all ./` from within the project directory to build the book.
-4. The HTML bookfiles should have been created in a `_build` folder.
+3. Change to the directory with the content (e.g. `cd content`)
+4. Run `jupyter-book build --all ./` from within this directory to build the book.
+5. The HTML bookfiles should have been created in a `_build` folder.
