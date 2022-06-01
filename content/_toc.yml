@@ -10,11 +10,11 @@
     - file: workshop/workshop-prep
 - file: mimic-database
   sections:
-    - file: mimic/mimic-physionet
-    - file: mimic/mimic-context
-    - file: mimic/mimic-structure
-    - file: mimic/mimic-formatting
-    - file: mimic/mimic-wfdb-toolbox
+    - file: mimic/physionet
+    - file: mimic/context
+    - file: mimic/structure
+    - file: mimic/formatting
+    - file: mimic/wfdb-toolbox
 - file: tutorials
   sections:
     - file: tutorial/notebooks/data-exploration
