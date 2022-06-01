@@ -133,3 +133,6 @@ dmypy.json
 
 # MACOS DS_Store
 .DS_Store
+
+# Jupyter Book build directory
+_build/
