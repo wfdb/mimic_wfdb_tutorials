@@ -32,7 +32,7 @@ jobs:
     # Build the book
     - name: Build the book
       run: |
-        jupyter book build content --all --path-output ./
+        jupyter book build content --all
 
     # Push the book's HTML to github-pages
     - name: GitHub Pages action
@@ -40,4 +40,4 @@ jobs:
       if: ${{ github.ref == 'refs/heads/main' }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
+        publish_dir: ./content/_build/html
