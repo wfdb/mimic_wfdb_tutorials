@@ -1,5 +1,0 @@
-Jinja2==3.0.3
-jupyter-book==0.9.1
-matplotlib==3.5.2
-numpy>=1.10
-wfdb==3.4.1
