@@ -10,7 +10,7 @@ There are two ways to edit the book:
 ```{dropdown} **2. Edit on a local computer:** Only open to project administrators
 - Clone the repository
 
-`cd /Users/petercharlton/Documents/GitHub/; git clone https://github.com/mit-lcp/mimic_wfdb_tutorials`
+`cd /Users/petercharlton/Documents/GitHub/; git clone https://github.com/wfdb/mimic_wfdb_tutorials`
 - Make edits to the files on a local computer.
 - Upload the files through a git push (as detailed [here](https://jupyterbook.org/start/publish.html#create-an-online-repository-for-your-book)):
 
