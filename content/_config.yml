@@ -25,6 +25,7 @@ bibtex_bibfiles:
 repository:
   url: https://github.com/wfdb/mimic_wfdb_tutorials  # Online location of your book
   branch: main  # Which branch of the repository should be used when creating links (optional)
+  path_to_book: content
 
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
@@ -33,10 +34,10 @@ html:
   use_repository_button: true
   use_edit_page_button: true
 # Add launch buttons
+
 # See https://jupyterbook.org/en/stable/interactive/launchbuttons.html
-# Insert buttons that link to Jupyter Notebook running on Google Colab.
-# Insert binder link buttons in each page of Jupyter Book (adding this along with the repo url configuration above Jupyter Notebook will insert Binder links to any pages that wer build from notebook content).
 launch_buttons:
-  colab_url: "https://colab.research.google.com" # Google Colab links will only work for pages that have the .ipynb extension.
-  binderhub_url: "https://mybinder.org"  # The URL for your BinderHub (e.g., https://mybinder.org)
+# Google Colab links will only work for pages that have the .ipynb extension.
+  colab_url: "https://colab.research.google.com" 
+  binderhub_url: "https://mybinder.org" 
 
