@@ -488,6 +488,11 @@ title="Print to PDF"
 <p>I’d suggest we use filtering functions from <code class="docutils literal notranslate"><span class="pre">scipy.signal</span></code>.
 Perhaps we could allow the user to specify the filter type (from a couple of options), and also the cut-off frequencies (as both the filter type and cut-off frequencies influence the shape of the filtered PPG pulse wave).</p>
 <p>We should note that the PPG signals in MIMIC have already been filtered somewhat by the clinical monitors used to record them.</p>
+<p>Ideally, it would be nice to:</p>
+<ol class="simple">
+<li><p>Provide options for different types of filters (e.g. Chebyshev filter, Butterworth filter). <a class="reference external" href="https://doi.org/10.1038/sdata.2018.76">This article</a> lists potential filter types (on pp.8-9).</p></li>
+<li><p>Allow the user to adjust the filter cut-off frequencies (e.g. low and high pass filter cut-offs).</p></li>
+</ol>
 </div>
 </div>
 

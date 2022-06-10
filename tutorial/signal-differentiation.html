@@ -485,7 +485,11 @@ title="Print to PDF"
 <p><em>Tutorial on signal differentiation</em></p>
 <div class="admonition-suggestions admonition">
 <p class="admonition-title">Suggestions</p>
-<p>I’d suggest we use a similar approach to that used in the Matlab function <a class="reference external" href="https://peterhcharlton.github.io/PulseAnalyse">PulseAnalyse</a>.</p>
+<p>I’d suggest we use a similar approach to that used in the Matlab function <a class="reference external" href="https://peterhcharlton.github.io/pulse-analyse/">PulseAnalyse</a>:</p>
+<ul class="simple">
+<li><p>Savitzky-Golay filtering, as described in <a class="reference external" href="https://doi.org/0.1021/ac60214a047">this article</a>.</p></li>
+<li><p>The coefficients for using Savitzky-Golay filtering to obtain derivatives are provided in the ‘savitzky_golay’ function within PulseAnalyse (see line 2294 <a class="reference external" href="https://github.com/peterhcharlton/pulse-analyse/blob/master/pulse-analyse_v.1.3beta/PulseAnalyse.m">here</a>).</p></li>
+</ul>
 </div>
 </div>
 
