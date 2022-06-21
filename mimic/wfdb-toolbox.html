@@ -456,12 +456,46 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#software-packages">
+   Software Packages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wfdb-python">
+   WFDB-Python
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -473,6 +507,29 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#software-packages">
+   Software Packages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wfdb-python">
+   WFDB-Python
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -482,7 +539,26 @@ title="Print to PDF"
                 
   <div class="section" id="wfdb-toolbox">
 <h1>WFDB Toolbox<a class="headerlink" href="#wfdb-toolbox" title="Permalink to this headline">¶</a></h1>
-<p><em>Details of the MIMIC WFDB Toolbox. Perhaps mention the different implementations (e.g. Matlab and Python), but then focus on the Python toolbox as it will be used in this workshop.</em></p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The Waveform Database (WFDB) is a set of file standards designed for reading and storing physiologic signal data, and associated annotations. See the WFDB Spec repository for the specification details.</p>
+<p>Example signal types include ECG and EEG. Example annotation types include automated machine-labelled heart-beats, and clinician comments regarding specific signal artifacts.</p>
+<p>There are several available software packages that implement the WFDB specifications. Consider using one of them if you want to conduct research or build algorithms using physiologic data.</p>
+</div>
+<div class="section" id="software-packages">
+<h2>Software Packages<a class="headerlink" href="#software-packages" title="Permalink to this headline">¶</a></h2>
+<p>The WFDB specification is openly-licensed, so anyone can implement and modify software according to the spec. Here are the main packages and implementations:</p>
+<ul class="simple">
+<li><p>WFDB Software Package: The original software package written in C. Contains the core library, command line tools, and WAVE. See also the PhysioNet publication. Associated documents:</p></li>
+<li><p>WFDB Python Package: A native Python implementation of WFDB.</p></li>
+<li><p>WFDB Toolbox for Matlab: A set of Java, GUI, and m-code wrapper functions, which make system calls to WFDB Software Package and other applications.</p></li>
+</ul>
+</div>
+<div class="section" id="wfdb-python">
+<h2>WFDB-Python<a class="headerlink" href="#wfdb-python" title="Permalink to this headline">¶</a></h2>
+<p>For the purposes of this workshop, we will be using the WFDB Python package.</p>
+<p>[More detail about Python package.]</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
