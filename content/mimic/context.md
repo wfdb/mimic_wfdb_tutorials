@@ -19,8 +19,4 @@
 
 ## Example patient
 
-![](../images/examplepatient.jpg) 
-
-More to follow.
-
-
+![](../images/examplepatient.jpg)
