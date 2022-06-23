@@ -6,4 +6,4 @@ The database is a valuable resource for open research in biomedical signal proce
 - the signals (_a.k.a_ waveforms) are openly available ([here](https://physionet.org/content/mimic3wdb/1.0/))
 - open software is provided to analyse the waveforms ([here](https://wfdb.readthedocs.io/en/stable/))
 
-Follow the links on the left to find out more about the MIMIC Database.
+Follow the links to find out more about the MIMIC Database.
