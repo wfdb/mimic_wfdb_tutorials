@@ -8,10 +8,14 @@ There are two ways to edit the book:
 - This will be reviewed in due course.
 ```
 ```{dropdown} **2. Edit on a local computer:** Only open to project administrators
-- Clone the repository
+- If you don't already have the _mimic_wfdb_tutorials_ repository on your computer, then clone the repository
 
 `cd /Users/petercharlton/Documents/GitHub/; git clone https://github.com/wfdb/mimic_wfdb_tutorials`
+- If you do already have the repository, then pull the latest version:
+
+`cd /Users/petercharlton/Documents/GitHub/mimic_wfdb_tutorials; git pull https://github.com/wfdb/mimic_wfdb_tutorials main`
 - Make edits to the files on a local computer:
+   - `cd /Users/petercharlton/Documents/GitHub/mimic_wfdb_tutorials` - make the current directory the repo directory.
    - `git checkout -b <branch name>` - Creates a new branch on which to make the edits(specified by `<branch name>`), and makes it the current branch.
    - edit the files ([Atom](https://atom.io/) is a helpful text editor for this).
    - `git add .` - adds all changed files to the staging area.
