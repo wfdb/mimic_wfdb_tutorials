@@ -9,4 +9,4 @@ These resources were designed for the following workshop at the [2022 IEEE EMBC 
 - Boisdale-2, Ground Floor (as shown in the Ground Level floorplan [here](https://www.sec.co.uk/organise-an-event/capacities-dimensions))
 - Scottish Event Campus (SEC) Centre
 
-The Workshop details are also provided on the [conference website](https://embc.embs.org/2022/sessions-and-workshops-information/theme-1/#1-2).
+Follow the links on the left for further details of the workshop.
