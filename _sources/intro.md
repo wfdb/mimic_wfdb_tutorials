@@ -11,6 +11,7 @@ The book includes:
 - [Workshop](../workshop): Details of the workshop for which these resources were designed.
 - [MIMIC Database](../mimic-database): An overview of the MIMIC Waveform Database.
 - [Case Study](../case-study): A case study on cuffless blood pressure estimation using the MIMIC Database.
+- [Additional Resources](../additional-resources): Additional resources on the topics covered in these tutorials.
 
 ---
 
