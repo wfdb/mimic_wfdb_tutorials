@@ -21,6 +21,7 @@
     - file: tutorial/notebooks/data-extraction
     - file: tutorial/notebooks/data-visualisation
     - file: tutorial/signal-filtering
+    - file: tutorial/qrs-detection
     - file: tutorial/signal-beat-detection
     - file: tutorial/signal-quality-assessment
     - file: tutorial/signal-segmentation
