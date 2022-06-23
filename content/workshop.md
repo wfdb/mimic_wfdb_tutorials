@@ -1,5 +1,12 @@
 # Workshop
 
-These resources were designed for the following workshop scheduled for the 11th July 2022 at the [2022 IEEE EMBC Conference](https://embc.embs.org/2022/) in Glasgow, UK:
+These resources were designed for the following workshop at the [2022 IEEE EMBC Conference](https://embc.embs.org/2022/) in Glasgow, UK:
 
 **'Open research in Biomedical Signal Processing: Cuffless Blood Pressure Estimation Using the MIMIC-IV Database'**
+
+- 11th July 2022
+- 08.30 - 12.30
+- Boisdale-2, Ground Floor (as shown in the Ground Level floorplan [here](https://www.sec.co.uk/organise-an-event/capacities-dimensions))
+- Scottish Event Campus (SEC) Centre
+
+The Workshop details are also provided on the [conference website](https://embc.embs.org/2022/sessions-and-workshops-information/theme-1/#1-2).
