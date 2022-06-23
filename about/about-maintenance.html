@@ -570,7 +570,19 @@ title="Print to PDF"
 </ul>
 <p class="card-text"><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/Users/petercharlton/Documents/GitHub/;</span> <span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/wfdb/mimic_wfdb_tutorials</span></code></p>
 <ul class="simple">
-<li><p class="card-text">Make edits to the files on a local computer.</p></li>
+<li><p class="card-text">Make edits to the files on a local computer:</p>
+<ul>
+<li><p class="card-text"><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">&lt;branch</span> <span class="pre">name&gt;</span></code> - Creates a new branch on which to make the edits(specified by <code class="docutils literal notranslate"><span class="pre">&lt;branch</span> <span class="pre">name&gt;</span></code>), and makes it the current branch.</p></li>
+<li><p class="card-text">edit the files (<a class="reference external" href="https://atom.io/">Atom</a> is a helpful text editor for this).</p></li>
+<li><p class="card-text"><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">.</span></code> - adds all changed files to the staging area.</p></li>
+<li><p class="card-text"><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;&lt;message</span> <span class="pre">describing</span> <span class="pre">changes&gt;&quot;</span></code> - commit the changes to the current branch.</p></li>
+<li><p class="card-text"><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">https://github.com/wfdb/mimic_wfdb_tutorials</span> <span class="pre">&lt;branch</span> <span class="pre">name&gt;</span></code> - pushes the changes to the remote repo on GitHub.</p></li>
+</ul>
+</li>
+<li><p class="card-text">Log in to GitHub via a web browser, and go to the <a class="reference external" href="https://github.com/wfdb/mimic_wfdb_tutorials">repo home page</a>. Assuming you have access, then you should see a message at the top of the page allowing you to create a pull request, to pull the changes from your new branch over to the main branch.</p></li>
+</ul>
+<p class="card-text"><em>The following are legacy instructions, which may or may not still be required when making changes to a Jupyter notebook:</em></p>
+<ul class="simple">
 <li><p class="card-text">Upload the files through a git push (as detailed <a class="reference external" href="https://jupyterbook.org/start/publish.html#create-an-online-repository-for-your-book">here</a>):</p></li>
 </ul>
 <p class="card-text"><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/Users/petercharlton/Documents/GitHub/mimic_wfdb_tutorials;</span> <span class="pre">git</span> <span class="pre">add</span> <span class="pre">./*;</span> <span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;brief</span> <span class="pre">edit&quot;;</span> <span class="pre">git</span> <span class="pre">push</span></code></p>
