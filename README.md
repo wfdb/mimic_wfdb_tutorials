@@ -16,7 +16,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://peterhcharlton.github.io/"><img src="https://avatars.githubusercontent.com/u/9865941?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Peter H Charlton</b></sub></a><br /><a href="#content-peterhcharlton" title="Content">🖋</a></td>
+    <td align="center"><a href="https://peterhcharlton.github.io/"><img src="https://avatars.githubusercontent.com/u/9865941?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Peter H Charlton</b></sub></a><br /><a href="#design-peterhcharlton" title="Content">🖋</a></td>
     <td align="center"><a href="https://github.com/tompollard"><img src="https://avatars.githubusercontent.com/u/822601?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tom Pollard</b></sub></a><br /><a href="#design-tompollard" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/elisamejia"><img src="https://avatars.githubusercontent.com/u/10887584?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Elisa Mejía</b></sub></a><br /><a href="#design-elisamejia" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/bemoody"><img src="https://avatars.githubusercontent.com/u/7748246?v=4?s=100" width="100px;" alt=""/><br /><sub><b>bemoody</b></sub></a><br /><a href="#design-bemoody" title="Design">🎨</a></td>
