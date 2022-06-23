@@ -31,6 +31,7 @@
     - file: tutorial/data-analysis
     - file: tutorial/data-interpretation
 - file: case-study
+- file: additional-resources
 - file: about
   sections:
     - file: about/about-contributing
