@@ -536,13 +536,13 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#identify-a-record">
-   Identify a record
+  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
+   Specify an ICU stay and segment
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-data-from-this-record">
-   Extract data from this record
+  <a class="reference internal nav-link" href="#extract-data-for-this-segment">
+   Extract data for this segment
   </a>
  </li>
 </ul>
@@ -565,13 +565,13 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#identify-a-record">
-   Identify a record
+  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
+   Specify an ICU stay and segment
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-data-from-this-record">
-   Extract data from this record
+  <a class="reference internal nav-link" href="#extract-data-for-this-segment">
+   Extract data for this segment
   </a>
  </li>
 </ul>
@@ -586,54 +586,102 @@ title="Print to PDF"
                 
   <div class="section" id="data-extraction">
 <h1>Data Extraction<a class="headerlink" href="#data-extraction" title="Permalink to this headline">¶</a></h1>
-<p>Extract data from a MIMIC Waveform record.</p>
-<div class="section" id="identify-a-record">
-<h2>Identify a record<a class="headerlink" href="#identify-a-record" title="Permalink to this headline">¶</a></h2>
+<p>Extract data from the MIMIC Waveform Database.</p>
+<hr class="docutils" />
+<div class="section" id="specify-an-icu-stay-and-segment">
+<h2>Specify an ICU stay and segment<a class="headerlink" href="#specify-an-icu-stay-and-segment" title="Permalink to this headline">¶</a></h2>
+<div class="alert alert-block alert-warning"> <b>Resource:</b> These steps are taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-exploration.html">Data Exploration</a> tutorial. </div><ul class="simple">
+<li><p>Specify the required Python packages</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">wfdb</span>
 </pre></div>
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Get a list of ICU stays in the database</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the first record</span>
-<span class="n">selected_record</span> <span class="o">=</span> <span class="s1">&#39;3000063_0013&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected record: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selected_record</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0&#39;</span> <span class="c1"># The name of the MIMIC III Waveform Database on Physionet (see URL: https://physionet.org/content/mimic3wdb/1.0/)</span>
+<span class="n">icustay_records</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are </span><span class="si">{}</span><span class="s2"> ICU stays in the database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">icustay_records</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Selected record: 3000063_0013
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 67830 ICU stays in the database
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="extract-data-from-this-record">
-<h2>Extract data from this record<a class="headerlink" href="#extract-data-from-this-record" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Specify an ICU stay</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load data from this record</span>
-<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0/30/3000063/&#39;</span>
-<span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">selected_record</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">database_name</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from record: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selected_record</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_no</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># specify the first record (noting that in Python the first index is 0)</span>
+<span class="n">icustay_record</span> <span class="o">=</span> <span class="n">icustay_records</span><span class="p">[</span><span class="n">icustay_no</span><span class="p">]</span>
+<span class="n">icustay_record_dir</span> <span class="o">=</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">icustay_record</span>
+<span class="n">icustay_record_name</span> <span class="o">=</span> <span class="n">icustay_record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified ICU stay: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_record_name</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data loaded from record: 3000063_0013
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified ICU stay: 3000003
 </pre></div>
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Specify a segment of this ICU stay</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Look at class type of the object in which the data are stored:</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data stored in class of type: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">record_data</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_files</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">icustay_record_dir</span><span class="p">)</span>
+<span class="n">icustay_segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">icustay_files</span> <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+<span class="n">icustay_segment_no</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">icustay_segment_name</span> <span class="o">=</span> <span class="n">icustay_segments</span><span class="p">[</span><span class="n">icustay_segment_no</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified segment: &#39;</span><span class="si">{}</span><span class="s2">&#39; within ICU stay &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">icustay_record_name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment: &#39;3000003_0001&#39; within ICU stay &#39;3000003&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="extract-data-for-this-segment">
+<h2>Extract data for this segment<a class="headerlink" href="#extract-data-for-this-segment" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Use the <a class="reference external" href="https://wfdb.readthedocs.io/en/latest/io.html#wfdb.io.rdrecord"><code class="docutils literal notranslate"><span class="pre">rdrecord</span></code></a> function from the WFDB toolbox to read the data for this segment.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">icustay_record_dir</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_segment_name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data loaded from segment: 3000003_0001
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Look at class type of the object in which the data are stored:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data stored in class of type: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">record_data</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -643,48 +691,21 @@ title="Print to PDF"
 </div>
 </div>
 </div>
+<div class="alert alert-block alert-warning"> <b>Resource:</b> You can find out more about the class representing single segment WFDB records <a href="https://wfdb.readthedocs.io/en/stable/io.html?highlight=class#wfdb.io.Record">here</a>. </div><ul class="simple">
+<li><p>Find out about the signals which have been extracted</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># look at variables contained within the object</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
-<span class="n">pprint</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">record_data</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This segment contains waveform data for the following </span><span class="si">{}</span><span class="s2"> signals: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">n_sig</span><span class="p">,</span> <span class="n">record_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The signals are sampled at </span><span class="si">{}</span><span class="s2"> Hz&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">fs</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;They last for </span><span class="si">{:.1f}</span><span class="s2"> minutes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">sig_len</span><span class="o">/</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="n">record_data</span><span class="o">.</span><span class="n">fs</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;adc_gain&#39;: [127.0, 3.2, 255.0],
- &#39;adc_res&#39;: [8, 8, 8],
- &#39;adc_zero&#39;: [0, 0, 0],
- &#39;base_counter&#39;: None,
- &#39;base_date&#39;: None,
- &#39;base_time&#39;: datetime.time(1, 2, 14, 320000),
- &#39;baseline&#39;: [-64, -237, -128],
- &#39;block_size&#39;: [0, 0, 0],
- &#39;byte_offset&#39;: [None, None, None],
- &#39;checksum&#39;: [22097, 20512, -25943],
- &#39;comments&#39;: [],
- &#39;counter_freq&#39;: None,
- &#39;d_signal&#39;: None,
- &#39;e_d_signal&#39;: None,
- &#39;e_p_signal&#39;: None,
- &#39;file_name&#39;: [&#39;3000063_0013.dat&#39;, &#39;3000063_0013.dat&#39;, &#39;3000063_0013.dat&#39;],
- &#39;fmt&#39;: [&#39;80&#39;, &#39;80&#39;, &#39;80&#39;],
- &#39;fs&#39;: 125,
- &#39;init_value&#39;: [-67, -128, -3],
- &#39;n_sig&#39;: 3,
- &#39;p_signal&#39;: array([[-2.36220472e-02,             nan,  4.90196078e-01],
-       [-1.57480315e-02,             nan,  4.82352941e-01],
-       [-7.87401575e-03,             nan,  4.74509804e-01],
-       ...,
-       [ 7.87401575e-03,  9.78125000e+01,  4.39215686e-01],
-       [-7.87401575e-03,  9.56250000e+01,  4.58823529e-01],
-       [-7.87401575e-03,  9.43750000e+01,  4.82352941e-01]]),
- &#39;record_name&#39;: &#39;3000063_0013&#39;,
- &#39;samps_per_frame&#39;: [1, 1, 1],
- &#39;sig_len&#39;: 120448,
- &#39;sig_name&#39;: [&#39;II&#39;, &#39;ABP&#39;, &#39;PLETH&#39;],
- &#39;skew&#39;: [None, None, None],
- &#39;units&#39;: [&#39;mV&#39;, &#39;mmHg&#39;, &#39;NU&#39;]}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This segment contains waveform data for the following 2 signals: [&#39;II&#39;, &#39;V&#39;]
+The signals are sampled at 125 Hz
+They last for 2.3 minutes
 </pre></div>
 </div>
 </div>

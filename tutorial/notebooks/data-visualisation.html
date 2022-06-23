@@ -536,13 +536,23 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-data-from-a-record">
-   Extract data from a record
+  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
+   Specify an ICU stay and segment
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-signals-in-this-record">
-   Plot signals in this record
+  <a class="reference internal nav-link" href="#extract-data-for-this-segment">
+   Extract data for this segment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-signals-in-this-segment">
+   Plot signals in this segment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assess-the-suitability-of-this-segment">
+   Assess the suitability of this segment
   </a>
  </li>
 </ul>
@@ -565,13 +575,23 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-data-from-a-record">
-   Extract data from a record
+  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
+   Specify an ICU stay and segment
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-signals-in-this-record">
-   Plot signals in this record
+  <a class="reference internal nav-link" href="#extract-data-for-this-segment">
+   Extract data for this segment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-signals-in-this-segment">
+   Plot signals in this segment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assess-the-suitability-of-this-segment">
+   Assess the suitability of this segment
   </a>
  </li>
 </ul>
@@ -587,93 +607,161 @@ title="Print to PDF"
   <div class="section" id="data-visualisation">
 <h1>Data Visualisation<a class="headerlink" href="#data-visualisation" title="Permalink to this headline">¶</a></h1>
 <p>Visualise signals in a MIMIC Waveform record.</p>
-<div class="section" id="extract-data-from-a-record">
-<h2>Extract data from a record<a class="headerlink" href="#extract-data-from-a-record" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<div class="section" id="specify-an-icu-stay-and-segment">
+<h2>Specify an ICU stay and segment<a class="headerlink" href="#specify-an-icu-stay-and-segment" title="Permalink to this headline">¶</a></h2>
+<div class="alert alert-block alert-warning"> <b>Resource:</b> These steps are taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-extraction.html">Data Extraction</a> tutorial. </div><ul class="simple">
+<li><p>Specify the required Python packages</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">wfdb</span>
 </pre></div>
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Get a list of ICU stays in the database</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify a record</span>
-<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0/30/3000063/&#39;</span>
-<span class="n">selected_record</span> <span class="o">=</span> <span class="s1">&#39;3000063_0013&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected record: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selected_record</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0&#39;</span> <span class="c1"># The name of the MIMIC III Waveform Database on Physionet (see URL: https://physionet.org/content/mimic3wdb/1.0/)</span>
+<span class="n">icustay_records</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are </span><span class="si">{}</span><span class="s2"> ICU stays in the database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">icustay_records</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Selected record: 3000063_0013
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 67830 ICU stays in the database
 </pre></div>
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Specify an ICU stay</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load data from this record</span>
-<span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_no</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># specify the first record (noting that in Python the first index is 0)</span>
+<span class="n">icustay_record</span> <span class="o">=</span> <span class="n">icustay_records</span><span class="p">[</span><span class="n">icustay_no</span><span class="p">]</span>
+<span class="n">icustay_record_dir</span> <span class="o">=</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">icustay_record</span>
+<span class="n">icustay_record_name</span> <span class="o">=</span> <span class="n">icustay_record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified ICU stay: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_record_name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified ICU stay: 3000003
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Specify a segment of this ICU stay</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_files</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">icustay_record_dir</span><span class="p">)</span>
+<span class="n">icustay_segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">icustay_files</span> <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+<span class="n">icustay_segment_no</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+<span class="n">icustay_segment_name</span> <span class="o">=</span> <span class="n">icustay_segments</span><span class="p">[</span><span class="n">icustay_segment_no</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified segment: &#39;</span><span class="si">{}</span><span class="s2">&#39; within ICU stay &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">icustay_record_name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment: &#39;3000003_0008&#39; within ICU stay &#39;3000003&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="extract-data-for-this-segment">
+<h2>Extract data for this segment<a class="headerlink" href="#extract-data-for-this-segment" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Specify the timings of the data to be extracted</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># time since the start of the segment at which to begin extracting data</span>
 <span class="n">no_seconds_to_load</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">fs</span> <span class="o">=</span> <span class="mi">125</span>
-<span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">selected_record</span><span class="p">,</span> <span class="n">sampfrom</span><span class="o">=</span><span class="n">fs</span><span class="o">*</span><span class="n">start_seconds</span><span class="p">,</span> <span class="n">sampto</span><span class="o">=</span><span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span><span class="o">+</span><span class="n">no_seconds_to_load</span><span class="p">),</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">database_name</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data loaded from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">selected_record</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Find out the sampling frequency of the waveform data</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_metadata</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">icustay_record_dir</span><span class="p">)</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="n">segment_metadata</span><span class="o">.</span><span class="n">fs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Extract the specified data</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_seconds</span>
+<span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span><span class="o">+</span><span class="n">no_seconds_to_load</span><span class="p">)</span>
+<span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">sampfrom</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span> <span class="n">sampto</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">icustay_record_dir</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data extracted from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">icustay_segment_name</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 seconds of data loaded from: 3000063_0013
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 seconds of data extracted from: 3000003_0008
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="plot-signals-in-this-record">
-<h2>Plot signals in this record<a class="headerlink" href="#plot-signals-in-this-record" title="Permalink to this headline">¶</a></h2>
-<p>Plot the signals contained in this record</p>
+<hr class="docutils" />
+<div class="section" id="plot-signals-in-this-segment">
+<h2>Plot signals in this segment<a class="headerlink" href="#plot-signals-in-this-segment" title="Permalink to this headline">¶</a></h2>
+<p>Plot the signals contained in this segment</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot the data loaded from this record</span>
-<span class="n">title_text</span> <span class="o">=</span> <span class="s2">&quot;First record from &quot;</span> <span class="o">+</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s2">&quot; (record: &quot;</span> <span class="o">+</span> <span class="n">selected_record</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
-<span class="n">wfdb</span><span class="o">.</span><span class="n">plot_wfdb</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="n">record_data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title_text</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">)</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">title_text</span> <span class="o">=</span> <span class="s2">&quot;Segment &quot;</span> <span class="o">+</span> <span class="n">icustay_segment_name</span>
+<span class="n">wfdb</span><span class="o">.</span><span class="n">plot_wfdb</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="n">segment_data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title_text</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/data-visualisation_6_0.png" src="../../_images/data-visualisation_6_0.png" />
+<img alt="../../_images/data-visualisation_17_0.png" src="../../_images/data-visualisation_17_0.png" />
 </div>
 </div>
+</div>
+<hr class="docutils" />
+<div class="section" id="assess-the-suitability-of-this-segment">
+<h2>Assess the suitability of this segment<a class="headerlink" href="#assess-the-suitability-of-this-segment" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Say that the segment must contain ECG (lead II) and PPG signals:</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">record_contains_signals_log</span> <span class="o">=</span> <span class="s1">&#39;II,&#39;</span> <span class="ow">in</span> <span class="n">record_data</span><span class="o">.</span><span class="n">sig_name</span> <span class="ow">and</span> <span class="s1">&#39;PLETH,&#39;</span> <span class="ow">in</span> <span class="n">record_data</span><span class="o">.</span><span class="n">sig_name</span>
-<span class="k">if</span> <span class="n">record_contains_signals_log</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This record contains the required signals&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Signals in segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">))</span>
+<span class="n">segment_contains_signals_log</span> <span class="o">=</span> <span class="s1">&#39;II&#39;</span> <span class="ow">in</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span> <span class="ow">and</span> <span class="s1">&#39;PLETH&#39;</span> <span class="ow">in</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span>
+<span class="k">if</span> <span class="n">segment_contains_signals_log</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This segment contains the required signals&#39;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This record doesn</span><span class="se">\&#39;</span><span class="s1">t contain the required signals&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This segment doesn</span><span class="se">\&#39;</span><span class="s1">t contain the required signals&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This record doesn&#39;t contain the required signals
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Signals in segment: [&#39;II&#39;, &#39;V&#39;, &#39;ABP&#39;]
+This segment doesn&#39;t contain the required signals
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot just the signals of interest from this record</span>
-<span class="n">title_text</span> <span class="o">=</span> <span class="s2">&quot;Selected signals from: &quot;</span> <span class="o">+</span> <span class="n">selected_record</span>
-<span class="n">wfdb</span><span class="o">.</span><span class="n">plot_items</span><span class="p">(</span><span class="n">signal</span><span class="o">=</span><span class="n">record_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">title</span> <span class="o">=</span> <span class="n">title_text</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="n">record_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/data-visualisation_8_0.png" src="../../_images/data-visualisation_8_0.png" />
-</div>
-</div>
+<div class="alert alert-block alert-info"> <b>Q:</b> Can you find a segment that does contain the required signals? <br> <b>Hint:</b> Above, try 'icustay_no' = 10, and 'icustay_segment_no' = 7 </div><p>Depending on the requirements of a study, only a minority of ICU stays and segments might contain the required signals.</p>
 </div>
 </div>
 
