@@ -40,6 +40,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "briangow",
+      "name": "Brian Gow",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4754434?v=4",
+      "profile": "https://github.com/briangow",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
