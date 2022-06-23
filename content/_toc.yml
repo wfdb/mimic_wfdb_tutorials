@@ -20,8 +20,8 @@
     - file: tutorial/notebooks/data-exploration
     - file: tutorial/notebooks/data-extraction
     - file: tutorial/notebooks/data-visualisation
-    - file: tutorial/signal-filtering
-    - file: tutorial/qrs-detection
+    - file: tutorial/notebooks/signal-filtering
+    - file: tutorial/notebooks/qrs-detection
     - file: tutorial/signal-beat-detection
     - file: tutorial/signal-quality-assessment
     - file: tutorial/signal-segmentation
