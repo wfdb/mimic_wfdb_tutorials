@@ -206,11 +206,6 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../signal-filtering.html">
-     Signal filtering
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../signal-beat-detection.html">
      Beat Detection
     </a>
@@ -534,10 +529,54 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#identify-records">
    Identify records
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-the-required-python-packages">
+     Specify the required Python packages
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#get-a-list-of-records-in-the-database">
+     Get a list of records in the database
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#look-at-files-in-a-record">
-   Look at files in a record
+  <a class="reference internal nav-link" href="#extract-metadata-for-a-record">
+   Extract metadata for a record
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-the-online-directory-containing-a-record-s-data">
+     Specify the online directory containing a record’s data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-the-name-of-the-record">
+     Specify the name of the record
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-the-metadata-for-this-record">
+     Load the metadata for this record
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inspect-details-of-physiological-signals-in-this-record">
+   Inspect details of physiological signals in this record
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inspecting-the-segments-in-a-record">
+   Inspecting the segments in a record
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inspecting-individual-segments">
+   Inspecting individual segments
   </a>
  </li>
 </ul>
@@ -563,10 +602,54 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#identify-records">
    Identify records
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-the-required-python-packages">
+     Specify the required Python packages
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#get-a-list-of-records-in-the-database">
+     Get a list of records in the database
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#look-at-files-in-a-record">
-   Look at files in a record
+  <a class="reference internal nav-link" href="#extract-metadata-for-a-record">
+   Extract metadata for a record
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-the-online-directory-containing-a-record-s-data">
+     Specify the online directory containing a record’s data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-the-name-of-the-record">
+     Specify the name of the record
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-the-metadata-for-this-record">
+     Load the metadata for this record
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inspect-details-of-physiological-signals-in-this-record">
+   Inspect details of physiological signals in this record
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inspecting-the-segments-in-a-record">
+   Inspecting the segments in a record
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inspecting-individual-segments">
+   Inspecting individual segments
   </a>
  </li>
 </ul>
@@ -584,49 +667,168 @@ title="Print to PDF"
 <p>Exploring MIMIC waveform data.</p>
 <div class="section" id="identify-records">
 <h2>Identify records<a class="headerlink" href="#identify-records" title="Permalink to this headline">¶</a></h2>
-<p>Identify the records in the MIMIC III Waveform Database</p>
+<p>Identify the records in the <a class="reference external" href="https://doi.org/10.13026/c2607m">MIMIC III Waveform Database</a></p>
+<div class="section" id="specify-the-required-python-packages">
+<h3>Specify the required Python packages<a class="headerlink" href="#specify-the-required-python-packages" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The WFDB package is imported using <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">wfdb</span></code></p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Setup</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">wfdb</span>
+<span class="kn">import</span> <span class="nn">wfdb</span> <span class="c1"># The WFDB Toolbox</span>
 </pre></div>
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="get-a-list-of-records-in-the-database">
+<h3>Get a list of records in the database<a class="headerlink" href="#get-a-list-of-records-in-the-database" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Use the <a class="reference external" href="https://wfdb.readthedocs.io/en/latest/io.html#wfdb.io.get_record_list"><code class="docutils literal notranslate"><span class="pre">get_record_list</span></code></a> function from the WFDB toolbox to get a list of records in the database.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get a list of records in the database</span>
-<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb&#39;</span> <span class="c1"># The name of the MIMIC III Waveform Database on Physionet (see URL: https://physionet.org/content/mimic3wdb/)</span>
 <span class="n">records</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loaded list of records for </span><span class="si">{}</span><span class="s2"> database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">database_name</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: Loaded list of </span><span class="si">{}</span><span class="s2"> records for &#39;</span><span class="si">{}</span><span class="s2">&#39; database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">),</span> <span class="n">database_name</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loaded list of records for mimic3wdb database
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: Loaded list of 67830 records for &#39;mimic3wdb&#39; database
 </pre></div>
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Display the first few records</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Display the first few records</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; - First ten records: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]))</span>
-<span class="c1"># print(&quot; - Last ten records: {}&quot;.format(records[-10:]))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First ten records: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]))</span>
+<span class="c1"># you could also try: print(&quot;Last ten records: {}&quot;.format(records[-10:]))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - First ten records: [&#39;30/3000003/&#39;, &#39;30/3000031/&#39;, &#39;30/3000051/&#39;, &#39;30/3000060/&#39;, &#39;30/3000063/&#39;, &#39;30/3000065/&#39;, &#39;30/3000086/&#39;, &#39;30/3000100/&#39;, &#39;30/3000103/&#39;, &#39;30/3000105/&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First ten records: [&#39;30/3000003/&#39;, &#39;30/3000031/&#39;, &#39;30/3000051/&#39;, &#39;30/3000060/&#39;, &#39;30/3000063/&#39;, &#39;30/3000065/&#39;, &#39;30/3000086/&#39;, &#39;30/3000100/&#39;, &#39;30/3000103/&#39;, &#39;30/3000105/&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Note the formatting of these records: each starts with an intermediate directory (‘30’ in this case), followed by a record directory.</em></p>
+</div>
+</div>
+<div class="section" id="extract-metadata-for-a-record">
+<h2>Extract metadata for a record<a class="headerlink" href="#extract-metadata-for-a-record" title="Permalink to this headline">¶</a></h2>
+<p>Each record contains metadata stored in a “.hea” file.</p>
+<div class="section" id="specify-the-online-directory-containing-a-record-s-data">
+<h3>Specify the online directory containing a record’s data<a class="headerlink" href="#specify-the-online-directory-containing-a-record-s-data" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">record_no</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># specify the first record (noting that in Python the first index is 0)</span>
+<span class="n">record_dir</span> <span class="o">=</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">records</span><span class="p">[</span><span class="n">record_no</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Physionet directory specified for this record: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_dir</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Physionet directory specified for this record: mimic3wdb/30/3000003/
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="look-at-files-in-a-record">
-<h2>Look at files in a record<a class="headerlink" href="#look-at-files-in-a-record" title="Permalink to this headline">¶</a></h2>
-<p>Inspect the files that make up a record</p>
+<div class="section" id="specify-the-name-of-the-record">
+<h3>Specify the name of the record<a class="headerlink" href="#specify-the-name-of-the-record" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">record_name</span> <span class="o">=</span> <span class="n">records</span><span class="p">[</span><span class="n">record_no</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># This extracts the record name (e.g. &#39;3000003&#39;) from the record</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Record name: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Record name: 3000003
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="load-the-metadata-for-this-record">
+<h3>Load the metadata for this record<a class="headerlink" href="#load-the-metadata-for-this-record" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Use the <a class="reference external" href="https://wfdb.readthedocs.io/en/latest/io.html#wfdb.io.rdheader"><code class="docutils literal notranslate"><span class="pre">rdheader</span></code></a> function from the WFDB toolbox to load metadata from the record header file</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">record_dir</span><span class="p">,</span> <span class="n">rd_segments</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: metadata loaded from header file at URL: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;https://physionet.org/content/&quot;</span> <span class="o">+</span> <span class="n">record_dir</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;mimic3wdb/&quot;</span><span class="p">,</span> <span class="s2">&quot;mimic3wdb/1.0/&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">record_name</span> <span class="o">+</span> <span class="s2">&quot;.hea&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: metadata loaded from header file at URL: https://physionet.org/content/mimic3wdb/1.0/30/3000003/3000003.hea
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="inspect-details-of-physiological-signals-in-this-record">
+<h2>Inspect details of physiological signals in this record<a class="headerlink" href="#inspect-details-of-physiological-signals-in-this-record" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Printing a few details from the extracted metadata</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;- Number of signals: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">n_sig</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;- Duration: </span><span class="si">{:.1f}</span><span class="s2"> hours&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">sig_len</span><span class="o">/</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">fs</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="p">)))</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;- Sampling frequency: </span><span class="si">{}</span><span class="s2"> Hz&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">fs</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>- Number of signals: 5
+- Duration: 42.0 hours
+- Sampling frequency: 125 Hz
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that:</p>
+<ul class="simple">
+<li><p>Not all signals may be present throughout the duration of the record</p></li>
+<li><p>All signals in MIMIC are sampled at 125 Hz.</p></li>
+</ul>
+</div>
+<div class="section" id="inspecting-the-segments-in-a-record">
+<h2>Inspecting the segments in a record<a class="headerlink" href="#inspecting-the-segments-in-a-record" title="Permalink to this headline">¶</a></h2>
+<p>Each record is typically made up of several segments</p>
+<ul class="simple">
+<li><p>Inspect the segments in this record</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This record contains the following </span><span class="si">{}</span><span class="s2"> segments:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">seg_name</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span> <span class="c1"># -1 because the first item is the layout.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">seg_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This record contains the following 22 segments:
+[&#39;3000003_layout&#39;, &#39;3000003_0001&#39;, &#39;3000003_0002&#39;, &#39;3000003_0003&#39;, &#39;3000003_0004&#39;, &#39;3000003_0005&#39;, &#39;3000003_0006&#39;, &#39;3000003_0007&#39;, &#39;~&#39;, &#39;3000003_0008&#39;, &#39;~&#39;, &#39;3000003_0009&#39;, &#39;~&#39;, &#39;3000003_0010&#39;, &#39;3000003_0011&#39;, &#39;3000003_0012&#39;, &#39;3000003_0013&#39;, &#39;3000003_0014&#39;, &#39;3000003_0015&#39;, &#39;~&#39;, &#39;3000003_0016&#39;, &#39;3000003_0017&#39;, &#39;~&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note the format of the names of the segments: record directory, “_”, segment number</p>
+</div>
+<div class="section" id="inspecting-individual-segments">
+<h2>Inspecting individual segments<a class="headerlink" href="#inspecting-individual-segments" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

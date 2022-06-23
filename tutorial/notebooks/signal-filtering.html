@@ -204,11 +204,6 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../signal-filtering.html">
-     Signal filtering
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../signal-beat-detection.html">
      Beat Detection
     </a>
@@ -346,7 +341,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/wfdb/mimic_wfdb_tutorials/main?urlpath=tree/content/tutorial/notebooks/data-filtering.ipynb"
+        <a href="https://mybinder.org/v2/gh/wfdb/mimic_wfdb_tutorials/main?urlpath=tree/content/tutorial/notebooks/signal-filtering.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -364,7 +359,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/wfdb/mimic_wfdb_tutorials/blob/main/content/tutorial/notebooks/data-filtering.ipynb"
+        <a href="https://colab.research.google.com/github/wfdb/mimic_wfdb_tutorials/blob/main/content/tutorial/notebooks/signal-filtering.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -424,7 +419,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Ftutorial/notebooks/data-filtering.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Ftutorial/notebooks/signal-filtering.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -441,7 +436,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/edit/main/content/tutorial/notebooks/data-filtering.ipynb"
+        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/edit/main/content/tutorial/notebooks/signal-filtering.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -469,7 +464,7 @@ title="Edit this page"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../../_sources/tutorial/notebooks/data-filtering.ipynb"
+        <a href="../../_sources/tutorial/notebooks/signal-filtering.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -548,6 +543,11 @@ title="Print to PDF"
    Filter data
   </a>
  </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#suggestions-for-further-work">
+   Suggestions for further work
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -585,6 +585,11 @@ title="Print to PDF"
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#filter-data">
    Filter data
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#suggestions-for-further-work">
+   Suggestions for further work
   </a>
  </li>
 </ul>
@@ -690,7 +695,7 @@ PPG at position 2
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Time [s]&#39;), Text(0, 0.5, &#39;ABP&#39;)]
 </pre></div>
 </div>
-<img alt="../../_images/data-filtering_5_2.png" src="../../_images/data-filtering_5_2.png" />
+<img alt="../../_images/signal-filtering_5_2.png" src="../../_images/signal-filtering_5_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -761,7 +766,7 @@ NaNs in ABP: [ 0  1  2  3  4  5  6  7  8  9 10 11]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/data-filtering_8_0.png" src="../../_images/data-filtering_8_0.png" />
+<img alt="../../_images/signal-filtering_8_0.png" src="../../_images/signal-filtering_8_0.png" />
 </div>
 </div>
 <p>Filter PPG signals</p>
@@ -801,7 +806,7 @@ NaNs in ABP: [ 0  1  2  3  4  5  6  7  8  9 10 11]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/data-filtering_10_0.png" src="../../_images/data-filtering_10_0.png" />
+<img alt="../../_images/signal-filtering_10_0.png" src="../../_images/signal-filtering_10_0.png" />
 </div>
 </div>
 <p>Filter ABP signals</p>
@@ -841,9 +846,20 @@ NaNs in ABP: [ 0  1  2  3  4  5  6  7  8  9 10 11]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/data-filtering_12_0.png" src="../../_images/data-filtering_12_0.png" />
+<img alt="../../_images/signal-filtering_12_0.png" src="../../_images/signal-filtering_12_0.png" />
 </div>
 </div>
+</div>
+<div class="section" id="suggestions-for-further-work">
+<h1>Suggestions for further work<a class="headerlink" href="#suggestions-for-further-work" title="Permalink to this headline">¶</a></h1>
+<p>I’d suggest we use filtering functions from <code class="docutils literal notranslate"><span class="pre">scipy.signal</span></code>.
+Perhaps we could allow the user to specify the filter type (from a couple of options), and also the cut-off frequencies (as both the filter type and cut-off frequencies influence the shape of the filtered PPG pulse wave).</p>
+<p>We should note that the PPG signals in MIMIC have already been filtered somewhat by the clinical monitors used to record them.</p>
+<p>Ideally, it would be nice to:</p>
+<ol class="simple">
+<li><p>Provide options for different types of filters (e.g. Chebyshev filter, Butterworth filter). <a class="reference external" href="https://doi.org/10.1038/sdata.2018.76">This article</a> lists potential filter types (on pp.8-9).</p></li>
+<li><p>Allow the user to adjust the filter cut-off frequencies (e.g. low and high pass filter cut-offs).</p></li>
+</ol>
 </div>
 
     <script type="text/x-thebe-config">
