@@ -13,11 +13,20 @@
       "contributions": [
         "content"
       ]
+    },
+    {
+      "login": "tompollard",
+      "name": "Tom Pollard",
+      "avatar_url": "https://avatars.githubusercontent.com/u/822601?v=4",
+      "profile": "https://github.com/tompollard",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "mimic_wfdb_tutorials",
-  "projectOwner": "peterhcharlton",
+  "projectOwner": "wfdb",
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true
