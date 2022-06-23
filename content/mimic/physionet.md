@@ -2,7 +2,7 @@
 
 ## Overview
 
-- Data sharing platform built and maintained by MIT
+- [PhysioNet](https://physionet.org/) is a data sharing platform built and maintained by MIT
 - Rebuilt from scratch in 2019 following "FAIR principles"
 - \>50,000 registered, active users
 - Supports data use agreements and training
@@ -14,6 +14,7 @@
 Springer Nature, eLife, PLOS...
 
 ![](../images/springer_nature2.png)
+_Source: [Springer Nature](https://www.springernature.com/gp/authors/research-data-policy/repositories-health/12327108)_
 
 ## Access control
 
