@@ -1,6 +1,6 @@
 # MIMIC WFDB Tutorials
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This repository contains a Jupyter book called 'MIMIC WFDB Tutorials', which presents tutorials on using the MIMIC Waveform Database for Biomedical Signal Processing.
@@ -20,6 +20,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/tompollard"><img src="https://avatars.githubusercontent.com/u/822601?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tom Pollard</b></sub></a><br /><a href="#design-tompollard" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/elisamejia"><img src="https://avatars.githubusercontent.com/u/10887584?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Elisa Mejía</b></sub></a><br /><a href="#design-elisamejia" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/bemoody"><img src="https://avatars.githubusercontent.com/u/7748246?v=4?s=100" width="100px;" alt=""/><br /><sub><b>bemoody</b></sub></a><br /><a href="#design-bemoody" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/briangow"><img src="https://avatars.githubusercontent.com/u/4754434?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brian Gow</b></sub></a><br /><a href="#design-briangow" title="Design">🎨</a></td>
   </tr>
 </table>
 
