@@ -3,19 +3,25 @@
 ## MIMIC-IV
 
 - Publicly accessible critical care database
-- \>50,000 ICU stays between 2008-2018
-- Modular (structured EHR, X-rays, waveforms, clinical text, echos...)
-- Team includes caregivers at Beth Israel
+- Developed in collaboration with Beth Israel Deaconess Medical Center
+- \>50,000 ICU stays and \>400,000 ED stays between 2008-2019
+- Modular (structured EHR, X-rays, waveforms, clinical reports, echos)
 
-![](../images/bidmc.png)
+![](../images/bidmc3.png)
+
+---
 
 ## Reproducible workflow
 
 ![](../images/mimic_workflow.png)
 
+---
+
 ## Critical care
 
 ![](../images/icu_patient.png)
+
+---
 
 ## Example patient
 
