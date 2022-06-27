@@ -535,24 +535,36 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
-   Specify an ICU stay and segment
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Differentiating the PPG signal
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
+     Specify an ICU stay and segment
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extract-data-for-this-segment">
+     Extract data for this segment
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#differentiate-the-ppg-signal">
+     Differentiate the PPG signal
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-the-ppg-and-its-derivatives">
+     Plot the PPG and its derivatives
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-data-for-this-segment">
-   Extract data for this segment
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#differentiate-the-ppg-signal">
-   Differentiate the PPG signal
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-the-ppg-and-its-derivatives">
-   Plot the PPG and its derivatives
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#suggestions-for-future-work">
+   Suggestions for future work
   </a>
  </li>
 </ul>
@@ -574,24 +586,36 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
-   Specify an ICU stay and segment
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Differentiating the PPG signal
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
+     Specify an ICU stay and segment
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extract-data-for-this-segment">
+     Extract data for this segment
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#differentiate-the-ppg-signal">
+     Differentiate the PPG signal
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-the-ppg-and-its-derivatives">
+     Plot the PPG and its derivatives
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-data-for-this-segment">
-   Extract data for this segment
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#differentiate-the-ppg-signal">
-   Differentiate the PPG signal
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-the-ppg-and-its-derivatives">
-   Plot the PPG and its derivatives
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#suggestions-for-future-work">
+   Suggestions for future work
   </a>
  </li>
 </ul>
@@ -778,6 +802,14 @@ title="Print to PDF"
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="suggestions-for-future-work">
+<h1>Suggestions for future work<a class="headerlink" href="#suggestions-for-future-work" title="Permalink to this headline">¶</a></h1>
+<p>I’d suggest we use a similar approach to that used in the Matlab function <a class="reference external" href="https://peterhcharlton.github.io/pulse-analyse/">PulseAnalyse</a>:</p>
+<ul class="simple">
+<li><p>Savitzky-Golay filtering, as described in <a class="reference external" href="https://doi.org/0.1021/ac60214a047">this article</a>.</p></li>
+<li><p>The coefficients for using Savitzky-Golay filtering to obtain derivatives are provided in the ‘savitzky_golay’ function within PulseAnalyse (see line 2294 <a class="reference external" href="https://github.com/peterhcharlton/pulse-analyse/blob/master/pulse-analyse_v.1.3beta/PulseAnalyse.m">here</a>).</p></li>
+</ul>
 </div>
 
     <script type="text/x-thebe-config">
