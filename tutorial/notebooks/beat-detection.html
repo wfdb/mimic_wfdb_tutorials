@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data Visualisation &#8212; MIMIC WFDB Tutorials</title>
+    <title>Detecting beats in the PPG signal &#8212; MIMIC WFDB Tutorials</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -49,8 +49,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Data Filtering" href="signal-filtering.html" />
-    <link rel="prev" title="Data Extraction" href="data-extraction.html" />
+    <link rel="next" title="QRS peak detection" href="qrs-detection.html" />
+    <link rel="prev" title="Differentiating the PPG signal" href="differentiation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -200,8 +200,8 @@ const thebe_selector_output = ".output, .cell_output"
      Data Extraction
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="data-visualisation.html">
      Data Visualisation
     </a>
    </li>
@@ -215,8 +215,8 @@ const thebe_selector_output = ".output, .cell_output"
      Differentiating the PPG signal
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="beat-detection.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Detecting beats in the PPG signal
     </a>
    </li>
@@ -353,7 +353,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/wfdb/mimic_wfdb_tutorials/main?urlpath=tree/content/tutorial/notebooks/data-visualisation.ipynb"
+        <a href="https://mybinder.org/v2/gh/wfdb/mimic_wfdb_tutorials/main?urlpath=tree/content/tutorial/notebooks/beat-detection.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -371,7 +371,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/wfdb/mimic_wfdb_tutorials/blob/main/content/tutorial/notebooks/data-visualisation.ipynb"
+        <a href="https://colab.research.google.com/github/wfdb/mimic_wfdb_tutorials/blob/main/content/tutorial/notebooks/beat-detection.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -431,7 +431,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Ftutorial/notebooks/data-visualisation.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Ftutorial/notebooks/beat-detection.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -448,7 +448,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/edit/main/content/tutorial/notebooks/data-visualisation.ipynb"
+        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/edit/main/content/tutorial/notebooks/beat-detection.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -476,7 +476,7 @@ title="Edit this page"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../../_sources/tutorial/notebooks/data-visualisation.ipynb"
+        <a href="../../_sources/tutorial/notebooks/beat-detection.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -546,13 +546,13 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-signals-in-this-segment">
-   Plot signals in this segment
+  <a class="reference internal nav-link" href="#extract-the-ppg-signal">
+   Extract the PPG signal
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#assess-the-suitability-of-this-segment">
-   Assess the suitability of this segment
+  <a class="reference internal nav-link" href="#detect-beats-in-the-ppg-signal">
+   Detect beats in the PPG signal
   </a>
  </li>
 </ul>
@@ -564,7 +564,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Data Visualisation</h1>
+                <h1>Detecting beats in the PPG signal</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -585,13 +585,13 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-signals-in-this-segment">
-   Plot signals in this segment
+  <a class="reference internal nav-link" href="#extract-the-ppg-signal">
+   Extract the PPG signal
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#assess-the-suitability-of-this-segment">
-   Assess the suitability of this segment
+  <a class="reference internal nav-link" href="#detect-beats-in-the-ppg-signal">
+   Detect beats in the PPG signal
   </a>
  </li>
 </ul>
@@ -604,13 +604,13 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="section" id="data-visualisation">
-<h1>Data Visualisation<a class="headerlink" href="#data-visualisation" title="Permalink to this headline">¶</a></h1>
-<p>Visualise signals in a MIMIC Waveform record.</p>
+  <div class="section" id="detecting-beats-in-the-ppg-signal">
+<h1>Detecting beats in the PPG signal<a class="headerlink" href="#detecting-beats-in-the-ppg-signal" title="Permalink to this headline">¶</a></h1>
+<p>Beats are detected in the PPG signal in order to segment individual pulse waves for analysis.</p>
 <hr class="docutils" />
 <div class="section" id="specify-an-icu-stay-and-segment">
 <h2>Specify an ICU stay and segment<a class="headerlink" href="#specify-an-icu-stay-and-segment" title="Permalink to this headline">¶</a></h2>
-<div class="alert alert-block alert-warning"> <b>Resource:</b> These steps are taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-extraction.html">Data Extraction</a> tutorial. </div><ul class="simple">
+<div class="alert alert-block alert-warning"> <b>Resource:</b> These steps are taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-visualisation.html">Data Visualisation</a> tutorial. </div><ul class="simple">
 <li><p>Specify the required Python packages</p></li>
 </ul>
 <div class="cell docutils container">
@@ -643,7 +643,7 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_no</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># specify the first record (noting that in Python the first index is 0)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_no</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># specify the first record (noting that in Python the first index is 0)</span>
 <span class="n">icustay_record</span> <span class="o">=</span> <span class="n">icustay_records</span><span class="p">[</span><span class="n">icustay_no</span><span class="p">]</span>
 <span class="n">icustay_record_dir</span> <span class="o">=</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">icustay_record</span>
 <span class="n">icustay_record_name</span> <span class="o">=</span> <span class="n">icustay_record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
@@ -652,7 +652,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified ICU stay: 3000003
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified ICU stay: 3000125
 </pre></div>
 </div>
 </div>
@@ -664,14 +664,14 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_files</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">icustay_record_dir</span><span class="p">)</span>
 <span class="n">icustay_segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">icustay_files</span> <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
-<span class="n">icustay_segment_no</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+<span class="n">icustay_segment_no</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
 <span class="n">icustay_segment_name</span> <span class="o">=</span> <span class="n">icustay_segments</span><span class="p">[</span><span class="n">icustay_segment_no</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified segment: &#39;</span><span class="si">{}</span><span class="s2">&#39; within ICU stay &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">icustay_record_name</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment: &#39;3000003_0008&#39; within ICU stay &#39;3000003&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment: &#39;3000125_0005&#39; within ICU stay &#39;3000125&#39;
 </pre></div>
 </div>
 </div>
@@ -680,12 +680,12 @@ title="Print to PDF"
 <hr class="docutils" />
 <div class="section" id="extract-data-for-this-segment">
 <h2>Extract data for this segment<a class="headerlink" href="#extract-data-for-this-segment" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
+<div class="alert alert-block alert-warning"> <b>Resource:</b> These steps are taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-visualisation.html">Data Visualisation</a> tutorial. </div><ul class="simple">
 <li><p>Specify the timings of the data to be extracted</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># time since the start of the segment at which to begin extracting data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">60</span> <span class="c1"># time since the start of the segment at which to begin extracting data</span>
 <span class="n">no_seconds_to_load</span> <span class="o">=</span> <span class="mi">5</span>
 </pre></div>
 </div>
@@ -715,53 +715,110 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 seconds of data extracted from: 3000003_0008
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 seconds of data extracted from: 3000125_0005
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 <hr class="docutils" />
-<div class="section" id="plot-signals-in-this-segment">
-<h2>Plot signals in this segment<a class="headerlink" href="#plot-signals-in-this-segment" title="Permalink to this headline">¶</a></h2>
-<p>Plot the signals contained in this segment</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">title_text</span> <span class="o">=</span> <span class="s2">&quot;Segment &quot;</span> <span class="o">+</span> <span class="n">icustay_segment_name</span>
-<span class="n">wfdb</span><span class="o">.</span><span class="n">plot_wfdb</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="n">segment_data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title_text</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">)</span> 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/data-visualisation_17_0.png" src="../../_images/data-visualisation_17_0.png" />
-</div>
-</div>
-</div>
-<hr class="docutils" />
-<div class="section" id="assess-the-suitability-of-this-segment">
-<h2>Assess the suitability of this segment<a class="headerlink" href="#assess-the-suitability-of-this-segment" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Say that the segment must contain ECG (lead II) and PPG signals:</p></li>
+<div class="section" id="extract-the-ppg-signal">
+<h2>Extract the PPG signal<a class="headerlink" href="#extract-the-ppg-signal" title="Permalink to this headline">¶</a></h2>
+<div class="alert alert-block alert-warning"> <b>Resource:</b> This step is taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/differentiation.html">Differentiation</a> tutorial. </div><ul class="simple">
+<li><p>Extract the PPG signal from the segment data</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Signals in segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">))</span>
-<span class="n">segment_contains_signals_log</span> <span class="o">=</span> <span class="s1">&#39;II&#39;</span> <span class="ow">in</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span> <span class="ow">and</span> <span class="s1">&#39;PLETH&#39;</span> <span class="ow">in</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span>
-<span class="k">if</span> <span class="n">segment_contains_signals_log</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This segment contains the required signals&#39;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This segment doesn</span><span class="se">\&#39;</span><span class="s1">t contain the required signals&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ppg</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="detect-beats-in-the-ppg-signal">
+<h2>Detect beats in the PPG signal<a class="headerlink" href="#detect-beats-in-the-ppg-signal" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Import the <a class="reference external" href="https://python-heart-rate-analysis-toolkit.readthedocs.io/en/latest/">HeartPy package</a>, which includes code for detecting beats in PPG signals.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">heartpy</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Signals in segment: [&#39;II&#39;, &#39;V&#39;, &#39;ABP&#39;]
-This segment doesn&#39;t contain the required signals
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting heartpy
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading heartpy-1.2.7-py3-none-any.whl (1.0 MB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/1.0 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.0/1.0 MB</span> <span class=" -Color -Color-Red">60.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: matplotlib in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from heartpy) (3.5.2)
+Requirement already satisfied: scipy in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from heartpy) (1.8.1)
+Requirement already satisfied: numpy&gt;=1.17 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from heartpy) (1.23.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib-&gt;heartpy) (4.33.3)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib-&gt;heartpy) (0.11.0)
+Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib-&gt;heartpy) (9.1.1)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib-&gt;heartpy) (2.8.2)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib-&gt;heartpy) (3.0.9)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib-&gt;heartpy) (1.4.3)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib-&gt;heartpy) (21.3)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib-&gt;heartpy) (1.16.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: heartpy
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed heartpy-1.2.7
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-info"> <b>Q:</b> Can you find a segment that does contain the required signals? <br> <b>Hint:</b> Above, try 'icustay_no' = 10, and 'icustay_segment_no' = 7 </div><p>Depending on the requirements of a study, only a minority of ICU stays and segments might contain the required signals.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">heartpy</span> <span class="k">as</span> <span class="nn">hp</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Analyse using HeartPy</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_data</span><span class="p">,</span> <span class="n">measures</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">ppg</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HeartPy estimated the heart rate to be: </span><span class="si">{:.1f}</span><span class="s2"> bpm&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">measures</span><span class="p">[</span><span class="s1">&#39;bpm&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HeartPy estimated the heart rate to be: 85.6 bpm
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Plot the results using HeartPy’s plotting function</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hp</span><span class="o">.</span><span class="n">plotter</span><span class="p">(</span><span class="n">working_data</span><span class="p">,</span> <span class="n">measures</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Detecting heart beats in the PPG&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/beat-detection_27_0.png" src="../../_images/beat-detection_27_0.png" />
+</div>
+</div>
 </div>
 </div>
 
@@ -792,17 +849,17 @@ This segment doesn&#39;t contain the required signals
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="data-extraction.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="differentiation.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Data Extraction</p>
+            <p class="prev-next-title">Differentiating the PPG signal</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="signal-filtering.html" title="next page">
+    <a class='right-next' id="next-link" href="qrs-detection.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Filtering</p>
+        <p class="prev-next-title">QRS peak detection</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

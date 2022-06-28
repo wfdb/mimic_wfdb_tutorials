@@ -49,7 +49,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="QRS peak detection" href="qrs-detection.html" />
+    <link rel="next" title="Differentiating the PPG signal" href="differentiation.html" />
     <link rel="prev" title="Data Visualisation" href="data-visualisation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -211,13 +211,18 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="qrs-detection.html">
-     QRS peak detection
+    <a class="reference internal" href="differentiation.html">
+     Differentiating the PPG signal
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../signal-beat-detection.html">
-     Beat Detection
+    <a class="reference internal" href="beat-detection.html">
+     Detecting beats in the PPG signal
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="qrs-detection.html">
+     QRS peak detection
     </a>
    </li>
    <li class="toctree-l2">
@@ -228,11 +233,6 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="../signal-segmentation.html">
      Signal segmentation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="differentiation.html">
-     Differentiating the PPG signal
     </a>
    </li>
    <li class="toctree-l2">
@@ -657,7 +657,9 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Selected record: 3000063_0013
-30 seconds of data loaded from: 3000063_0013
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30 seconds of data loaded from: 3000063_0013
 </pre></div>
 </div>
 </div>
@@ -906,10 +908,10 @@ Perhaps we could allow the user to specify the filter type (from a couple of opt
             <p class="prev-next-title">Data Visualisation</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="qrs-detection.html" title="next page">
+    <a class='right-next' id="next-link" href="differentiation.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">QRS peak detection</p>
+        <p class="prev-next-title">Differentiating the PPG signal</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
