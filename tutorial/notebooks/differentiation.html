@@ -535,36 +535,34 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Differentiating the PPG signal
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
+   Specify an ICU stay and segment
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
-     Specify an ICU stay and segment
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extract-data-for-this-segment">
-     Extract data for this segment
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#differentiate-the-ppg-signal">
-     Differentiate the PPG signal
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#plot-the-ppg-and-its-derivatives">
-     Plot the PPG and its derivatives
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#suggestions-for-future-work">
-   Suggestions for future work
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-data-for-this-segment">
+   Extract data for this segment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-the-ppg-signal">
+   Extract the PPG signal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filter-the-ppg-signal">
+   Filter the PPG signal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#differentiate-the-ppg-signal">
+   Differentiate the PPG signal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-the-ppg-and-its-derivatives">
+   Plot the PPG and its derivatives
   </a>
  </li>
 </ul>
@@ -586,36 +584,34 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Differentiating the PPG signal
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
+   Specify an ICU stay and segment
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
-     Specify an ICU stay and segment
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extract-data-for-this-segment">
-     Extract data for this segment
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#differentiate-the-ppg-signal">
-     Differentiate the PPG signal
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#plot-the-ppg-and-its-derivatives">
-     Plot the PPG and its derivatives
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#suggestions-for-future-work">
-   Suggestions for future work
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-data-for-this-segment">
+   Extract data for this segment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-the-ppg-signal">
+   Extract the PPG signal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filter-the-ppg-signal">
+   Filter the PPG signal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#differentiate-the-ppg-signal">
+   Differentiate the PPG signal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-the-ppg-and-its-derivatives">
+   Plot the PPG and its derivatives
   </a>
  </li>
 </ul>
@@ -746,10 +742,10 @@ title="Print to PDF"
 </div>
 </div>
 <hr class="docutils" />
-<div class="section" id="differentiate-the-ppg-signal">
-<h2>Differentiate the PPG signal<a class="headerlink" href="#differentiate-the-ppg-signal" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="extract-the-ppg-signal">
+<h2>Extract the PPG signal<a class="headerlink" href="#extract-the-ppg-signal" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Extract the PPG signal</p></li>
+<li><p>Extract the PPG signal from the segment data</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -758,19 +754,84 @@ title="Print to PDF"
 </div>
 </div>
 </div>
+</div>
+<hr class="docutils" />
+<div class="section" id="filter-the-ppg-signal">
+<h2>Filter the PPG signal<a class="headerlink" href="#filter-the-ppg-signal" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Import the <a class="reference external" href="https://docs.scipy.org/doc/scipy/tutorial/signal.html">SciPy signal processing package</a>, which contains functions for filtering and differentiating.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.signal</span> <span class="k">as</span> <span class="nn">sp</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Filter the PPG signal in preparation for differentiation using a Butterworth filter provided by the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html">butter</a> function.</p></li>
+</ul>
+<div class="alert alert-block alert-warning"> <b>Explanation:</b> This function generates the co-efficients for a Butterworth filter. The filter-type is specified as 'bp' - a bandpass filtter. The filter frequencies are specified in Hz (because the sampling frequency, fs, has also been specified): a high-pass frequency of 0.7 Hz, and a low-pass frequency of 10 Hz. </div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sos_ppg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">btype</span> <span class="o">=</span> <span class="s1">&#39;bp&#39;</span><span class="p">,</span> <span class="n">analog</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;sos&#39;</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfreqz</span><span class="p">(</span><span class="n">sos_ppg</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="p">)</span>
+<span class="n">ppg_filt</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfiltfilt</span><span class="p">(</span><span class="n">sos_ppg</span><span class="p">,</span> <span class="n">ppg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Import the packages required to plot the signal: <a class="reference external" href="https://matplotlib.org/stable/index.html">matplotlib</a> which is used to create plots, and <a class="reference external" href="https://numpy.org/">NumPy</a> which is used to create a time vector in this example.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Plot the original and the filtered PPG signal</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">))</span><span class="o">/</span><span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;original PPG&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg_filt</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;filtered PPG&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">no_seconds_to_load</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;PPG&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/differentiation_29_0.png" src="../../_images/differentiation_29_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>We will use the filtered signal instead of the original PPG from now on.</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="differentiate-the-ppg-signal">
+<h2>Differentiate the PPG signal<a class="headerlink" href="#differentiate-the-ppg-signal" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Differentiate it once and twice using the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html">Savitzky-Golay filtering</a> function in SciPy</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">savgol_filter</span>
-<span class="n">d1ppg</span> <span class="o">=</span> <span class="n">savgol_filter</span><span class="p">(</span><span class="n">ppg</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Calculate first derivative</span>
-<span class="n">d2ppg</span> <span class="o">=</span> <span class="n">savgol_filter</span><span class="p">(</span><span class="n">ppg</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Calculate second derivative</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d1ppg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">savgol_filter</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Calculate first derivative</span>
+<span class="n">d2ppg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">savgol_filter</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Calculate second derivative</span>
 </pre></div>
 </div>
 </div>
 </div>
-</div>
+<div class="alert alert-block alert-warning"> <b>Resource:</b> Savitzky-Golay filtering, which is used here to calculate derivatives, is described in <a href="https://doi.org/10.1021/ac60214a047">this article</a>. </div></div>
 <hr class="docutils" />
 <div class="section" id="plot-the-ppg-and-its-derivatives">
 <h2>Plot the PPG and its derivatives<a class="headerlink" href="#plot-the-ppg-and-its-derivatives" title="Permalink to this headline">¶</a></h2>
@@ -784,9 +845,9 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ppg</span><span class="p">))</span><span class="o">/</span><span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">))</span><span class="o">/</span><span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span>
 <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">,</span><span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg_filt</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;PPG&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;The PPG signal and its first and second derivatives&#39;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">d1ppg</span><span class="p">)</span>
@@ -798,18 +859,13 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/differentiation_24_0.png" src="../../_images/differentiation_24_0.png" />
+<img alt="../../_images/differentiation_37_0.png" src="../../_images/differentiation_37_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="suggestions-for-future-work">
-<h1>Suggestions for future work<a class="headerlink" href="#suggestions-for-future-work" title="Permalink to this headline">¶</a></h1>
-<p>I’d suggest we use a similar approach to that used in the Matlab function <a class="reference external" href="https://peterhcharlton.github.io/pulse-analyse/">PulseAnalyse</a>:</p>
-<ul class="simple">
-<li><p>Savitzky-Golay filtering, as described in <a class="reference external" href="https://doi.org/0.1021/ac60214a047">this article</a>.</p></li>
-<li><p>The coefficients for using Savitzky-Golay filtering to obtain derivatives are provided in the ‘savitzky_golay’ function within PulseAnalyse (see line 2294 <a class="reference external" href="https://github.com/peterhcharlton/pulse-analyse/blob/master/pulse-analyse_v.1.3beta/PulseAnalyse.m">here</a>).</p></li>
-</ul>
+<div class="alert alert-block alert-info"> <b>Q:</b> How would the derivatives have been different if the PPG signal hadn't been filtered before differentiation? <br> <b>Hint:</b> Above, try replacing 'ppg = ppg_ff' with 'ppg = ppg'. </div><div class="alert alert-block alert-info"> <b>Q:</b> How would the derivatives have been different if the PPG signal had been filtered using different co-efficients?
+    <br> <b>Hint:</b> Above, try replacing the relatively wide band-pass frequencies '[0.7, 10]' with '[0.8, 3]'. 
+    <br> <b>Consider:</b> Which band-pass frequencies would be most suitable for pulse wave analysis? How about heart rate estimation?
+</div></div>
 </div>
 
     <script type="text/x-thebe-config">
