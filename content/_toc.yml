@@ -21,11 +21,11 @@
     - file: tutorial/notebooks/data-extraction
     - file: tutorial/notebooks/data-visualisation
     - file: tutorial/notebooks/signal-filtering
+    - file: tutorial/notebooks/differentiation
+    - file: tutorial/notebooks/beat-detection
     - file: tutorial/notebooks/qrs-detection
-    - file: tutorial/signal-beat-detection
     - file: tutorial/signal-quality-assessment
     - file: tutorial/signal-segmentation
-    - file: tutorial/notebooks/differentiation
     - file: tutorial/pulse-wave-analysis
     - file: tutorial/extracting-reference-bp
     - file: tutorial/data-modelling
