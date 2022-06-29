@@ -17,7 +17,7 @@ for subject in subjects:
 print("Done: Loaded list of {} records for '{}' database".format(len(records), database_name))
 
 # Find how many records have segments with PPG + ABP and are 10 minutes long
-matching_recs = {}
+matching_recs = {'dir':[],'seg_name':[],'length':[]}
 for record in records:
     record_dir = f'{database_name}/{record.parent}'
     record_name = record.name
@@ -35,9 +35,9 @@ for record in records:
         sigs_present = segment_metadata.sig_name
         required_sigs = ['ABP', 'PPG']
         if all(x in sigs_present for x in required_sigs):
-            matching_recs['dir'] = record_dir
-            matching_recs['seg_name'] = segment
-            matching_recs['length'] = seg_length
+            matching_recs['dir'].append(record_dir)
+            matching_recs['seg_name'].append(segment)
+            matching_recs['length'].append(seg_length)
             # Since we only need one segment per record break out of loop
             break
 
