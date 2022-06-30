@@ -33,7 +33,7 @@ for record in records:
             continue
         # Next check that both PPG and ABP are present in the segment
         sigs_present = segment_metadata.sig_name
-        required_sigs = ['ABP', 'PPG']
+        required_sigs = ['ABP', 'Pleth']
         if all(x in sigs_present for x in required_sigs):
             matching_recs['dir'].append(record_dir)
             matching_recs['seg_name'].append(segment)
