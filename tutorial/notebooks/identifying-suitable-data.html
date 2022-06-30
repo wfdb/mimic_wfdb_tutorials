@@ -49,6 +49,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Data Filtering" href="signal-filtering.html" />
+    <link rel="prev" title="Data Visualisation" href="data-visualisation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -108,7 +110,7 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../workshop.html">
    Workshop
@@ -178,16 +180,16 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../../tutorials.html">
    Tutorials
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="data-exploration.html">
      Data Exploration
@@ -201,6 +203,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="data-visualisation.html">
      Data Visualisation
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Identifying suitable data
     </a>
    </li>
    <li class="toctree-l2">
@@ -1051,7 +1058,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">do_verbose</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">no_icustays</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">no_icustays</span> <span class="o">=</span> <span class="mi">27</span>
 <span class="n">icustay_records_with_signals</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; ~~~ Cycling through </span><span class="si">{}</span><span class="s2"> ICU stays ~~~&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_icustays</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">icustay_no</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">no_icustays</span><span class="p">):</span>
@@ -1086,7 +1093,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> ~~~ Cycling through 5 ICU stays ~~~
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> ~~~ Cycling through 27 ICU stays ~~~
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000003 contains the following signals: [&#39;I&#39;, &#39;II&#39;, &#39;V&#39;, &#39;ABP&#39;, &#39;V+&#39;].
@@ -1116,10 +1123,142 @@ title="Print to PDF"
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it contains the required signals, so it&#39;s worth checking whether any individual segments meet the requirements.
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000065 contains the following signals: [&#39;II&#39;, &#39;MCL1&#39;, &#39;ABP&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000086 contains the following signals: [&#39;II&#39;, &#39;III&#39;, &#39;AVR&#39;, &#39;V&#39;, &#39;RESP&#39;, &#39;PLETH&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000100 contains the following signals: [&#39;II&#39;, &#39;AVR&#39;, &#39;V&#39;, &#39;RESP&#39;, &#39;PLETH&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000103 contains the following signals: [&#39;V&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000105 contains the following signals: [&#39;II&#39;, &#39;MCL1&#39;, &#39;ABP&#39;, &#39;PAP&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000125 contains the following signals: [&#39;II&#39;, &#39;III&#39;, &#39;PLETH&#39;, &#39;V&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000126 contains the following signals: [&#39;II&#39;, &#39;AVF&#39;, &#39;MCL1&#39;, &#39;ABP&#39;, &#39;PAP&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000142 contains the following signals: [&#39;PLETH&#39;, &#39;II&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000154 contains the following signals: [&#39;PLETH&#39;, &#39;II&#39;, &#39;MCL&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000189 contains the following signals: [&#39;I&#39;, &#39;II&#39;, &#39;III&#39;, &#39;MCL1&#39;, &#39;ABP&#39;, &#39;PAP&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000190 contains the following signals: [&#39;II&#39;, &#39;III&#39;, &#39;AVR&#39;, &#39;V&#39;, &#39;RESP&#39;, &#39;PLETH&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000203 contains the following signals: [&#39;II&#39;, &#39;III&#39;, &#39;AVR&#39;, &#39;AVL&#39;, &#39;V&#39;, &#39;MCL&#39;, &#39;RESP&#39;, &#39;PLETH&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000221 contains the following signals: [&#39;III&#39;, &#39;II&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000282 contains the following signals: [&#39;II&#39;, &#39;III&#39;, &#39;AVR&#39;, &#39;AVF&#39;, &#39;ABP&#39;, &#39;PAP&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000336 contains the following signals: [&#39;II&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000358 contains the following signals: [&#39;II&#39;, &#39;AVR&#39;, &#39;V&#39;, &#39;RESP&#39;, &#39;PLETH&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000386 contains the following signals: [&#39;II&#39;, &#39;III&#39;, &#39;RESP&#39;, &#39;PLETH&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000393 contains the following signals: [&#39;II&#39;, &#39;AVR&#39;, &#39;V&#39;, &#39;RESP&#39;, &#39;PLETH&#39;, &#39;ABP&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it contains the required signals, so it&#39;s worth checking whether any individual segments meet the requirements.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000397 contains the following signals: [&#39;II&#39;, &#39;PLETH&#39;, &#39;ABP&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it contains the required signals, so it&#39;s worth checking whether any individual segments meet the requirements.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000428 contains the following signals: [&#39;II&#39;, &#39;AVR&#39;, &#39;V&#39;, &#39;RESP&#39;, &#39;PLETH&#39;, &#39;ABP&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it contains the required signals, so it&#39;s worth checking whether any individual segments meet the requirements.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000435 contains the following signals: [&#39;II&#39;, &#39;PLETH&#39;, &#39;ABP&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it contains the required signals, so it&#39;s worth checking whether any individual segments meet the requirements.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - ICU stay 3000458 contains the following signals: [&#39;II&#39;, &#39;V&#39;].
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Therefore, it doesn&#39;t contain the required signals.
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> ~~~ Finished cycling through ICU stays ~~~
 
- - Found 1 ICU stays containing required signals:
-[&#39;30/3000063/&#39;]
+ - Found 5 ICU stays containing required signals:
+[&#39;30/3000063/&#39;, &#39;30/3000393/&#39;, &#39;30/3000397/&#39;, &#39;30/3000428/&#39;, &#39;30/3000435/&#39;]
 </pre></div>
 </div>
 </div>
@@ -1133,7 +1272,7 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_no</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_no</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">icustay_record</span> <span class="o">=</span> <span class="n">icustay_records_with_signals</span><span class="p">[</span><span class="n">icustay_no</span><span class="p">]</span>
 <span class="n">icustay_record_dir</span> <span class="o">=</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">icustay_record</span>
 <span class="n">icustay_record_name</span> <span class="o">=</span> <span class="n">icustay_record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
@@ -1142,7 +1281,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified ICU stay: 3000063
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified ICU stay: 3000435
 </pre></div>
 </div>
 </div>
@@ -1159,20 +1298,21 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Identified 34 segments in ICU stay: 3000063
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Identified 5 segments in ICU stay: 3000435
 </pre></div>
 </div>
 </div>
 </div>
 <ul class="simple">
-<li><p>Cycle through each segment in turn, finding out whether it contains the required signals and required duration of signals</p></li>
+<li><p>Cycle through a maximum of 10 segments in turn, finding out whether it contains the required signals and required duration of signals</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icu_stays_and_segments_meeting_requirements</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">do_verbose</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; ~~~ Cycling through </span><span class="si">{}</span><span class="s2"> segments ~~~&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">icustay_segments</span><span class="p">)))</span>
-<span class="k">for</span> <span class="n">seg_no</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span> <span class="c1">#len(icustay_segments)):</span>
+<span class="n">no_segments</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">icustay_segments</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; ~~~ Cycling through </span><span class="si">{}</span><span class="s2"> segments ~~~&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_segments</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">seg_no</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">no_segments</span><span class="p">):</span>
     <span class="c1"># - extract the metadata for this segment</span>
     <span class="n">icustay_segment_name</span> <span class="o">=</span> <span class="n">icustay_segments</span><span class="p">[</span><span class="n">seg_no</span><span class="p">]</span>
     <span class="n">segment_metadata</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">icustay_record_dir</span><span class="p">)</span>
@@ -1202,52 +1342,32 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> ~~~ Cycling through 34 segments ~~~
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> ~~~ Cycling through 5 segments ~~~
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000063_0001 contains [&#39;PLETH&#39;] for 62.6 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000435_0001 contains [&#39;II&#39;, &#39;PLETH&#39;] for 1.0 seconds
  - i.e. It doesn&#39;t contain the required signals for the required duration
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000063_0002 contains [&#39;III&#39;] for 6.0 seconds
- - i.e. It doesn&#39;t contain the required signals for the required duration
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000063_0003 contains [&#39;II&#39;] for 15.0 seconds
- - i.e. It doesn&#39;t contain the required signals for the required duration
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000063_0004 contains [&#39;II&#39;] for 51.0 seconds
- - i.e. It doesn&#39;t contain the required signals for the required duration
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000063_0005 contains [&#39;II&#39;, &#39;PLETH&#39;] for 4715.0 seconds
- - i.e. It doesn&#39;t contain the required signals for the required duration
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000063_0006 contains [&#39;II&#39;, &#39;ABP&#39;, &#39;PLETH&#39;] for 5936.1 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000435_0002 contains [&#39;II&#39;, &#39;ABP&#39;, &#39;PLETH&#39;] for 65276.0 seconds
  - i.e. It contains the required signals for the required duration
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000063_0007 contains [&#39;II&#39;, &#39;ABP&#39;, &#39;PLETH&#39;] for 3056.9 seconds
- - i.e. It contains the required signals for the required duration
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000063_0008 contains [&#39;II&#39;, &#39;ABP&#39;] for 14.0 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000435_0003 contains [&#39;II&#39;, &#39;PLETH&#39;] for 8108.0 seconds
  - i.e. It doesn&#39;t contain the required signals for the required duration
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000063_0009 contains [&#39;II&#39;, &#39;ABP&#39;, &#39;PLETH&#39;] for 276.5 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000435_0004 contains [&#39;II&#39;] for 410.0 seconds
  - i.e. It doesn&#39;t contain the required signals for the required duration
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000063_0010 contains [&#39;II&#39;, &#39;ABP&#39;, &#39;PLETH&#39;] for 714.8 seconds
- - i.e. It contains the required signals for the required duration
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Segment 3000435_0005 contains [&#39;II&#39;, &#39;PLETH&#39;] for 11236.0 seconds
+ - i.e. It doesn&#39;t contain the required signals for the required duration
 
  ~~~ Finished cycling through segments ~~~
 
- - Found 3 segments containing required signals:
-[[&#39;30/3000063/&#39;, &#39;3000063_0006&#39;], [&#39;30/3000063/&#39;, &#39;3000063_0007&#39;], [&#39;30/3000063/&#39;, &#39;3000063_0010&#39;]]
+ - Found 1 segments containing required signals:
+[[&#39;30/3000435/&#39;, &#39;3000435_0002&#39;]]
 </pre></div>
 </div>
 </div>
@@ -1271,7 +1391,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment 3000063_0006 in ICU stay 3000063
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment 3000435_0002 in ICU stay 3000435
 </pre></div>
 </div>
 </div>
@@ -1292,7 +1412,8 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># time since the start of the segment at which to begin extracting data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">required_duration</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="mi">60</span> <span class="c1"># duration in seconds</span>
+<span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># time since the start of the segment at which to begin extracting data</span>
 <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_seconds</span>
 <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span><span class="o">+</span><span class="n">required_duration</span><span class="p">)</span>
 <span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">sampfrom</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span> <span class="n">sampto</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">icustay_record_dir</span><span class="p">)</span> 
@@ -1301,7 +1422,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>600 seconds of data extracted from: 3000063_0006
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>600 seconds of data extracted from: 3000435_0002
 </pre></div>
 </div>
 </div>
@@ -1328,7 +1449,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">required_duration</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># duration in seconds</span>
-<span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">180</span> <span class="c1"># time since the start of the segment at which to begin extracting data</span>
+<span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">400</span> <span class="c1"># time since the start of the segment at which to begin extracting data</span>
 <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_seconds</span>
 <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span><span class="o">+</span><span class="n">required_duration</span><span class="p">)</span>
 <span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">sampfrom</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span> <span class="n">sampto</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">icustay_record_dir</span><span class="p">)</span> 
@@ -1338,13 +1459,13 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 seconds of data extracted from: 3000063_0006
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 seconds of data extracted from: 3000435_0002
 </pre></div>
 </div>
 <img alt="../../_images/identifying-suitable-data_41_1.png" src="../../_images/identifying-suitable-data_41_1.png" />
 </div>
 </div>
-</div>
+<div class="alert alert-block alert-info"> <b>Q:</b> How suitable were the signals for the other four ICU stays identified which met these requirements? Could we use all of these ICU stays in a study? <br> <b>Hint:</b> Above, try changing 'icustay_no' from '4' to a value between '0' and '3'. </div></div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1374,6 +1495,20 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="data-visualisation.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Data Visualisation</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="signal-filtering.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Filtering</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             </footer>
         </div>
