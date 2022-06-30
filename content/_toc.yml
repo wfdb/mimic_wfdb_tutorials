@@ -20,12 +20,12 @@
     - file: tutorial/notebooks/data-exploration
     - file: tutorial/notebooks/data-extraction
     - file: tutorial/notebooks/data-visualisation
+    - file: tutorial/notebooks/identifying-suitable-data
     - file: tutorial/notebooks/signal-filtering
     - file: tutorial/notebooks/differentiation
     - file: tutorial/notebooks/beat-detection
     - file: tutorial/notebooks/qrs-detection
     - file: tutorial/signal-quality-assessment
-    - file: tutorial/signal-segmentation
     - file: tutorial/pulse-wave-analysis
     - file: tutorial/extracting-reference-bp
     - file: tutorial/data-modelling
