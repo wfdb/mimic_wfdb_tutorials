@@ -2,11 +2,11 @@
 
 ## Overview
 
-- [PhysioNet](https://physionet.org/) is a data sharing platform built and maintained at MIT
-- Established as an outreach of a research project in 1999
+- [PhysioNet](https://physionet.org/) is a data sharing platform built and maintained at the Laboratory of Computational Physiology at MIT
+- Established as an outreach component of a research project in 1999
 - Rebuilt from scratch in 2019 following "[FAIR principles](https://www.go-fair.org/fair-principles/)"
 - \>50,000 registered, active users
-- Supports access control via data use agreements and training
+- Supports access control for sensitive data via data use agreements and training
 
 ![](../images/physionet.png)
 
@@ -44,12 +44,14 @@ _Source: [Springer Nature](https://www.springernature.com/gp/authors/research-da
 ## Enhanced discovery
 
 - Structured metadata is distributed to search indexes
+- Project reuse can be tracked through unique identifiers or DOI's
+- Strongly support data objects as research outputs in their own right
 
 ![](../images/eicu_discovery.png)
 
 ---
 
-# Integrated viewers
+## Integrated viewers
 
 - Data such as waveforms can be viewed directly in the browser
 
@@ -57,13 +59,13 @@ _Source: [Springer Nature](https://www.springernature.com/gp/authors/research-da
 
 ---
 
-# Cloud integration
+## Cloud integration
 
 - Enables analysis without the need to download files
 
----
-
 ![](../images/google_cloud.png)
+
+---
 
 ## Diverse, active community
 
