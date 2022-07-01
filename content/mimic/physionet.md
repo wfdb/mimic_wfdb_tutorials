@@ -53,9 +53,9 @@ _Source: [Springer Nature](https://www.springernature.com/gp/authors/research-da
 
 - Data such as waveforms can be viewed directly in the browser
 
----
-
 ![](../images/lightwave.png)
+
+---
 
 # Cloud integration
 
