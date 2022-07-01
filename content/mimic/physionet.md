@@ -55,17 +55,17 @@ _Source: [Springer Nature](https://www.springernature.com/gp/authors/research-da
 
 - Data such as waveforms can be viewed directly in the browser
 
----
-
 ![](../images/lightwave.png)
+
+---
 
 ## Cloud integration
 
 - Enables analysis without the need to download files
 
----
-
 ![](../images/google_cloud.png)
+
+---
 
 ## Diverse, active community
 
