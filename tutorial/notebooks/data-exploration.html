@@ -536,8 +536,8 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#identify-icu-stays">
-   Identify ICU stays
+  <a class="reference internal nav-link" href="#setup">
+   Setup
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -546,43 +546,77 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#get-a-list-of-icu-stays-in-the-database">
-     Get a list of ICU stays in the database
+    <a class="reference internal nav-link" href="#specify-the-version-of-the-mimic-waveform-database-to-use">
+     Specify the version of the MIMIC Waveform Database to use
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-metadata-for-an-icu-stay">
-   Extract metadata for an ICU stay
+  <a class="reference internal nav-link" href="#identify-the-records-in-the-database">
+   Identify the records in the database
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#specify-the-online-directory-containing-an-icu-stay-s-data">
-     Specify the online directory containing an ICU stay’s data
+    <a class="reference internal nav-link" href="#get-a-list-of-records">
+     Get a list of records
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#specify-the-name-of-the-icu-stay">
-     Specify the name of the ICU stay
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#load-the-metadata-for-this-icu-stay">
-     Load the metadata for this ICU stay
+    <a class="reference internal nav-link" href="#look-at-the-records">
+     Look at the records
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#inspect-details-of-physiological-signals-recorded-in-this-icu-stay">
-   Inspect details of physiological signals recorded in this ICU stay
+  <a class="reference internal nav-link" href="#extract-metadata-for-a-record">
+   Extract metadata for a record
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-the-online-directory-containing-a-record-s-data">
+     Specify the online directory containing a record’s data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-the-subject-identifier">
+     Specify the subject identifier
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-the-metadata-for-this-record">
+     Load the metadata for this record
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inspect-details-of-physiological-signals-recorded-in-this-record">
+   Inspect details of physiological signals recorded in this record
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#inspect-the-segments-making-up-an-icu-stay">
-   Inspect the segments making up an ICU stay
+  <a class="reference internal nav-link" href="#inspect-the-segments-making-up-a-record">
+   Inspect the segments making up a record
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inspect-the-files-in-a-record">
+     Inspect the files in a record
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inspect-the-contents-of-the-first-two-files">
+     Inspect the contents of the first two files
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inspect-the-segments-within-a-record">
+     Inspect the segments within a record
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#inspect-an-individual-segment">
@@ -595,8 +629,13 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#find-out-what-signals-are-present-and-for-how-long">
-     Find out what signals are present, and for how long
+    <a class="reference internal nav-link" href="#find-out-what-signals-are-present">
+     Find out what signals are present
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#find-out-how-long-each-signal-lasts">
+     Find out how long each signal lasts
     </a>
    </li>
   </ul>
@@ -621,8 +660,8 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#identify-icu-stays">
-   Identify ICU stays
+  <a class="reference internal nav-link" href="#setup">
+   Setup
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -631,43 +670,77 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#get-a-list-of-icu-stays-in-the-database">
-     Get a list of ICU stays in the database
+    <a class="reference internal nav-link" href="#specify-the-version-of-the-mimic-waveform-database-to-use">
+     Specify the version of the MIMIC Waveform Database to use
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-metadata-for-an-icu-stay">
-   Extract metadata for an ICU stay
+  <a class="reference internal nav-link" href="#identify-the-records-in-the-database">
+   Identify the records in the database
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#specify-the-online-directory-containing-an-icu-stay-s-data">
-     Specify the online directory containing an ICU stay’s data
+    <a class="reference internal nav-link" href="#get-a-list-of-records">
+     Get a list of records
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#specify-the-name-of-the-icu-stay">
-     Specify the name of the ICU stay
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#load-the-metadata-for-this-icu-stay">
-     Load the metadata for this ICU stay
+    <a class="reference internal nav-link" href="#look-at-the-records">
+     Look at the records
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#inspect-details-of-physiological-signals-recorded-in-this-icu-stay">
-   Inspect details of physiological signals recorded in this ICU stay
+  <a class="reference internal nav-link" href="#extract-metadata-for-a-record">
+   Extract metadata for a record
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-the-online-directory-containing-a-record-s-data">
+     Specify the online directory containing a record’s data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-the-subject-identifier">
+     Specify the subject identifier
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-the-metadata-for-this-record">
+     Load the metadata for this record
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inspect-details-of-physiological-signals-recorded-in-this-record">
+   Inspect details of physiological signals recorded in this record
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#inspect-the-segments-making-up-an-icu-stay">
-   Inspect the segments making up an ICU stay
+  <a class="reference internal nav-link" href="#inspect-the-segments-making-up-a-record">
+   Inspect the segments making up a record
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inspect-the-files-in-a-record">
+     Inspect the files in a record
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inspect-the-contents-of-the-first-two-files">
+     Inspect the contents of the first two files
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inspect-the-segments-within-a-record">
+     Inspect the segments within a record
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#inspect-an-individual-segment">
@@ -680,8 +753,13 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#find-out-what-signals-are-present-and-for-how-long">
-     Find out what signals are present, and for how long
+    <a class="reference internal nav-link" href="#find-out-what-signals-are-present">
+     Find out what signals are present
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#find-out-how-long-each-signal-lasts">
+     Find out how long each signal lasts
     </a>
    </li>
   </ul>
@@ -698,123 +776,212 @@ title="Print to PDF"
                 
   <div class="section" id="data-exploration">
 <h1>Data Exploration<a class="headerlink" href="#data-exploration" title="Permalink to this headline">¶</a></h1>
-<p>Exploring MIMIC waveform data.</p>
+<p>In this tutorial we will explore data in the MIMIC Waveform Database.</p>
+<p>The <strong>objectives</strong> are:</p>
+<ul class="simple">
+<li><p>To gain an understanding of the structure of the MIMIC Database, consisting of subjects, studies, records, and segments.</p></li>
+<li><p>To start using the WaveForm DataBase Toolbox to work with waveform data files</p></li>
+<li><p>To understand how to find out what signals are present in a record or a segment, and how long they last.</p></li>
+</ul>
 <hr class="docutils" />
-<div class="section" id="identify-icu-stays">
-<h2>Identify ICU stays<a class="headerlink" href="#identify-icu-stays" title="Permalink to this headline">¶</a></h2>
-<p>Identify the ICU stays in the <a class="reference external" href="https://doi.org/10.13026/c2607m">MIMIC III Waveform Database</a></p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="specify-the-required-python-packages">
 <h3>Specify the required Python packages<a class="headerlink" href="#specify-the-required-python-packages" title="Permalink to this headline">¶</a></h3>
+<p>We’ll import the following:</p>
 <ul class="simple">
-<li><p>The WFDB package is imported using <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">wfdb</span></code></p></li>
+<li><p><em>sys</em>: an essential python package</p></li>
+<li><p><em>wfdb</em>: The WaveForm DataBase Toolbox package, which contains tools for processing waveform data such as those in MIMIC.</p></li>
+<li><p><em>pathlib</em> (well a particular function from <em>pathlib</em>, called <em>Path</em>)</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Setup</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">wfdb</span> <span class="c1"># The WFDB Toolbox</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">wfdb</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Now that we have imported these packages (<em>i.e.</em> toolboxes) we have a set of tools (functions) ready to use.</p>
 <div class="alert alert-block alert-warning"> <b>Resource:</b> You can find out more about the WFDB package <a href="https://physionet.org/content/wfdb-python/3.4.1/">here</a>. </div></div>
-<div class="section" id="get-a-list-of-icu-stays-in-the-database">
-<h3>Get a list of ICU stays in the database<a class="headerlink" href="#get-a-list-of-icu-stays-in-the-database" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="specify-the-version-of-the-mimic-waveform-database-to-use">
+<h3>Specify the version of the MIMIC Waveform Database to use<a class="headerlink" href="#specify-the-version-of-the-mimic-waveform-database-to-use" title="Permalink to this headline">¶</a></h3>
+<p>We will use either the:</p>
 <ul class="simple">
-<li><p>Use the <a class="reference external" href="https://wfdb.readthedocs.io/en/latest/io.html#wfdb.io.get_record_list"><code class="docutils literal notranslate"><span class="pre">get_record_list</span></code></a> function from the WFDB toolbox to get a list of ICU stays (here, corresponding to records) in the database.</p></li>
+<li><p><a class="reference external" href="https://doi.org/10.13026/c2607m">MIMIC III Waveform Database</a>, or</p></li>
+<li><p>MIMIC IV Waveform Database</p></li>
+</ul>
+<ul class="simple">
+<li><p>Specify which version of the database to use:</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0&#39;</span> <span class="c1"># The name of the MIMIC III Waveform Database on Physionet (see URL: https://physionet.org/content/mimic3wdb/1.0/)</span>
-<span class="n">icustay_records</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: Loaded list of </span><span class="si">{}</span><span class="s2"> ICU stays for &#39;</span><span class="si">{}</span><span class="s2">&#39; database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">icustay_records</span><span class="p">),</span> <span class="n">database_name</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mimic_wfdb_version</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># either: 3 or 4</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Setup for this particular version of the database:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">mimic_wfdb_version</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">wfdb</span><span class="o">.</span><span class="n">set_db_index_url</span><span class="p">(</span><span class="s1">&#39;https://physionet.org/files&#39;</span><span class="p">)</span> <span class="c1"># use the version of the WFDB toolbox which corresponds to MIMIC IV.</span>
+    <span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0&#39;</span> <span class="c1"># The name of the MIMIC III Waveform Database on Physionet (see URL: https://physionet.org/content/mimic3wdb/1.0/)</span>
+<span class="k">elif</span> <span class="n">mimic_wfdb_version</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+    <span class="n">wfdb</span><span class="o">.</span><span class="n">set_db_index_url</span><span class="p">(</span><span class="s1">&#39;https://challenge.physionet.org/benjamin/db&#39;</span><span class="p">)</span> <span class="c1"># use the version of the WFDB toolbox which corresponds to MIMIC IV.</span>
+    <span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic4wdb/0.1.0&#39;</span> <span class="c1"># The name of the MIMIC IV Waveform Demo Database on Physionet</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using MIMIC Waveform Database version: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mimic_wfdb_version</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: Loaded list of 67830 ICU stays for &#39;mimic3wdb/1.0&#39; database
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using MIMIC Waveform Database version: 3
 </pre></div>
 </div>
 </div>
 </div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="identify-the-records-in-the-database">
+<h2>Identify the records in the database<a class="headerlink" href="#identify-the-records-in-the-database" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-a-list-of-records">
+<h3>Get a list of records<a class="headerlink" href="#get-a-list-of-records" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Use the <a class="reference external" href="https://wfdb.readthedocs.io/en/latest/io.html#wfdb.io.get_record_list"><code class="docutils literal notranslate"><span class="pre">get_record_list</span></code></a> function from the WFDB toolbox to get a list of records in the database.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">database_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mimic3wdb/1.0
+mimic3wdb/1.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">no_records_to_load</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">subjects</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The &#39;</span><span class="si">{}</span><span class="s2">&#39; database contains data from </span><span class="si">{}</span><span class="s2"> subjects&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">database_name</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">subjects</span><span class="p">)))</span>
+<span class="n">finished</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">subjects</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">finished</span><span class="p">):</span>
+        <span class="n">studies</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">database_name</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">study</span> <span class="ow">in</span> <span class="n">studies</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mimic_wfdb_version</span> <span class="o">==</span> <span class="mi">3</span> <span class="o">&amp;</span> <span class="p">(</span><span class="s2">&quot;_&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">study</span><span class="p">):</span> <span class="c1"># This skips any files which don&#39;t contain waveform data (e.g. numerics files)</span>
+                <span class="k">continue</span>
+            <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">subject</span><span class="si">}{</span><span class="n">study</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">no_records_to_load</span><span class="p">:</span> <span class="c1"># stop if we&#39;ve loaded enough records</span>
+                <span class="n">finished</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: Loaded list of </span><span class="si">{}</span><span class="s2"> records for &#39;</span><span class="si">{}</span><span class="s2">&#39; database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">),</span> <span class="n">database_name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The &#39;mimic3wdb/1.0&#39; database contains data from 67830 subjects
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: Loaded list of 19 records for &#39;mimic3wdb/1.0&#39; database
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="look-at-the-records">
+<h3>Look at the records<a class="headerlink" href="#look-at-the-records" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Display the first few records</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First five ICU stays: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_records</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First five records: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">records</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]))</span>
+<span class="k">if</span> <span class="n">mimic_wfdb_version</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Note the formatting of these records:</span><span class="se">\n</span><span class="s2"> - intermediate directory (&#39;30&#39; in this case)</span><span class="se">\n</span><span class="s2"> - subject identifier (&#39;3000003&#39; in this case)</span><span class="se">\n</span><span class="s2"> - record identifier (e.g. &#39;3000003_0001&#39;&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Note the formatting of these records:</span><span class="se">\n</span><span class="s2"> - intermediate directory (&#39;p100&#39; in this case)</span><span class="se">\n</span><span class="s2"> - subject identifier (e.g. &#39;p10014354&#39;)</span><span class="se">\n</span><span class="s2"> - record identifier (e.g. &#39;81739927&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First five ICU stays: [&#39;30/3000003/&#39;, &#39;30/3000031/&#39;, &#39;30/3000051/&#39;, &#39;30/3000060/&#39;, &#39;30/3000063/&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First five records: [PosixPath(&#39;30/3000003/3000003&#39;), PosixPath(&#39;30/3000003/3000003n&#39;), PosixPath(&#39;30/3000003/3000003_0001&#39;), PosixPath(&#39;30/3000003/3000003_0002&#39;), PosixPath(&#39;30/3000003/3000003_0003&#39;)]
+
+Note the formatting of these records:
+ - intermediate directory (&#39;30&#39; in this case)
+ - subject identifier (&#39;3000003&#39; in this case)
+ - record identifier (e.g. &#39;3000003_0001&#39;
 </pre></div>
 </div>
 </div>
 </div>
-<p>Note the formatting of these records: each starts with an intermediate directory (“30” in this case), followed by a record directory.</p>
-<div class="alert alert-block alert-info"> <b>Q:</b> Can you print the names of the last five ICU stays? <br> <b>Hint:</b> in Python, the last five elements can be specified using '[-5:]' </div></div>
+<div class="alert alert-block alert-info"> <b>Q:</b> Can you print the names of the last five records? <br> <b>Hint:</b> in Python, the last five elements can be specified using '[-5:]' </div></div>
 </div>
 <hr class="docutils" />
-<div class="section" id="extract-metadata-for-an-icu-stay">
-<h2>Extract metadata for an ICU stay<a class="headerlink" href="#extract-metadata-for-an-icu-stay" title="Permalink to this headline">¶</a></h2>
-<p>Each ICU stay contains metadata stored in a header file, named “&lt;ICU stay record name&gt;.hea”</p>
-<div class="section" id="specify-the-online-directory-containing-an-icu-stay-s-data">
-<h3>Specify the online directory containing an ICU stay’s data<a class="headerlink" href="#specify-the-online-directory-containing-an-icu-stay-s-data" title="Permalink to this headline">¶</a></h3>
-<p>In this case, each ICU stay corresponds to a record.</p>
+<div class="section" id="extract-metadata-for-a-record">
+<h2>Extract metadata for a record<a class="headerlink" href="#extract-metadata-for-a-record" title="Permalink to this headline">¶</a></h2>
+<p>Each record contains metadata stored in a header file, named “&lt;record name&gt;.hea”</p>
+<div class="section" id="specify-the-online-directory-containing-a-record-s-data">
+<h3>Specify the online directory containing a record’s data<a class="headerlink" href="#specify-the-online-directory-containing-a-record-s-data" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_no</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># specify the first record (noting that in Python the first index is 0)</span>
-<span class="n">icustay_record</span> <span class="o">=</span> <span class="n">icustay_records</span><span class="p">[</span><span class="n">icustay_no</span><span class="p">]</span>
-<span class="n">icustay_record_dir</span> <span class="o">=</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">icustay_record</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Physionet directory specified for this ICU stay: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_record_dir</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">mimic_wfdb_version</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">no</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">no</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># specify the fourth record (noting that in Python the first index is 0)</span>
+<span class="n">record</span> <span class="o">=</span> <span class="n">records</span><span class="p">[</span><span class="n">no</span><span class="p">]</span>
+<span class="n">record_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">database_name</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Physionet directory specified for this record: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_dir</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Physionet directory specified for this ICU stay: mimic3wdb/1.0/30/3000003/
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Physionet directory specified for this record: mimic3wdb/1.0/30/3000003
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="specify-the-name-of-the-icu-stay">
-<h3>Specify the name of the ICU stay<a class="headerlink" href="#specify-the-name-of-the-icu-stay" title="Permalink to this headline">¶</a></h3>
-<p>Extract the ICU stay record name (e.g. ‘3000003’) from the ICU stay record (e.g. ‘30/300003’):</p>
+<div class="section" id="specify-the-subject-identifier">
+<h3>Specify the subject identifier<a class="headerlink" href="#specify-the-subject-identifier" title="Permalink to this headline">¶</a></h3>
+<p>Extract the record name (e.g. ‘83411188’) from the record (e.g. ‘p100/p10039708/83411188/83411188’):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_record_name</span> <span class="o">=</span> <span class="n">icustay_record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ICU stay name: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_record_name</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">record_name</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">name</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Record name: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_name</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ICU stay name: 3000003
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Record name: 3000003
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="load-the-metadata-for-this-icu-stay">
-<h3>Load the metadata for this ICU stay<a class="headerlink" href="#load-the-metadata-for-this-icu-stay" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="load-the-metadata-for-this-record">
+<h3>Load the metadata for this record<a class="headerlink" href="#load-the-metadata-for-this-record" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Use the <a class="reference external" href="https://wfdb.readthedocs.io/en/latest/io.html#wfdb.io.rdheader"><code class="docutils literal notranslate"><span class="pre">rdheader</span></code></a> function from the WFDB toolbox to load metadata from the record header file</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">icustay_record_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">icustay_record_dir</span><span class="p">,</span> <span class="n">rd_segments</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: metadata loaded for ICU stay &#39;</span><span class="si">{}</span><span class="s2">&#39; from header file at URL: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_record_name</span><span class="p">,</span> <span class="s2">&quot;https://physionet.org/content/&quot;</span> <span class="o">+</span> <span class="n">record_dir</span> <span class="o">+</span> <span class="n">record_name</span> <span class="o">+</span> <span class="s2">&quot;.hea&quot;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">record_dir</span><span class="p">,</span> <span class="n">rd_segments</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: metadata loaded for record &#39;</span><span class="si">{}</span><span class="s2">&#39; from header file at URL: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_name</span><span class="p">,</span> <span class="s2">&quot;https://physionet.org/content/&quot;</span> <span class="o">+</span> <span class="n">record_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">record_name</span> <span class="o">+</span> <span class="s2">&quot;.hea&quot;</span><span class="p">))</span>
+<span class="c1"># NOTE &quot;https://physionet.org/content/&quot; won&#39;t be correct until the MIMIC-IV-Waveform is officially released</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">Input In [6],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">icustay_record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">icustay_record_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">icustay_record_dir</span><span class="p">,</span> <span class="n">rd_segments</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: metadata loaded for ICU stay &#39;</span><span class="si">{}</span><span class="s2">&#39; from header file at URL: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_record_name</span><span class="p">,</span> <span class="s2">&quot;https://physionet.org/content/&quot;</span> <span class="o">+</span> <span class="n">record_dir</span> <span class="o">+</span> <span class="n">record_name</span> <span class="o">+</span> <span class="s2">&quot;.hea&quot;</span><span class="p">))</span>
-
-<span class="ne">NameError</span>: name &#39;record_dir&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: metadata loaded for record &#39;3000003&#39; from header file at URL: https://physionet.org/content/mimic3wdb/1.0/30/3000003/3000003.hea
 </pre></div>
 </div>
 </div>
@@ -822,8 +989,8 @@ title="Print to PDF"
 </div>
 </div>
 <hr class="docutils" />
-<div class="section" id="inspect-details-of-physiological-signals-recorded-in-this-icu-stay">
-<h2>Inspect details of physiological signals recorded in this ICU stay<a class="headerlink" href="#inspect-details-of-physiological-signals-recorded-in-this-icu-stay" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="inspect-details-of-physiological-signals-recorded-in-this-record">
+<h2>Inspect details of physiological signals recorded in this record<a class="headerlink" href="#inspect-details-of-physiological-signals-recorded-in-this-record" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Printing a few details of the signals from the extracted metadata</p></li>
 </ul>
@@ -831,74 +998,88 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;- Number of signals: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">n_sig</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;- Duration: </span><span class="si">{:.1f}</span><span class="s2"> hours&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">sig_len</span><span class="o">/</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">fs</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="p">)))</span> 
+<span class="c1"># NOTE fs isn&#39;t 125 Hz</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;- Sampling frequency: </span><span class="si">{}</span><span class="s2"> Hz&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">fs</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>- Number of signals: 2
-- Duration: 0.0 hours
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>- Number of signals: 5
+- Duration: 42.0 hours
 - Sampling frequency: 125 Hz
 </pre></div>
 </div>
 </div>
 </div>
-<p>Note that:</p>
-<ul class="simple">
-<li><p>Not all signals may be present throughout the duration of the record</p></li>
-<li><p>All signals in MIMIC are sampled at 125 Hz.</p></li>
-</ul>
 </div>
 <hr class="docutils" />
-<div class="section" id="inspect-the-segments-making-up-an-icu-stay">
-<h2>Inspect the segments making up an ICU stay<a class="headerlink" href="#inspect-the-segments-making-up-an-icu-stay" title="Permalink to this headline">¶</a></h2>
-<p>Each ICU stay is typically made up of several segments (which correspond to records)</p>
-<ul class="simple">
-<li><p>Inspect the files in this ICU stay</p></li>
-</ul>
+<div class="section" id="inspect-the-segments-making-up-a-record">
+<h2>Inspect the segments making up a record<a class="headerlink" href="#inspect-the-segments-making-up-a-record" title="Permalink to this headline">¶</a></h2>
+<p>Each record is typically made up of several segments</p>
+<div class="section" id="inspect-the-files-in-a-record">
+<h3>Inspect the files in a record<a class="headerlink" href="#inspect-the-files-in-a-record" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_files</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">icustay_record_dir</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: Loaded list of </span><span class="si">{}</span><span class="s2"> files for &#39;</span><span class="si">{}</span><span class="s2">&#39; ICU stay&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">icustay_files</span><span class="p">),</span> <span class="n">icustay_record_dir</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">mimic_wfdb_version</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">record_dir</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: Loaded list of </span><span class="si">{}</span><span class="s2"> records for subject &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">record_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">record_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: Loaded list of </span><span class="si">{}</span><span class="s2"> records for subject &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">record_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: Loaded list of 19 files for &#39;mimic3wdb/1.0/30/3000003/&#39; ICU stay
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: Loaded list of 19 records for subject &#39;3000003&#39;
 </pre></div>
 </div>
 </div>
 </div>
-<p>Inspect the contents of the first two files:</p>
+</div>
+<div class="section" id="inspect-the-contents-of-the-first-two-files">
+<h3>Inspect the contents of the first two files<a class="headerlink" href="#inspect-the-contents-of-the-first-two-files" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The first file, &#39;</span><span class="si">{}</span><span class="s2">&#39;, contains the metadata for the ICU stay.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The second file, &#39;</span><span class="si">{}</span><span class="s2">&#39;, contains the numerics data for the ICU stay.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_files</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">mimic_wfdb_version</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The first file is: &#39;</span><span class="si">{}</span><span class="s2">&#39;, which provides metadata for the whole record&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The second file is: &#39;</span><span class="si">{}</span><span class="s2">&#39;, which contains numerics data&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">)</span>    
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The first file contains the first record: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The second file contains the second record: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;where the number before the / is the record number and the number after is for the multi-segment header file. This multi-segment header file provides general information about the record.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The first file, &#39;3000003&#39;, contains the metadata for the ICU stay.
-The second file, &#39;3000003n&#39;, contains the numerics data for the ICU stay.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The first file is: &#39;3000003&#39;, which provides metadata for the whole record
+The second file is: &#39;3000003n&#39;, which contains numerics data
 </pre></div>
 </div>
 </div>
 </div>
-<p>The remaining files contain the waveform data for the ICU stay, split into segments, with one file per segment.</p>
+</div>
+<div class="section" id="inspect-the-segments-within-a-record">
+<h3>Inspect the segments within a record<a class="headerlink" href="#inspect-the-segments-within-a-record" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">icustay_files</span> <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The remaining </span><span class="si">{}</span><span class="s2"> files: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">icustay_segments</span><span class="p">),</span> <span class="n">icustay_segments</span><span class="p">)</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segments</span> <span class="o">=</span> <span class="n">record_data</span><span class="o">.</span><span class="n">seg_name</span>
+<span class="c1"># --- these lines remove non-waveform data from MIMIC III files</span>
+<span class="k">for</span> <span class="n">curr_seg</span> <span class="ow">in</span> <span class="n">segments</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;~&quot;</span> <span class="ow">in</span> <span class="n">curr_seg</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot;layout&quot;</span> <span class="ow">in</span> <span class="n">curr_seg</span><span class="p">):</span>
+        <span class="n">segments</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">curr_seg</span><span class="p">)</span>
+<span class="c1"># ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The </span><span class="si">{}</span><span class="s2"> segments from record </span><span class="si">{}</span><span class="s2"> are: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">segments</span><span class="p">),</span> <span class="n">record_name</span><span class="p">,</span> <span class="n">segments</span><span class="p">)</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The remaining 17 files: [&#39;3000003_0001&#39;, &#39;3000003_0002&#39;, &#39;3000003_0003&#39;, &#39;3000003_0004&#39;, &#39;3000003_0005&#39;, &#39;3000003_0006&#39;, &#39;3000003_0007&#39;, &#39;3000003_0008&#39;, &#39;3000003_0009&#39;, &#39;3000003_0010&#39;, &#39;3000003_0011&#39;, &#39;3000003_0012&#39;, &#39;3000003_0013&#39;, &#39;3000003_0014&#39;, &#39;3000003_0015&#39;, &#39;3000003_0016&#39;, &#39;3000003_0017&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The 17 segments from record 3000003 are: [&#39;3000003_0001&#39;, &#39;3000003_0002&#39;, &#39;3000003_0003&#39;, &#39;3000003_0004&#39;, &#39;3000003_0005&#39;, &#39;3000003_0006&#39;, &#39;3000003_0007&#39;, &#39;3000003_0008&#39;, &#39;3000003_0009&#39;, &#39;3000003_0010&#39;, &#39;3000003_0011&#39;, &#39;3000003_0012&#39;, &#39;3000003_0013&#39;, &#39;3000003_0014&#39;, &#39;3000003_0015&#39;, &#39;3000003_0016&#39;, &#39;3000003_0017&#39;]
 </pre></div>
 </div>
 </div>
 </div>
 <p>Note the format of the names of the files containing waveform data for each segment: record directory, “_”, segment number</p>
+</div>
 </div>
 <hr class="docutils" />
 <div class="section" id="inspect-an-individual-segment">
@@ -910,21 +1091,20 @@ The second file, &#39;3000003n&#39;, contains the numerics data for the ICU stay
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_name</span> <span class="o">=</span> <span class="n">icustay_segments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">segment_metadata</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">icustay_record_dir</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Header metadata loaded for segment &#39;</span><span class="si">{}</span><span class="s2">&#39; in ICU stay &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">segment_name</span><span class="p">,</span> <span class="n">icustay_record_name</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_metadata</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">segments</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">record_dir</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Header metadata loaded for the segment &#39;</span><span class="si">{}</span><span class="s2">&#39; in study &#39;</span><span class="si">{}</span><span class="s2">&#39; for subject &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">segments</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">record_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">record_dir</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Header metadata loaded for segment &#39;3000003_0001&#39; in ICU stay &#39;3000003&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Header metadata loaded for the segment &#39;3000003_0002&#39; in study &#39;3000003&#39; for subject &#39;30&#39;
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="find-out-what-signals-are-present-and-for-how-long">
-<h3>Find out what signals are present, and for how long<a class="headerlink" href="#find-out-what-signals-are-present-and-for-how-long" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="find-out-what-signals-are-present">
+<h3>Find out what signals are present<a class="headerlink" href="#find-out-what-signals-are-present" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This segment contains the following signals: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">segment_metadata</span><span class="o">.</span><span class="n">sig_name</span><span class="p">))</span>
@@ -940,7 +1120,10 @@ The signals are measured in units of: [&#39;mV&#39;, &#39;mV&#39;]
 </div>
 </div>
 <p>See <a class="reference external" href="https://archive.physionet.org/mimic2/mimic2_waveform_overview.shtml#signals-125-samplessecond">here</a> for definitions of signal abbreviations.</p>
-<div class="alert alert-block alert-info"> <b>Q:</b> Which of these signals is still present in segment '3000003_0014'? </div><p>All signals in a segment are time-aligned, measured at the same sampling frequency, and last the same duration:</p>
+<div class="alert alert-block alert-info"> <b>Q:</b> Which of these signals is still present in segment '3000003_0014' (for MIMIC III) or segment '83411188_0000' (for MIMIC IV)? </div></div>
+<div class="section" id="find-out-how-long-each-signal-lasts">
+<h3>Find out how long each signal lasts<a class="headerlink" href="#find-out-how-long-each-signal-lasts" title="Permalink to this headline">¶</a></h3>
+<p>All signals in a segment are time-aligned, measured at the same sampling frequency, and last the same duration:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All the signals are sampled at </span><span class="si">{}</span><span class="s2"> Hz&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">segment_metadata</span><span class="o">.</span><span class="n">fs</span><span class="p">))</span>
@@ -950,7 +1133,7 @@ The signals are measured in units of: [&#39;mV&#39;, &#39;mV&#39;]
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All the signals are sampled at 125 Hz
-and they last for 2.3 minutes
+and they last for 0.1 minutes
 </pre></div>
 </div>
 </div>
