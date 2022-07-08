@@ -640,6 +640,28 @@ title="Print to PDF"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#identify-records-suitable-for-analysis">
+   Identify records suitable for analysis
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Setup
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-requirements">
+     Specify requirements
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#find-out-how-many-records-meet-the-requirements">
+     Find out how many records meet the requirements
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
     </nav>
@@ -764,6 +786,28 @@ title="Print to PDF"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#identify-records-suitable-for-analysis">
+   Identify records suitable for analysis
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Setup
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-requirements">
+     Specify requirements
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#find-out-how-many-records-meet-the-requirements">
+     Find out how many records meet the requirements
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
                         </nav>
@@ -782,6 +826,7 @@ title="Print to PDF"
 <li><p>To gain an understanding of the structure of the MIMIC Database, consisting of subjects, studies, records, and segments.</p></li>
 <li><p>To start using the WaveForm DataBase Toolbox to work with waveform data files</p></li>
 <li><p>To understand how to find out what signals are present in a record or a segment, and how long they last.</p></li>
+<li><p>To gain experience in searching for records which contain the signals required for a particular study.</p></li>
 </ul>
 <hr class="docutils" />
 <div class="section" id="setup">
@@ -817,7 +862,7 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mimic_wfdb_version</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># either: 3 or 4</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mimic_wfdb_version</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1"># either: 3 or 4</span>
 </pre></div>
 </div>
 </div>
@@ -838,7 +883,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using MIMIC Waveform Database version: 3
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using MIMIC Waveform Database version: 4
 </pre></div>
 </div>
 </div>
@@ -855,22 +900,8 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">database_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mimic3wdb/1.0
-mimic3wdb/1.0
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">no_records_to_load</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">no_records_to_load</span> <span class="o">=</span> <span class="mi">205</span>
 <span class="n">subjects</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The &#39;</span><span class="si">{}</span><span class="s2">&#39; database contains data from </span><span class="si">{}</span><span class="s2"> subjects&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">database_name</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">subjects</span><span class="p">)))</span>
 <span class="n">finished</span> <span class="o">=</span> <span class="kc">False</span>
@@ -883,15 +914,18 @@ mimic3wdb/1.0
             <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">subject</span><span class="si">}{</span><span class="n">study</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">no_records_to_load</span><span class="p">:</span> <span class="c1"># stop if we&#39;ve loaded enough records</span>
                 <span class="n">finished</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: Loaded list of </span><span class="si">{}</span><span class="s2"> records for &#39;</span><span class="si">{}</span><span class="s2">&#39; database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">),</span> <span class="n">database_name</span><span class="p">))</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">finished</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: Went through entire database and loaded list of </span><span class="si">{}</span><span class="s2"> records for &#39;</span><span class="si">{}</span><span class="s2">&#39; database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">),</span> <span class="n">database_name</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done: Went through first bit of database and loaded list of </span><span class="si">{}</span><span class="s2"> records for &#39;</span><span class="si">{}</span><span class="s2">&#39; database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">),</span> <span class="n">database_name</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The &#39;mimic3wdb/1.0&#39; database contains data from 67830 subjects
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The &#39;mimic4wdb/0.1.0&#39; database contains data from 198 subjects
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: Loaded list of 19 records for &#39;mimic3wdb/1.0&#39; database
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: Went through entire database and loaded list of 200 records for &#39;mimic4wdb/0.1.0&#39; database
 </pre></div>
 </div>
 </div>
@@ -913,12 +947,12 @@ mimic3wdb/1.0
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First five records: [PosixPath(&#39;30/3000003/3000003&#39;), PosixPath(&#39;30/3000003/3000003n&#39;), PosixPath(&#39;30/3000003/3000003_0001&#39;), PosixPath(&#39;30/3000003/3000003_0002&#39;), PosixPath(&#39;30/3000003/3000003_0003&#39;)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First five records: [PosixPath(&#39;p100/p10014354/81739927/81739927&#39;), PosixPath(&#39;p100/p10019003/87033314/87033314&#39;), PosixPath(&#39;p100/p10020306/83404654/83404654&#39;), PosixPath(&#39;p100/p10039708/83411188/83411188&#39;), PosixPath(&#39;p100/p10039708/85583557/85583557&#39;)]
 
 Note the formatting of these records:
- - intermediate directory (&#39;30&#39; in this case)
- - subject identifier (&#39;3000003&#39; in this case)
- - record identifier (e.g. &#39;3000003_0001&#39;
+ - intermediate directory (&#39;p100&#39; in this case)
+ - subject identifier (e.g. &#39;p10014354&#39;)
+ - record identifier (e.g. &#39;81739927&#39;
 </pre></div>
 </div>
 </div>
@@ -944,7 +978,7 @@ Note the formatting of these records:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Physionet directory specified for this record: mimic3wdb/1.0/30/3000003
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Physionet directory specified for this record: mimic4wdb/0.1.0/p100/p10039708/83411188
 </pre></div>
 </div>
 </div>
@@ -961,7 +995,7 @@ Note the formatting of these records:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Record name: 3000003
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Record name: 83411188
 </pre></div>
 </div>
 </div>
@@ -981,7 +1015,7 @@ Note the formatting of these records:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: metadata loaded for record &#39;3000003&#39; from header file at URL: https://physionet.org/content/mimic3wdb/1.0/30/3000003/3000003.hea
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: metadata loaded for record &#39;83411188&#39; from header file at URL: https://physionet.org/content/mimic4wdb/0.1.0/p100/p10039708/83411188/83411188.hea
 </pre></div>
 </div>
 </div>
@@ -1004,9 +1038,9 @@ Note the formatting of these records:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>- Number of signals: 5
-- Duration: 42.0 hours
-- Sampling frequency: 125 Hz
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>- Number of signals: 6
+- Duration: 14.2 hours
+- Sampling frequency: 62.4725 Hz
 </pre></div>
 </div>
 </div>
@@ -1030,7 +1064,7 @@ Note the formatting of these records:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: Loaded list of 19 records for subject &#39;3000003&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done: Loaded list of 2 records for subject &#39;p10039708&#39;
 </pre></div>
 </div>
 </div>
@@ -1051,8 +1085,9 @@ Note the formatting of these records:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The first file is: &#39;3000003&#39;, which provides metadata for the whole record
-The second file is: &#39;3000003n&#39;, which contains numerics data
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The first file contains the first record: &#39;83411188/83411188&#39;
+The second file contains the second record: &#39;85583557/85583557&#39;
+where the number before the / is the record number and the number after is for the multi-segment header file. This multi-segment header file provides general information about the record.
 </pre></div>
 </div>
 </div>
@@ -1073,7 +1108,7 @@ The second file is: &#39;3000003n&#39;, which contains numerics data
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The 17 segments from record 3000003 are: [&#39;3000003_0001&#39;, &#39;3000003_0002&#39;, &#39;3000003_0003&#39;, &#39;3000003_0004&#39;, &#39;3000003_0005&#39;, &#39;3000003_0006&#39;, &#39;3000003_0007&#39;, &#39;3000003_0008&#39;, &#39;3000003_0009&#39;, &#39;3000003_0010&#39;, &#39;3000003_0011&#39;, &#39;3000003_0012&#39;, &#39;3000003_0013&#39;, &#39;3000003_0014&#39;, &#39;3000003_0015&#39;, &#39;3000003_0016&#39;, &#39;3000003_0017&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The 6 segments from record 83411188 are: [&#39;83411188_0000&#39;, &#39;83411188_0001&#39;, &#39;83411188_0002&#39;, &#39;83411188_0003&#39;, &#39;83411188_0004&#39;, &#39;83411188_0005&#39;]
 </pre></div>
 </div>
 </div>
@@ -1097,7 +1132,7 @@ The second file is: &#39;3000003n&#39;, which contains numerics data
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Header metadata loaded for the segment &#39;3000003_0002&#39; in study &#39;3000003&#39; for subject &#39;30&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Header metadata loaded for the segment &#39;83411188_0001&#39; in study &#39;83411188&#39; for subject &#39;p10039708&#39;
 </pre></div>
 </div>
 </div>
@@ -1113,8 +1148,8 @@ The second file is: &#39;3000003n&#39;, which contains numerics data
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This segment contains the following signals: [&#39;II&#39;, &#39;V&#39;]
-The signals are measured in units of: [&#39;mV&#39;, &#39;mV&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This segment contains the following signals: [&#39;II&#39;, &#39;V&#39;, &#39;aVR&#39;, &#39;ABP&#39;, &#39;Pleth&#39;, &#39;Resp&#39;]
+The signals are measured in units of: [&#39;mV&#39;, &#39;mV&#39;, &#39;mV&#39;, &#39;mmHg&#39;, &#39;NU&#39;, &#39;Ohm&#39;]
 </pre></div>
 </div>
 </div>
@@ -1132,8 +1167,546 @@ The signals are measured in units of: [&#39;mV&#39;, &#39;mV&#39;]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All the signals are sampled at 125 Hz
-and they last for 0.1 minutes
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All the signals are sampled at 62.4725 Hz
+and they last for 0.9 minutes
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="identify-records-suitable-for-analysis">
+<h2>Identify records suitable for analysis<a class="headerlink" href="#identify-records-suitable-for-analysis" title="Permalink to this headline">¶</a></h2>
+<p>The signals available and their durations vary from one record (and segment) to the next. Since most studies require specific types of signals (e.g. blood pressure and photoplethysmography signals), it is important to identify which records (or segments) contain the required signals for the required duration.</p>
+<div class="section" id="id1">
+<h3>Setup<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Earlier, we loaded a list of </span><span class="si">{}</span><span class="s2"> records for &#39;</span><span class="si">{}</span><span class="s2">&#39; database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">),</span> <span class="n">database_name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Earlier, we loaded a list of 200 records for &#39;mimic4wdb/0.1.0&#39; database
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="specify-requirements">
+<h3>Specify requirements<a class="headerlink" href="#specify-requirements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Required signals</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">required_sigs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ABP&#39;</span><span class="p">,</span> <span class="s1">&#39;Pleth&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Required duration</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">req_seg_duration</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="mi">60</span>  <span class="c1"># converting from minutes to seconds</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="find-out-how-many-records-meet-the-requirements">
+<h3>Find out how many records meet the requirements<a class="headerlink" href="#find-out-how-many-records-meet-the-requirements" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matching_recs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dir&#39;</span><span class="p">:[],</span><span class="s1">&#39;seg_name&#39;</span><span class="p">:[],</span><span class="s1">&#39;length&#39;</span><span class="p">:[]}</span>
+<span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Record: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">record_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">database_name</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">record_name</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">name</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; (reading data)&#39;</span><span class="p">)</span>
+    <span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">record_dir</span><span class="p">,</span> <span class="n">rd_segments</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Get the segments for the record</span>
+    <span class="n">segments</span> <span class="o">=</span> <span class="n">record_data</span><span class="o">.</span><span class="n">seg_name</span>
+    <span class="c1"># First check to see if the segment is 10 min long, if not move onto the next one</span>
+    <span class="n">gen</span> <span class="o">=</span> <span class="p">(</span><span class="n">segment</span> <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">segments</span> <span class="k">if</span> <span class="n">segment</span> <span class="o">!=</span> <span class="s1">&#39;~&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; - Segment: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">segment</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">segment_metadata</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">segment</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">record_dir</span><span class="p">)</span>
+        <span class="n">seg_length</span> <span class="o">=</span> <span class="n">segment_metadata</span><span class="o">.</span><span class="n">sig_len</span><span class="o">/</span><span class="p">(</span><span class="n">segment_metadata</span><span class="o">.</span><span class="n">fs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">seg_length</span> <span class="o">&lt;</span> <span class="n">req_seg_duration</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; (too short at </span><span class="si">{:.1f}</span><span class="s1"> mins)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">seg_length</span><span class="o">/</span><span class="mi">60</span><span class="p">))</span>
+            <span class="k">continue</span>
+        <span class="c1"># Next check that all required signals are present in the segment</span>
+        <span class="n">sigs_present</span> <span class="o">=</span> <span class="n">segment_metadata</span><span class="o">.</span><span class="n">sig_name</span>
+        
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">sigs_present</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">required_sigs</span><span class="p">):</span>
+            <span class="n">matching_recs</span><span class="p">[</span><span class="s1">&#39;dir&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record_dir</span><span class="p">)</span>
+            <span class="n">matching_recs</span><span class="p">[</span><span class="s1">&#39;seg_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+            <span class="n">matching_recs</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">seg_length</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; (met requirements)&#39;</span><span class="p">)</span>
+            <span class="c1"># Since we only need one segment per record break out of loop</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; (long enough, but missing signal(s))&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A total of </span><span class="si">{}</span><span class="s2"> records met the requirements&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matching_recs</span><span class="p">[</span><span class="s1">&#39;dir&#39;</span><span class="p">])))</span>
+<span class="c1">#df_matching_recs = pd.DataFrame(data=matching_recs)</span>
+<span class="c1">#df_matching_recs.to_csv(&#39;matching_records.csv&#39;, index=False)</span>
+<span class="c1">#p=1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Record: p100/p10014354/81739927/81739927
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - Segment: 81739927_0000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 81739927_0001
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+ - Segment: 81739927_0002
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.9 mins)
+ - Segment: 81739927_0003
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+ - Segment: 81739927_0004
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 81739927_0005
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.5 mins)
+ - Segment: 81739927_0006
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+ - Segment: 81739927_0007
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 81739927_0008
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 81739927_0009
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.3 mins)
+ - Segment: 81739927_0010
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 81739927_0011
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.4 mins)
+ - Segment: 81739927_0012
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 81739927_0013
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.2 mins)
+ - Segment: 81739927_0014
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 81739927_0015
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 6.2 mins)
+ - Segment: 81739927_0016
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 81739927_0017
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 81739927_0018
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+ - Segment: 81739927_0019
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 1.5 mins)
+ - Segment: 81739927_0020
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+Record: p100/p10019003/87033314/87033314
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - Segment: 87033314_0000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 87033314_0001
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 5.2 mins)
+ - Segment: 87033314_0002
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+ - Segment: 87033314_0003
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 87033314_0004
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+ - Segment: 87033314_0005
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 87033314_0006
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 4.4 mins)
+ - Segment: 87033314_0007
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 87033314_0008
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 87033314_0009
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+Record: p100/p10020306/83404654/83404654
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - Segment: 83404654_0000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 83404654_0001
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 83404654_0002
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+ - Segment: 83404654_0003
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.3 mins)
+ - Segment: 83404654_0004
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 83404654_0005
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (met requirements)
+Record: p100/p10039708/83411188/83411188
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - Segment: 83411188_0000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 83411188_0001
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+ - Segment: 83411188_0002
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.9 mins)
+ - Segment: 83411188_0003
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.3 mins)
+ - Segment: 83411188_0004
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.3 mins)
+ - Segment: 83411188_0005
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+Record: p100/p10039708/85583557/85583557
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - Segment: 85583557_0000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 85583557_0001
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+Record: p100/p10079700/85594648/85594648
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - Segment: 85594648_0000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 85594648_0001
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 85594648_0002
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+ - Segment: 85594648_0003
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+ - Segment: 85594648_0004
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+ - Segment: 85594648_0005
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 3.9 mins)
+ - Segment: 85594648_0006
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.1 mins)
+ - Segment: 85594648_0007
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+Record: p100/p10082591/84050536/84050536
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - Segment: 84050536_0000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 84050536_0001
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 1.3 mins)
+ - Segment: 84050536_0002
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (long enough, but missing signal(s))
+Record: p101/p10100546/83268087/83268087
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">Input In [20],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">record_name</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">name</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; (reading data)&#39;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">record_dir</span><span class="p">,</span> <span class="n">rd_segments</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Get the segments for the record</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">segments</span> <span class="o">=</span> <span class="n">record_data</span><span class="o">.</span><span class="n">seg_name</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:3310,</span> in <span class="ni">rdheader</span><span class="nt">(record_name, pn_dir, rd_segments)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3308</span>         <span class="n">record</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3309</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3310</span>         <span class="n">record</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rdheader</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_name</span><span class="p">,</span> <span class="n">s</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">3311</span>                                         <span class="n">pn_dir</span><span class="p">))</span>
+<span class="g g-Whitespace">   </span><span class="mi">3312</span> <span class="c1"># Fill in the sig_name attribute</span>
+<span class="g g-Whitespace">   </span><span class="mi">3313</span> <span class="n">record</span><span class="o">.</span><span class="n">sig_name</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get_sig_name</span><span class="p">()</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:3259,</span> in <span class="ni">rdheader</span><span class="nt">(record_name, pn_dir, rd_segments)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3256</span>     <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">posixpath</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">get_version</span><span class="p">(</span><span class="n">dir_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="o">*</span><span class="n">dir_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<span class="g g-Whitespace">   </span><span class="mi">3258</span> <span class="c1"># Read the header file. Separate comment and non-comment lines</span>
+<span class="ne">-&gt; </span><span class="mi">3259</span> <span class="n">header_lines</span><span class="p">,</span> <span class="n">comment_lines</span> <span class="o">=</span> <span class="n">_header</span><span class="o">.</span><span class="n">_read_header_lines</span><span class="p">(</span><span class="n">base_record_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3260</span>                                                          <span class="n">dir_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3262</span> <span class="c1"># Get fields from record line</span>
+<span class="g g-Whitespace">   </span><span class="mi">3263</span> <span class="n">record_fields</span> <span class="o">=</span> <span class="n">_header</span><span class="o">.</span><span class="n">_parse_record_line</span><span class="p">(</span><span class="n">header_lines</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/_header.py:874,</span> in <span class="ni">_read_header_lines</span><span class="nt">(base_record_name, dir_name, pn_dir)</span>
+<span class="g g-Whitespace">    </span><span class="mi">871</span>                     <span class="n">header_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">872</span> <span class="c1"># Read online header file</span>
+<span class="g g-Whitespace">    </span><span class="mi">873</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">874</span>     <span class="n">header_lines</span><span class="p">,</span> <span class="n">comment_lines</span> <span class="o">=</span> <span class="n">download</span><span class="o">.</span><span class="n">_stream_header</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">875</span>                                                           <span class="n">pn_dir</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">877</span> <span class="k">return</span> <span class="n">header_lines</span><span class="p">,</span> <span class="n">comment_lines</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/download.py:111,</span> in <span class="ni">_stream_header</span><span class="nt">(file_name, pn_dir)</span>
+<span class="g g-Whitespace">    </span><span class="mi">109</span> <span class="c1"># Full url of header location</span>
+<span class="g g-Whitespace">    </span><span class="mi">110</span> <span class="n">url</span> <span class="o">=</span> <span class="n">posixpath</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">db_index_url</span><span class="p">,</span> <span class="n">pn_dir</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">111</span> <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="c1"># Raise HTTPError if invalid url</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span> <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/requests/api.py:73,</span> in <span class="ni">get</span><span class="nt">(url, params, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span> <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span>     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sends a GET request.</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span><span class="sd"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span><span class="sd">     :param url: URL for the new :class:`Request` object.</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span><span class="sd">     :rtype: requests.Response</span>
+<span class="g g-Whitespace">     </span><span class="mi">71</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">73</span>     <span class="k">return</span> <span class="n">request</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/requests/api.py:59,</span> in <span class="ni">request</span><span class="nt">(method, url, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span> <span class="c1"># By using the &#39;with&#39; statement we are sure the session is closed, thus we</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span> <span class="c1"># avoid leaving sockets open which can trigger a ResourceWarning in some</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span> <span class="c1"># cases, and look like a memory leak in others.</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span> <span class="k">with</span> <span class="n">sessions</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">59</span>     <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/requests/sessions.py:587,</span> in <span class="ni">Session.request</span><span class="nt">(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)</span>
+<span class="g g-Whitespace">    </span><span class="mi">582</span> <span class="n">send_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">583</span>     <span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="n">timeout</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">584</span>     <span class="s2">&quot;allow_redirects&quot;</span><span class="p">:</span> <span class="n">allow_redirects</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">585</span> <span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">586</span> <span class="n">send_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">587</span> <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">prep</span><span class="p">,</span> <span class="o">**</span><span class="n">send_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">589</span> <span class="k">return</span> <span class="n">resp</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/requests/sessions.py:701,</span> in <span class="ni">Session.send</span><span class="nt">(self, request, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">698</span> <span class="n">start</span> <span class="o">=</span> <span class="n">preferred_clock</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">700</span> <span class="c1"># Send the request</span>
+<span class="ne">--&gt; </span><span class="mi">701</span> <span class="n">r</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">703</span> <span class="c1"># Total elapsed time of the request (approximately)</span>
+<span class="g g-Whitespace">    </span><span class="mi">704</span> <span class="n">elapsed</span> <span class="o">=</span> <span class="n">preferred_clock</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/requests/adapters.py:489,</span> in <span class="ni">HTTPAdapter.send</span><span class="nt">(self, request, stream, timeout, verify, cert, proxies)</span>
+<span class="g g-Whitespace">    </span><span class="mi">487</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">488</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">chunked</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">489</span>         <span class="n">resp</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span>             <span class="n">method</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">491</span>             <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">492</span>             <span class="n">body</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span>             <span class="n">headers</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span>             <span class="n">redirect</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">495</span>             <span class="n">assert_same_host</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">496</span>             <span class="n">preload_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">497</span>             <span class="n">decode_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span>             <span class="n">retries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_retries</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">499</span>             <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">500</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span>     <span class="c1"># Send the request.</span>
+<span class="g g-Whitespace">    </span><span class="mi">503</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span>         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;proxy_pool&quot;</span><span class="p">):</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/urllib3/connectionpool.py:703,</span> in <span class="ni">HTTPConnectionPool.urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">700</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_proxy</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">702</span> <span class="c1"># Make the request on the httplib connection object.</span>
+<span class="ne">--&gt; </span><span class="mi">703</span> <span class="n">httplib_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">704</span>     <span class="n">conn</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span>     <span class="n">method</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">706</span>     <span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">707</span>     <span class="n">timeout</span><span class="o">=</span><span class="n">timeout_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span>     <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">709</span>     <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">710</span>     <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">711</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">713</span> <span class="c1"># If we&#39;re going to release the connection in ``finally:``, then</span>
+<span class="g g-Whitespace">    </span><span class="mi">714</span> <span class="c1"># the response doesn&#39;t need to know about the connection. Otherwise</span>
+<span class="g g-Whitespace">    </span><span class="mi">715</span> <span class="c1"># it will also try to release it and we&#39;ll have a double-release</span>
+<span class="g g-Whitespace">    </span><span class="mi">716</span> <span class="c1"># mess.</span>
+<span class="g g-Whitespace">    </span><span class="mi">717</span> <span class="n">response_conn</span> <span class="o">=</span> <span class="n">conn</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">release_conn</span> <span class="k">else</span> <span class="kc">None</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/urllib3/connectionpool.py:386,</span> in <span class="ni">HTTPConnectionPool._make_request</span><span class="nt">(self, conn, method, url, timeout, chunked, **httplib_request_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">384</span> <span class="c1"># Trigger any extra validation we need to do.</span>
+<span class="g g-Whitespace">    </span><span class="mi">385</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">386</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_conn</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span> <span class="k">except</span> <span class="p">(</span><span class="n">SocketTimeout</span><span class="p">,</span> <span class="n">BaseSSLError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">388</span>     <span class="c1"># Py2 raises this as a BaseSSLError, Py3 raises it as socket timeout.</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_raise_timeout</span><span class="p">(</span><span class="n">err</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout_value</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/urllib3/connectionpool.py:1042,</span> in <span class="ni">HTTPSConnectionPool._validate_conn</span><span class="nt">(self, conn)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1040</span> <span class="c1"># Force connect early to allow us to validate the connection.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1041</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;sock&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>  <span class="c1"># AppEngine might not have  `.sock`</span>
+<span class="ne">-&gt; </span><span class="mi">1042</span>     <span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1044</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">conn</span><span class="o">.</span><span class="n">is_verified</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1045</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1046</span>         <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1047</span>             <span class="s2">&quot;Unverified HTTPS request is being made to host &#39;</span><span class="si">%s</span><span class="s2">&#39;. &quot;</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1052</span>         <span class="n">InsecureRequestWarning</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1053</span>     <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/urllib3/connection.py:414,</span> in <span class="ni">HTTPSConnection.connect</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">405</span> <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">406</span>     <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ca_certs</span>
+<span class="g g-Whitespace">    </span><span class="mi">407</span>     <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ca_cert_dir</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">410</span>     <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s2">&quot;load_default_certs&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">411</span> <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">412</span>     <span class="n">context</span><span class="o">.</span><span class="n">load_default_certs</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">414</span> <span class="bp">self</span><span class="o">.</span><span class="n">sock</span> <span class="o">=</span> <span class="n">ssl_wrap_socket</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">415</span>     <span class="n">sock</span><span class="o">=</span><span class="n">conn</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">416</span>     <span class="n">keyfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_file</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">417</span>     <span class="n">certfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cert_file</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">418</span>     <span class="n">key_password</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_password</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">419</span>     <span class="n">ca_certs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ca_certs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">420</span>     <span class="n">ca_cert_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ca_cert_dir</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">421</span>     <span class="n">ca_cert_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ca_cert_data</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">422</span>     <span class="n">server_hostname</span><span class="o">=</span><span class="n">server_hostname</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">423</span>     <span class="n">ssl_context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">424</span>     <span class="n">tls_in_tls</span><span class="o">=</span><span class="n">tls_in_tls</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">425</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">427</span> <span class="c1"># If we&#39;re using all defaults and the connection</span>
+<span class="g g-Whitespace">    </span><span class="mi">428</span> <span class="c1"># is TLSv1 or TLSv1.1 we throw a DeprecationWarning</span>
+<span class="g g-Whitespace">    </span><span class="mi">429</span> <span class="c1"># for the host.</span>
+<span class="g g-Whitespace">    </span><span class="mi">430</span> <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">431</span>     <span class="n">default_ssl_context</span>
+<span class="g g-Whitespace">    </span><span class="mi">432</span>     <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ssl_version</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">433</span>     <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">434</span>     <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">version</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;TLSv1&quot;</span><span class="p">,</span> <span class="s2">&quot;TLSv1.1&quot;</span><span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">435</span> <span class="p">):</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/urllib3/util/ssl_.py:402,</span> in <span class="ni">ssl_wrap_socket</span><span class="nt">(sock, keyfile, certfile, cert_reqs, ca_certs, server_hostname, ssl_version, ciphers, ssl_context, ca_cert_dir, key_password, ca_cert_data, tls_in_tls)</span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span> <span class="k">if</span> <span class="n">ca_certs</span> <span class="ow">or</span> <span class="n">ca_cert_dir</span> <span class="ow">or</span> <span class="n">ca_cert_data</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">401</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">402</span>         <span class="n">context</span><span class="o">.</span><span class="n">load_verify_locations</span><span class="p">(</span><span class="n">ca_certs</span><span class="p">,</span> <span class="n">ca_cert_dir</span><span class="p">,</span> <span class="n">ca_cert_data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">403</span>     <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">404</span>         <span class="k">raise</span> <span class="n">SSLError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
