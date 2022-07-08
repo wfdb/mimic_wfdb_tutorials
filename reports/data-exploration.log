@@ -32,8 +32,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-["matching_recs = {'dir':[],'seg_name':[],'length':[]}", 'for record in records:', '    print(\'Record: {}\'.format(record), end="", flush=True)', "    record_dir = f'{database_name}/{record.parent}'", '    record_name = record.name']
+['records = []', 'no_records_to_load = 205', 'subjects = wfdb.get_record_list(database_name)', 'print("The \'{}\' database contains data from {} subjects".format(database_name, len(subjects)))', 'finished = False']
 ...
-['', 'print("A total of {} records met the requirements:".format(len(matching_recs[\'dir\'])))', '#df_matching_recs = pd.DataFrame(data=matching_recs)', "#df_matching_recs.to_csv('matching_records.csv', index=False)", '#p=1']
+['                finished = True', 'if not finished:', '    print("Done: Went through entire database and loaded list of {} records for \'{}\' database".format(len(records), database_name))', 'else:', '    print("Done: Went through first bit of database and loaded list of {} records for \'{}\' database".format(len(records), database_name))']
 -------------------
 
