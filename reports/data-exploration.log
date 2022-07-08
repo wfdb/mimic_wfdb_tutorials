@@ -34,6 +34,6 @@ Here is a preview of the cell contents:
 -------------------
 ["matching_recs = {'dir':[],'seg_name':[],'length':[]}", 'for record in records:', '    print(\'Record: {}\'.format(record), end="", flush=True)', "    record_dir = f'{database_name}/{record.parent}'", '    record_name = record.name']
 ...
-['', 'print("A total of {} records met the requirements".format(len(matching_recs[\'dir\'])))', '#df_matching_recs = pd.DataFrame(data=matching_recs)', "#df_matching_recs.to_csv('matching_records.csv', index=False)", '#p=1']
+['', 'print("A total of {} records met the requirements:".format(len(matching_recs[\'dir\'])))', '#df_matching_recs = pd.DataFrame(data=matching_recs)', "#df_matching_recs.to_csv('matching_records.csv', index=False)", '#p=1']
 -------------------
 
