@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data formatting &#8212; MIMIC WFDB Tutorials</title>
+    <title>Waveform Data Formats &#8212; MIMIC WFDB Tutorials</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -170,7 +170,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Data formatting
+     Waveform Data Formats
     </a>
    </li>
    <li class="toctree-l2">
@@ -494,18 +494,13 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#records">
-   Records
+  <a class="reference internal nav-link" href="#numerics">
+   Numerics
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#signals-samples-and-time">
-   Signals, Samples, and Time
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#annotations">
-   Annotations
+  <a class="reference internal nav-link" href="#waveforms">
+   Waveforms
   </a>
  </li>
 </ul>
@@ -517,7 +512,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Data formatting</h1>
+                <h1>Waveform Data Formats</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -528,18 +523,13 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#records">
-   Records
+  <a class="reference internal nav-link" href="#numerics">
+   Numerics
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#signals-samples-and-time">
-   Signals, Samples, and Time
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#annotations">
-   Annotations
+  <a class="reference internal nav-link" href="#waveforms">
+   Waveforms
   </a>
  </li>
 </ul>
@@ -552,24 +542,49 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="section" id="data-formatting">
-<h1>Data formatting<a class="headerlink" href="#data-formatting" title="Permalink to this headline">¶</a></h1>
-<p>There are a few important concepts that should be well understood before using the WFDB software. These concepts include records; signals, samples, and time; and annotations.</p>
-<div class="section" id="records">
-<h2>Records<a class="headerlink" href="#records" title="Permalink to this headline">¶</a></h2>
-<p>The databases for which the WFDB library was designed consist of a number of records. Each record contains a continuous recording from a single subject, which might be only a few seconds or might be multiple days in length. A typical application program accesses only a single record, and in most cases, it reads the record in order from beginning to end. Each record is identified by a name consisting of letters, digits, and/or underscores. For example, record names in the MIT-BIH Arrhythmia Database are three-digit numbers.</p>
-<p>Case is significant in record names that contain letters, even in environments such as MS-Windows for which case translation is normally performed by the operating system on file names; thus ‘e0104’ is the name of a record found in the European ST-T Database, whereas ‘E0104’ is not. A record is made up of several files, which contain signals, annotations, and specifications of signal attributes; each file belonging to a given record normally includes the record name as the first part of its name. A record is an extensible collection of files, which need not all be located in the same directory, or even on the same physical device.</p>
+  <div class="section" id="waveform-data-formats">
+<h1>Waveform Data Formats<a class="headerlink" href="#waveform-data-formats" title="Permalink to this headline">¶</a></h1>
+<p>The waveform database is organized into “records”.  Each record represents a single patient and roughly corresponds to a single ICU stay (not always, because the bedside monitor may be temporarily shut off.)  Each record is stored in a separate subdirectory.</p>
+<p>To avoid providing information that could identify individual patients, the record does not include any actual date or time information.  Instead, measurements are recorded according to the “elapsed time” from the beginning of the record.  To allow cross-referencing events with the other MIMIC-IV modules, the <em>surrogate date and time</em> for the start of the record are also provided.</p>
+<p>An example of the file structure is shown below.  Here there are two patients (<code class="docutils literal notranslate"><span class="pre">subject_id</span></code> 10014354 and 10039708).  There is one record (81739927) belonging to the first patient, and two records (83411188 and 85583557) belonging to the second.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>waves
+└── p100
+    ├── p10014354
+    │   └── 81739927
+    │       ├── 81739927.dat
+    │       ├── 81739927_0000.hea
+    │       ├── 81739927_0001.hea
+    │       ├── 81739927_0001e.dat
+    │       ├── 81739927_0001r.dat
+    │       ├── 81739927_0002.hea
+    │       ├── 81739927_0002e.dat
+    │       ├── 81739927_0002p.dat
+    │       ├── 81739927_0002r.dat
+    │       ├── ...
+    │       └── 81739927n.csv.gz
+    └── p10039708
+        ├── 83411188
+        │   ├── 83411188.hea
+        │   ├── ...
+        │   └── 83411188n.csv.gz
+        └── 85583557
+            ├── 85583557.hea
+            ├── ...
+            └── 85583557n.csv.gz
+</pre></div>
 </div>
-<div class="section" id="signals-samples-and-time">
-<h2>Signals, Samples, and Time<a class="headerlink" href="#signals-samples-and-time" title="Permalink to this headline">¶</a></h2>
-<p>Signals are commonly understood to be functions of time obtained by observation of physical variables. In our case, a signal is defined more restrictively as a finite sequence of integer samples, usually obtained by digitizing a continuous observed function of time at a fixed sampling frequency expressed in Hz (samples per second). The time interval between any pair of adjacent samples in a given signal is a sample interval; all sample intervals for a given signal are equal. The integer value of each sample is usually interpreted as a voltage, and the units are called analog-to-digital converter units, or adu. The gain defined for each signal specifies how many adus correspond to one physical unit (usually one millivolt, the nominal amplitude of a normal QRS complex on a body-surface ECG lead roughly parallel to the mean cardiac electrical axis). All signals in a given record are usually sampled at the same frequency, but not necessarily at the same gain. Records in the MIT-BIH Arrhythmia Database are sampled at 360 Hz; other database records may be sampled at 250 Hz or even 500 Hz.</p>
-<p>The sample number is an attribute of a sample, defined as the number of samples of the same signal that precede it; thus the sample number of the first sample in each signal is zero. The units of time are sample intervals; hence the “time” of a sample is synonymous with its sample number.</p>
-<p>Samples having the same sample number in different signals of the same record are treated as simultaneous. In truth, they are usually not precisely simultaneous, since most multi-channel digitizers sample signals in “round-robin” fashion. If this subtlety makes a difference to you, you should be prepared to compensate for inter-signal sampling skew in your programs.</p>
+<div class="section" id="numerics">
+<h2>Numerics<a class="headerlink" href="#numerics" title="Permalink to this headline">¶</a></h2>
+<p>“Numerics” are defined as measurements that are sampled irregularly or infrequently (less than once per second.)  These measurements are stored as a single table, such as <a class="reference external" href="https://physionet.org/content/mimic4wdb/0.1.0/waves/p100/p10039708/83411188/83411188n.csv.gz">83411188n.csv.gz</a>.</p>
+<p>This file is a gzip-compressed CSV file, which can be loaded using software packages such as <a class="reference external" href="https://pandas.pydata.org/">Pandas</a>, or it can be unpacked using <a class="reference external" href="https://www.gnu.org/software/gzip/">gzip</a> and parsed as you would parse any CSV file.  Note that in contrast to most other MIMIC-IV data tables, the list of <em>columns</em> in this table are not the same from one patient to another.</p>
+<p>Note that “elapsed time” for numeric values is measured in counter ticks (1/999.52 second, or about one millisecond.)</p>
 </div>
-<div class="section" id="annotations">
-<h2>Annotations<a class="headerlink" href="#annotations" title="Permalink to this headline">¶</a></h2>
-<p>Annotation files provide additional information about a record, for example providing beat labels or highlighting when an alarm was triggered. The “time” of an annotation is simply the sample number of the sample with which the annotation is associated. Annotations may be associated with a single signal, if desired. No more than one annotation in a given annotation file may be associated with any given sample of any given signal. There may be many annotation files associated with the same record, however; they are distinguished by annotator names. The annotator name ‘atr’ is reserved to identify reference annotation files supplied by the developers of the databases to document correct beat labels. You may use other annotator names (which may contain letters, digits and underscores, as for record names) to identify annotation files that you create. You may wish to adopt the convention that the annotator name is the name of the file’s creator (a program or a person).</p>
-<p>Annotations are visible to the WFDB library user as C structures, the fields of which specify time, beat type, and several user-definable variables. The WFDB library performs efficient conversions between these structures and a compact bit-packed representation used for storage of annotations in annotation files.</p>
+<div class="section" id="waveforms">
+<h2>Waveforms<a class="headerlink" href="#waveforms" title="Permalink to this headline">¶</a></h2>
+<p>“Waveforms” are defined as measurements that are sampled regularly at high resolution (62.47 samples per second or more.)  These measurements are stored as a set of files in WFDB (Waveform Database) format.</p>
+<p>For the sake of storage and processing efficiency, waveforms are broken into multiple <em>segments</em> representing different time intervals.  It’s common for some signals not to be available for the entire duration of a patient’s ICU stay, but within a given segment, the available signals are sampled continously and the list of available signals doesn’t change.</p>
+<p>A segment, in turn, consists of a <em>header file</em> (such as <a class="reference external" href="https://physionet.org/content/mimic4wdb/0.1.0/waves/p100/p10039708/83411188/83411188_0001.hea">83411188_0001.hea</a> and one or more <em>signal files</em> (such as <a class="reference external" href="https://physionet.org/content/mimic4wdb/0.1.0/waves/p100/p10039708/83411188/83411188_0001e.dat">83411188_0001e.dat</a> and <a class="reference external" href="https://physionet.org/content/mimic4wdb/0.1.0/waves/p100/p10039708/83411188/83411188_0001r.dat">83411188_0001r.dat</a>.</p>
+<p>In general, you do not need to parse these files yourself, and it is easiest to use one of the existing software packages for doing so: the <a class="reference external" href="https://github.com/MIT-LCP/wfdb-python">WFDB Python Package</a> or the original <a class="reference external" href="https://physionet.org/content/wfdb/">WFDB Software Package</a>.  Data can also be converted into other formats using tools such as <code class="docutils literal notranslate"><span class="pre">rdsamp</span></code> or <code class="docutils literal notranslate"><span class="pre">wfdb2mat</span></code> from the WFDB Software Package.</p>
 </div>
 </div>
 

@@ -49,7 +49,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Data formatting" href="formatting.html" />
+    <link rel="next" title="Waveform Data Formats" href="formatting.html" />
     <link rel="prev" title="Clinical Context" href="context.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -170,7 +170,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="formatting.html">
-     Data formatting
+     Waveform Data Formats
     </a>
    </li>
    <li class="toctree-l2">
@@ -499,14 +499,31 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mimic-iv-waveforms">
-   MIMIC-IV waveforms
+  <a class="reference internal nav-link" href="#available-monitor-data">
+   Available monitor data
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mimic-iv-waveform-demo">
-   MIMIC-IV waveform demo
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ecg">
+     ECG
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ppg">
+     PPG
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#blood-pressure">
+     Blood pressure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-measurements">
+     Other measurements
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -533,14 +550,31 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mimic-iv-waveforms">
-   MIMIC-IV waveforms
+  <a class="reference internal nav-link" href="#available-monitor-data">
+   Available monitor data
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mimic-iv-waveform-demo">
-   MIMIC-IV waveform demo
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ecg">
+     ECG
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ppg">
+     PPG
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#blood-pressure">
+     Blood pressure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-measurements">
+     Other measurements
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -565,32 +599,51 @@ title="Print to PDF"
 </ul>
 <p>Typically the datasets are linked by unique patient ID (<code class="docutils literal notranslate"><span class="pre">subject_id</span></code>) and unique hospital stay ID (<code class="docutils literal notranslate"><span class="pre">hadm_id</span></code>). For the purposes of this workshop, we will focus on the MIMIC-IV waveform dataset.</p>
 </div>
-<div class="section" id="mimic-iv-waveforms">
-<h2>MIMIC-IV waveforms<a class="headerlink" href="#mimic-iv-waveforms" title="Permalink to this headline">¶</a></h2>
-<p>The MIMIC-IV waveform dataset comprises of a tabular file that contains structured metadata, such as <code class="docutils literal notranslate"><span class="pre">subject_id</span></code>, <code class="docutils literal notranslate"><span class="pre">signal</span> <span class="pre">length</span></code>, and <code class="docutils literal notranslate"><span class="pre">signal</span> <span class="pre">filename</span></code>. This metadata is accompanied by a collection of signal files that comprise of <code class="docutils literal notranslate"><span class="pre">.hea</span></code> files and associated <code class="docutils literal notranslate"><span class="pre">.dat</span></code> binary files. The files are formatted according to the <a class="reference external" href="https://wfdb.io/">WFDB specification</a>.</p>
+<div class="section" id="available-monitor-data">
+<h2>Available monitor data<a class="headerlink" href="#available-monitor-data" title="Permalink to this headline">¶</a></h2>
+<p>The MIMIC-IV Waveform Database consists of raw data that is sampled by the bedside monitor.  The available types of data vary from one patient to another.</p>
+<div class="section" id="ecg">
+<h3>ECG<a class="headerlink" href="#ecg" title="Permalink to this headline">¶</a></h3>
+<p>Virtually all patients have a continuous ECG monitor, measuring electrical activity in the heart.  For MIMIC-IV patients, typically two or three channels are measured (one or two limb leads, one chest lead.)  Each channel is sampled at 250 samples per second.</p>
+<p>Measurements derived from the ECG include:</p>
+<ul class="simple">
+<li><p>Heart rate (averaged once per 1.024 seconds)</p></li>
+<li><p>Instantaneous (“beat to beat”) heart rate</p></li>
+<li><p>ST elevation</p></li>
+<li><p>QT interval</p></li>
+</ul>
+<p>The same electrodes are also used to measure impedance across the chest (“Resp”, 62.5 samples per second), which is used to derive respiration rate (“RR”).</p>
 </div>
-<div class="section" id="mimic-iv-waveform-demo">
-<h2>MIMIC-IV waveform demo<a class="headerlink" href="#mimic-iv-waveform-demo" title="Permalink to this headline">¶</a></h2>
-<p>Perhaps the easiest way to become familiar with the MIMIC-IV waveforms is to explore the <a class="reference external" href="http://physionet.org/">MIMIC-IV waveform demo dataset</a>, which contains a subset of X00 records. After scrolling to the files section, you should see the data is stored in the following folder structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>files
-├── p10001725
-│   └── s102147240
-│       ├── 102147240.dat
-│       └── 102147240.hea
-├── p10002495
-    ├── s101633856
-    │   ├── 101633856.dat
-    │   └── 101633856.hea
-    ├── s102447237
-    │   ├── 102447237.dat
-    │   └── 102447237.hea
-    └── s107316808
-        ├── 107316808.dat
-        └── 107316808.hea
-</pre></div>
+<div class="section" id="ppg">
+<h3>PPG<a class="headerlink" href="#ppg" title="Permalink to this headline">¶</a></h3>
+<p>Virtually all patients have a PPG (photoplethysmogram) sensor, measuring blood oxygen in the fingertip or other extremity.  This sensor provides:</p>
+<ul class="simple">
+<li><p>A continuous waveform (“Pleth”, 125 samples per second)</p></li>
+<li><p>Average oxygen saturation (“SpO2”, once per 1.024 seconds)</p></li>
+<li><p>Perfusion index (“Perf”)</p></li>
+<li><p>Pulse rate (“Pulse (SpO2)”)</p></li>
+</ul>
 </div>
-<p>In this example, “p10001725” indicates the patient with the subject_id <code class="docutils literal notranslate"><span class="pre">10001725</span></code> and “s102147240” indicates a study_id of <code class="docutils literal notranslate"><span class="pre">102147240</span></code>. The <code class="docutils literal notranslate"><span class="pre">102147240.dat</span></code> file is a binary file containing the waveform data and the <code class="docutils literal notranslate"><span class="pre">102147240.hea</span></code> file contains header information such as date, sample frequency, and channel information.</p>
-<p>[More detail about demo waveforms. e.g. file structure]</p>
+<div class="section" id="blood-pressure">
+<h3>Blood pressure<a class="headerlink" href="#blood-pressure" title="Permalink to this headline">¶</a></h3>
+<p>Blood pressure is measured using an automatic cuff at set intervals (e.g. every 5, 15, 30, or 60 minutes).  This is recorded as “NBPs”, “NBPd”, and “NBPm” (systolic, diastolic, and mean).</p>
+<p>Some patients also have a continuous, invasive arterial pressure sensor, which provides:</p>
+<ul class="simple">
+<li><p>A pressure waveform (“ABP”, 125 samples per second)</p></li>
+<li><p>Systolic pressure (“ABPs”, once per 1.024 seconds)</p></li>
+<li><p>Diastolic pressure (“ABPd”)</p></li>
+<li><p>Mean pressure (“ABPm”)</p></li>
+<li><p>Pulse rate (“Pulse (ABP)”)</p></li>
+</ul>
+</div>
+<div class="section" id="other-measurements">
+<h3>Other measurements<a class="headerlink" href="#other-measurements" title="Permalink to this headline">¶</a></h3>
+<p>Other measurements may be collected depending on the patient, such as:</p>
+<ul class="simple">
+<li><p>Temperature (“Tblood”, “Tcore”, “Tesoph”, etc.)</p></li>
+<li><p>Other pressure waveforms (“CVP”, “ICP”, etc.)</p></li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -631,7 +684,7 @@ title="Print to PDF"
     <a class='right-next' id="next-link" href="formatting.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data formatting</p>
+        <p class="prev-next-title">Waveform Data Formats</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -11,33 +11,44 @@ MIMIC-IV is a modular dataset, comprising of a core set of clinical data (MIMIC-
 
 Typically the datasets are linked by unique patient ID (`subject_id`) and unique hospital stay ID (`hadm_id`). For the purposes of this workshop, we will focus on the MIMIC-IV waveform dataset.
 
-## MIMIC-IV waveforms
+## Available monitor data
 
-The MIMIC-IV waveform dataset comprises of a tabular file that contains structured metadata, such as `subject_id`, `signal length`, and `signal filename`. This metadata is accompanied by a collection of signal files that comprise of `.hea` files and associated `.dat` binary files. The files are formatted according to the [WFDB specification](https://wfdb.io/).
+The MIMIC-IV Waveform Database consists of raw data that is sampled by the bedside monitor.  The available types of data vary from one patient to another.
 
-## MIMIC-IV waveform demo
+### ECG
 
-Perhaps the easiest way to become familiar with the MIMIC-IV waveforms is to explore the [MIMIC-IV waveform demo dataset](http://physionet.org/), which contains a subset of X00 records. After scrolling to the files section, you should see the data is stored in the following folder structure:
+Virtually all patients have a continuous ECG monitor, measuring electrical activity in the heart.  For MIMIC-IV patients, typically two or three channels are measured (one or two limb leads, one chest lead.)  Each channel is sampled at 250 samples per second.
 
-```
-files
-├── p10001725
-│   └── s102147240
-│       ├── 102147240.dat
-│       └── 102147240.hea
-├── p10002495
-    ├── s101633856
-    │   ├── 101633856.dat
-    │   └── 101633856.hea
-    ├── s102447237
-    │   ├── 102447237.dat
-    │   └── 102447237.hea
-    └── s107316808
-        ├── 107316808.dat
-        └── 107316808.hea
-```
+Measurements derived from the ECG include:
+- Heart rate (averaged once per 1.024 seconds)
+- Instantaneous ("beat to beat") heart rate
+- ST elevation
+- QT interval
 
-In this example, "p10001725" indicates the patient with the subject_id `10001725` and "s102147240" indicates a study_id of `102147240`. The `102147240.dat` file is a binary file containing the waveform data and the `102147240.hea` file contains header information such as date, sample frequency, and channel information. 
+The same electrodes are also used to measure impedance across the chest ("Resp", 62.5 samples per second), which is used to derive respiration rate ("RR").
 
-[More detail about demo waveforms. e.g. file structure]
+### PPG
 
+Virtually all patients have a PPG (photoplethysmogram) sensor, measuring blood oxygen in the fingertip or other extremity.  This sensor provides:
+- A continuous waveform ("Pleth", 125 samples per second)
+- Average oxygen saturation ("SpO2", once per 1.024 seconds)
+- Perfusion index ("Perf")
+- Pulse rate ("Pulse (SpO2)")
+
+### Blood pressure
+
+Blood pressure is measured using an automatic cuff at set intervals (e.g. every 5, 15, 30, or 60 minutes).  This is recorded as "NBPs", "NBPd", and "NBPm" (systolic, diastolic, and mean).
+
+Some patients also have a continuous, invasive arterial pressure sensor, which provides:
+- A pressure waveform ("ABP", 125 samples per second)
+- Systolic pressure ("ABPs", once per 1.024 seconds)
+- Diastolic pressure ("ABPd")
+- Mean pressure ("ABPm")
+- Pulse rate ("Pulse (ABP)")
+
+### Other measurements
+
+Other measurements may be collected depending on the patient, such as:
+
+- Temperature ("Tblood", "Tcore", "Tesoph", etc.)
+- Other pressure waveforms ("CVP", "ICP", etc.)
