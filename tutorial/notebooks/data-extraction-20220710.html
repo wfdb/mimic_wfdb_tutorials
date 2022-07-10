@@ -49,8 +49,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Data Extraction" href="data-extraction-20220710.html" />
-    <link rel="prev" title="Data Exploration" href="data-exploration.html" />
+    <link rel="next" title="Data Visualisation" href="data-visualisation.html" />
+    <link rel="prev" title="Data Extraction" href="data-extraction.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -195,13 +195,13 @@ const thebe_selector_output = ".output, .cell_output"
      Data Exploration
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="data-extraction.html">
      Data Extraction
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="data-extraction-20220710.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Data Extraction
     </a>
    </li>
@@ -358,7 +358,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/wfdb/mimic_wfdb_tutorials/main?urlpath=tree/content/tutorial/notebooks/data-extraction.ipynb"
+        <a href="https://mybinder.org/v2/gh/wfdb/mimic_wfdb_tutorials/main?urlpath=tree/content/tutorial/notebooks/data-extraction-20220710.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -376,7 +376,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/wfdb/mimic_wfdb_tutorials/blob/main/content/tutorial/notebooks/data-extraction.ipynb"
+        <a href="https://colab.research.google.com/github/wfdb/mimic_wfdb_tutorials/blob/main/content/tutorial/notebooks/data-extraction-20220710.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -436,7 +436,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Ftutorial/notebooks/data-extraction.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/issues/new?title=Issue%20on%20page%20%2Ftutorial/notebooks/data-extraction-20220710.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -453,7 +453,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/edit/main/content/tutorial/notebooks/data-extraction.ipynb"
+        <a href="https://github.com/wfdb/mimic_wfdb_tutorials/edit/main/content/tutorial/notebooks/data-extraction-20220710.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -481,7 +481,7 @@ title="Edit this page"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../../_sources/tutorial/notebooks/data-extraction.ipynb"
+        <a href="../../_sources/tutorial/notebooks/data-extraction-20220710.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -541,8 +541,8 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
-   Specify an ICU stay and segment
+  <a class="reference internal nav-link" href="#setup">
+   Setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -570,8 +570,8 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
-   Specify an ICU stay and segment
+  <a class="reference internal nav-link" href="#setup">
+   Setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -591,10 +591,17 @@ title="Print to PDF"
                 
   <div class="section" id="data-extraction">
 <h1>Data Extraction<a class="headerlink" href="#data-extraction" title="Permalink to this headline">¶</a></h1>
-<p>Extract data from the MIMIC Waveform Database.</p>
-<hr class="docutils" />
-<div class="section" id="specify-an-icu-stay-and-segment">
-<h2>Specify an ICU stay and segment<a class="headerlink" href="#specify-an-icu-stay-and-segment" title="Permalink to this headline">¶</a></h2>
+<p>Extract data from the MIMIC-IV Waveform Database.</p>
+<p>The <strong>objectives</strong> are:</p>
+<ul class="simple">
+<li><p>To extract the signals from one segment of a record</p></li>
+<li><p>To extract only the required duration of the required signals from this segment (<em>i.e.</em> 10 minutes of photoplethysmography and blood presure signals)</p></li>
+</ul>
+<div class="alert alert-block alert-warning"> <b>Context:</b>
+    In the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-exploration.html">Data Exploration</a> tutorial we learnt how to identify segments of waveform data which are suitable for a particular research study (i.e. which have the required duration of the required signals). We extracted metadata for such a segment, providing high-level details of what is contained in the segment (e.g. which signals, their sampling frequency, and their duration). In this tutorial we will go a step further and extract signals in preparation for analysis.
+</div><hr class="docutils" />
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="alert alert-block alert-warning"> <b>Resource:</b> These steps are taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-exploration.html">Data Exploration</a> tutorial. </div><ul class="simple">
 <li><p>Specify the required Python packages</p></li>
 </ul>
@@ -602,61 +609,55 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">wfdb</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 </pre></div>
 </div>
 </div>
 </div>
 <ul class="simple">
-<li><p>Get a list of ICU stays in the database</p></li>
+<li><p>Specify the settings for the MIMIC-IV database</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0&#39;</span> <span class="c1"># The name of the MIMIC III Waveform Database on Physionet (see URL: https://physionet.org/content/mimic3wdb/1.0/)</span>
-<span class="n">icustay_records</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are </span><span class="si">{}</span><span class="s2"> ICU stays in the database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">icustay_records</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 67830 ICU stays in the database
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wfdb</span><span class="o">.</span><span class="n">set_db_index_url</span><span class="p">(</span><span class="s1">&#39;https://challenge.physionet.org/benjamin/db&#39;</span><span class="p">)</span> <span class="c1"># use the version of the WFDB toolbox which corresponds to MIMIC IV.</span>
+<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic4wdb/0.1.0&#39;</span> <span class="c1"># The name of the MIMIC IV Waveform Demo Database on Physionet</span>
 </pre></div>
 </div>
 </div>
 </div>
 <ul class="simple">
-<li><p>Specify an ICU stay</p></li>
+<li><p>Provide a list of segments which meet the requirements for the study (NB: these are copied from the end of the <a class="reference external" href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-exploration.html">Data Exploration Tutorial</a>).</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_no</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># specify the first record (noting that in Python the first index is 0)</span>
-<span class="n">icustay_record</span> <span class="o">=</span> <span class="n">icustay_records</span><span class="p">[</span><span class="n">icustay_no</span><span class="p">]</span>
-<span class="n">icustay_record_dir</span> <span class="o">=</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">icustay_record</span>
-<span class="n">icustay_record_name</span> <span class="o">=</span> <span class="n">icustay_record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified ICU stay: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_record_name</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified ICU stay: 3000003
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;83404654_0005&#39;</span><span class="p">]</span>
+<span class="n">segment_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mimic4wdb/0.1.0/p100/p10020306/83404654&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <ul class="simple">
-<li><p>Specify a segment of this ICU stay</p></li>
+<li><p>Specify a segment from which to extract data</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_files</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">icustay_record_dir</span><span class="p">)</span>
-<span class="n">icustay_segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">icustay_files</span> <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
-<span class="n">icustay_segment_no</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="n">icustay_segment_name</span> <span class="o">=</span> <span class="n">icustay_segments</span><span class="p">[</span><span class="n">icustay_segment_no</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified segment: &#39;</span><span class="si">{}</span><span class="s2">&#39; within ICU stay &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">icustay_record_name</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rel_segment_no</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">rel_segment_name</span> <span class="o">=</span> <span class="n">segment_names</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
+<span class="n">rel_segment_dir</span> <span class="o">=</span> <span class="n">segment_dirs</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified segment &#39;</span><span class="si">{}</span><span class="s2">&#39; in directory &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">rel_segment_dir</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment: &#39;3000003_0001&#39; within ICU stay &#39;3000003&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment &#39;83404654_0005&#39; in directory &#39;mimic4wdb/0.1.0/p100/p10020306/83404654&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wfdb</span><span class="o">.</span><span class="n">set_db_index_url</span><span class="p">(</span><span class="s1">&#39;https://physionet.org/files&#39;</span><span class="p">)</span> <span class="c1"># use the version of the WFDB toolbox which corresponds to MIMIC IV.</span>
+<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -670,13 +671,61 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">icustay_record_dir</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_segment_name</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># e.g. record_data = wfdb.rdrecord(record_name=&#39;83411188&#39;,pn_dir=&#39;mimic4wdb/0.1.0/p100/p10039708/83411188&#39;)</span>
+<span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data loaded from segment: 3000003_0001
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">HTTPError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [6],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># e.g. record_data = wfdb.rdrecord(record_name=&#39;83411188&#39;,pn_dir=&#39;mimic4wdb/0.1.0/p100/p10039708/83411188&#39;)</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">))</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:3433,</span> in <span class="ni">rdrecord</span><span class="nt">(record_name, sampfrom, sampto, channels, physical, pn_dir, m2s, smooth_frames, ignore_skew, return_res, force_channels, channel_names, warn_empty)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3431</span>     <span class="n">record</span> <span class="o">=</span> <span class="n">wav2mit</span><span class="p">(</span><span class="n">record_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">pn_dir</span><span class="p">,</span> <span class="n">record_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3432</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3433</span>     <span class="n">record</span> <span class="o">=</span> <span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">pn_dir</span><span class="p">,</span> <span class="n">rd_segments</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3435</span> <span class="c1"># Set defaults for sampto and channels input variables</span>
+<span class="g g-Whitespace">   </span><span class="mi">3436</span> <span class="k">if</span> <span class="n">sampto</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3437</span>     <span class="c1"># If the header does not contain the signal length, figure it</span>
+<span class="g g-Whitespace">   </span><span class="mi">3438</span>     <span class="c1"># out from the first dat file. This is only possible for single</span>
+<span class="g g-Whitespace">   </span><span class="mi">3439</span>     <span class="c1"># segment records. If there are no signals, sig_len is 0.</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:3259,</span> in <span class="ni">rdheader</span><span class="nt">(record_name, pn_dir, rd_segments)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3256</span>     <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">posixpath</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">get_version</span><span class="p">(</span><span class="n">dir_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="o">*</span><span class="n">dir_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<span class="g g-Whitespace">   </span><span class="mi">3258</span> <span class="c1"># Read the header file. Separate comment and non-comment lines</span>
+<span class="ne">-&gt; </span><span class="mi">3259</span> <span class="n">header_lines</span><span class="p">,</span> <span class="n">comment_lines</span> <span class="o">=</span> <span class="n">_header</span><span class="o">.</span><span class="n">_read_header_lines</span><span class="p">(</span><span class="n">base_record_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3260</span>                                                          <span class="n">dir_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3262</span> <span class="c1"># Get fields from record line</span>
+<span class="g g-Whitespace">   </span><span class="mi">3263</span> <span class="n">record_fields</span> <span class="o">=</span> <span class="n">_header</span><span class="o">.</span><span class="n">_parse_record_line</span><span class="p">(</span><span class="n">header_lines</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/_header.py:874,</span> in <span class="ni">_read_header_lines</span><span class="nt">(base_record_name, dir_name, pn_dir)</span>
+<span class="g g-Whitespace">    </span><span class="mi">871</span>                     <span class="n">header_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">872</span> <span class="c1"># Read online header file</span>
+<span class="g g-Whitespace">    </span><span class="mi">873</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">874</span>     <span class="n">header_lines</span><span class="p">,</span> <span class="n">comment_lines</span> <span class="o">=</span> <span class="n">download</span><span class="o">.</span><span class="n">_stream_header</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">875</span>                                                           <span class="n">pn_dir</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">877</span> <span class="k">return</span> <span class="n">header_lines</span><span class="p">,</span> <span class="n">comment_lines</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/download.py:114,</span> in <span class="ni">_stream_header</span><span class="nt">(file_name, pn_dir)</span>
+<span class="g g-Whitespace">    </span><span class="mi">111</span> <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="c1"># Raise HTTPError if invalid url</span>
+<span class="ne">--&gt; </span><span class="mi">114</span> <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span> <span class="c1"># Get each line as a string</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span> <span class="n">filelines</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;iso-8859-1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/requests/models.py:1021,</span> in <span class="ni">Response.raise_for_status</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1016</span>     <span class="n">http_error_msg</span> <span class="o">=</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1017</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> Server Error: </span><span class="si">{</span><span class="n">reason</span><span class="si">}</span><span class="s2"> for url: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1018</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1020</span> <span class="k">if</span> <span class="n">http_error_msg</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1021</span>     <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="n">http_error_msg</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+<span class="ne">HTTPError</span>: 404 Client Error: Not Found for url: https://physionet.org/files/mimic4wdb/0.1.0/p100/p10020306/83404654/83404654_0005.hea
 </pre></div>
 </div>
 </div>
@@ -745,17 +794,17 @@ They last for 2.3 minutes
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="data-exploration.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="data-extraction.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Data Exploration</p>
+            <p class="prev-next-title">Data Extraction</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="data-extraction-20220710.html" title="next page">
+    <a class='right-next' id="next-link" href="data-visualisation.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Extraction</p>
+        <p class="prev-next-title">Data Visualisation</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
