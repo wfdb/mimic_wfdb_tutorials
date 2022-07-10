@@ -548,13 +548,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#download-data">
-   Download data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-the-ppg-signal">
-   Extract the PPG signal
+  <a class="reference internal nav-link" href="#extract-one-minute-of-ppg-signal-from-this-segment">
+   Extract one minute of PPG signal from this segment
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -592,13 +587,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#download-data">
-   Download data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-the-ppg-signal">
-   Extract the PPG signal
+  <a class="reference internal nav-link" href="#extract-one-minute-of-ppg-signal-from-this-segment">
+   Extract one minute of PPG signal from this segment
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -626,65 +616,201 @@ title="Print to PDF"
 <p>In this tutorial we will learn how to filter MIMIC waveform signals.</p>
 <p>The <strong>objectives</strong> are:</p>
 <ul class="simple">
-<li><p>To learn how to create a filter using the [SciPy signal processing package].</p></li>
+<li><p>To learn how to create a filter using the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/signal.html">SciPy signal processing package</a>.</p></li>
 <li><p>To understand how to interpret the amplitude-response of a filter.</p></li>
 <li><p>To gain experience in filtering PPG signals.</p></li>
 </ul>
-<div class="alert alert-block alert-warning"> <b>Context:</b> Filtering is used to eliminate noise from physiological signals. For instance, ECG signals can contain mains frequency noise due to electrical interference. Ideally, a filter would attenuate unwanted frequency content in a signal whilst retaining the physiological frequency content.</div><div class="section" id="setup">
+<div class="alert alert-block alert-warning"> <b>Context:</b> Filtering is used to eliminate noise from physiological signals. For instance, ECG signals can contain mains frequency noise due to electrical interference. Ideally, a filter would attenuate unwanted frequency content in a signal whilst retaining the physiological frequency content.</div><div class="alert alert-block alert-info"> <b>Extension:</b> If you've not seen it before, then have a look at the <a href= https://docs.scipy.org/doc/scipy/reference/signal.html>SciPy signal processing package</a>. How might it be helpful for processing PPG signals?</div><div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p><em>These steps have been covered in previous tutorials, so we’ll just re-use the code here.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Packages</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.signal</span> <span class="k">as</span> <span class="nn">sp</span>
-
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="o">!</span>pip install <span class="nv">wfdb</span><span class="o">==</span><span class="m">4</span>.0.0
 <span class="kn">import</span> <span class="nn">wfdb</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="download-data">
-<h2>Download data<a class="headerlink" href="#download-data" title="Permalink to this headline">¶</a></h2>
-<p>Download data from a segment in the MIMIC III Waveform Database</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the first record</span>
-<span class="n">selected_record</span> <span class="o">=</span> <span class="s1">&#39;3000125_0005&#39;</span>
-<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0/30/3000125/&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected record: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selected_record</span><span class="p">))</span>
 
-<span class="c1"># load data from this record</span>
-<span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">60</span>
-<span class="n">no_seconds_to_load</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">fs</span> <span class="o">=</span> <span class="mi">125</span>
-<span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span> <span class="o">=</span> <span class="n">selected_record</span><span class="p">,</span> <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_seconds</span><span class="p">,</span> <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span> <span class="o">+</span> <span class="n">no_seconds_to_load</span><span class="p">),</span> <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">database_name</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data loaded from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">selected_record</span><span class="p">))</span>
+<span class="c1"># MIMIC info</span>
+<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic4wdb/0.1.0&#39;</span> <span class="c1"># The name of the MIMIC IV Waveform Database on Physionet</span>
+
+<span class="c1"># Segment for analysis</span>
+<span class="n">segment_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;83404654_0005&#39;</span><span class="p">,</span> <span class="s1">&#39;82924339_0007&#39;</span><span class="p">]</span>
+<span class="n">segment_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mimic4wdb/0.1.0/waves/p100/p10020306/83404654&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p101/p10126957/82924339&#39;</span><span class="p">]</span>
+<span class="n">rel_segment_no</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">rel_segment_name</span> <span class="o">=</span> <span class="n">segment_names</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
+<span class="n">rel_segment_dir</span> <span class="o">=</span> <span class="n">segment_dirs</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Selected record: 3000125_0005
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: wfdb==4.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (4.0.0)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 seconds of data loaded from: 3000125_0005
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: scipy&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.8.1)
+Requirement already satisfied: SoundFile&lt;0.12.0,&gt;=0.10.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (0.10.3.post1)
+Requirement already satisfied: requests&lt;3.0.0,&gt;=2.8.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (2.28.1)
+Requirement already satisfied: numpy&lt;2.0.0,&gt;=1.10.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.23.1)
+Requirement already satisfied: matplotlib&lt;4.0.0,&gt;=3.2.2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (3.5.2)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (0.11.0)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (3.0.9)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (21.3)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (2.8.2)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (4.34.4)
+Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (9.2.0)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from pandas&lt;2.0.0,&gt;=1.0.0-&gt;wfdb==4.0.0) (2022.1)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (3.3)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2022.6.15)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (1.26.10)
+Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2.1.0)
+Requirement already satisfied: cffi&gt;=1.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (1.15.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from cffi&gt;=1.0-&gt;SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (2.21)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.16.0)
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 <hr class="docutils" />
-<div class="section" id="extract-the-ppg-signal">
-<h2>Extract the PPG signal<a class="headerlink" href="#extract-the-ppg-signal" title="Permalink to this headline">¶</a></h2>
-<div class="alert alert-block alert-warning"> <b>Resource:</b> This step is taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/differentiation.html">Differentiation</a> tutorial. </div><ul class="simple">
-<li><p>Extract the PPG signal from the segment data</p></li>
-</ul>
+<div class="section" id="extract-one-minute-of-ppg-signal-from-this-segment">
+<h2>Extract one minute of PPG signal from this segment<a class="headerlink" href="#extract-one-minute-of-ppg-signal-from-this-segment" title="Permalink to this headline">¶</a></h2>
+<p><em>These steps have been covered in previous tutorials, so we’ll just re-use the code here.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ppg</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># time since the start of the segment at which to begin extracting data</span>
+<span class="n">no_seconds_to_load</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">segment_metadata</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Metadata loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">))</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">segment_metadata</span><span class="o">.</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_seconds</span>
+<span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span><span class="o">+</span><span class="n">no_seconds_to_load</span><span class="p">)</span>
+<span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">sampfrom</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span> <span class="n">sampto</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data extracted from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">rel_segment_name</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">sig_no</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="s2">&quot;Pleth&quot;</span> <span class="ow">in</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">[</span><span class="n">sig_no</span><span class="p">]:</span>
+        <span class="k">break</span>
+<span class="n">ppg</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="n">sig_no</span><span class="p">]</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracted the PPG signal from column </span><span class="si">{}</span><span class="s2"> of the matrix of waveform data.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sig_no</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metadata loaded from segment: 83404654_0005
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
+<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 8&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_seconds</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span><span class="o">+</span><span class="n">no_seconds_to_load</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">sampfrom</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span> <span class="n">sampto</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data extracted from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">rel_segment_name</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="k">for</span> <span class="n">sig_no</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">)):</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:2065,</span> in <span class="ni">rdrecord</span><span class="nt">(record_name, sampfrom, sampto, channels, physical, pn_dir, m2s, smooth_frames, ignore_skew, return_res, force_channels, channel_names, warn_empty)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2062</span> <span class="n">no_file</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">   </span><span class="mi">2063</span> <span class="n">sig_data</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">2065</span> <span class="n">record</span><span class="o">.</span><span class="n">e_d_signal</span> <span class="o">=</span> <span class="n">_signal</span><span class="o">.</span><span class="n">_rd_segment</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2066</span>     <span class="n">file_name</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2067</span>     <span class="n">dir_name</span><span class="o">=</span><span class="n">dir_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2068</span>     <span class="n">pn_dir</span><span class="o">=</span><span class="n">pn_dir</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2069</span>     <span class="n">fmt</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">fmt</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2070</span>     <span class="n">n_sig</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">n_sig</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2071</span>     <span class="n">sig_len</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">sig_len</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2072</span>     <span class="n">byte_offset</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">byte_offset</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2073</span>     <span class="n">samps_per_frame</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">samps_per_frame</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2074</span>     <span class="n">skew</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">skew</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2075</span>     <span class="n">init_value</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">init_value</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2076</span>     <span class="n">sampfrom</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2077</span>     <span class="n">sampto</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2078</span>     <span class="n">channels</span><span class="o">=</span><span class="n">channels</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2079</span>     <span class="n">ignore_skew</span><span class="o">=</span><span class="n">ignore_skew</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2080</span>     <span class="n">no_file</span><span class="o">=</span><span class="n">no_file</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2081</span>     <span class="n">sig_data</span><span class="o">=</span><span class="n">sig_data</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2082</span>     <span class="n">return_res</span><span class="o">=</span><span class="n">return_res</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2083</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2085</span> <span class="c1"># Only 1 sample/frame, or frames are smoothed. Return uniform numpy array</span>
+<span class="g g-Whitespace">   </span><span class="mi">2086</span> <span class="k">if</span> <span class="n">smooth_frames</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2087</span>     <span class="c1"># Arrange/edit the object fields to reflect user channel</span>
+<span class="g g-Whitespace">   </span><span class="mi">2088</span>     <span class="c1"># and/or signal range input</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/_signal.py:1202,</span> in <span class="ni">_rd_segment</span><span class="nt">(file_name, dir_name, pn_dir, fmt, n_sig, sig_len, byte_offset, samps_per_frame, skew, init_value, sampfrom, sampto, channels, ignore_skew, no_file, sig_data, return_res)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1198</span> <span class="n">signals</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1200</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">w_file_name</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1201</span>     <span class="c1"># Get the list of all signals contained in the dat file</span>
+<span class="ne">-&gt; </span><span class="mi">1202</span>     <span class="n">datsignals</span> <span class="o">=</span> <span class="n">_rd_dat_signals</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1203</span>         <span class="n">file_name</span><span class="o">=</span><span class="n">fn</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1204</span>         <span class="n">dir_name</span><span class="o">=</span><span class="n">dir_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1205</span>         <span class="n">pn_dir</span><span class="o">=</span><span class="n">pn_dir</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1206</span>         <span class="n">fmt</span><span class="o">=</span><span class="n">w_fmt</span><span class="p">[</span><span class="n">fn</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1207</span>         <span class="n">n_sig</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">datchannel</span><span class="p">[</span><span class="n">fn</span><span class="p">]),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1208</span>         <span class="n">sig_len</span><span class="o">=</span><span class="n">sig_len</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1209</span>         <span class="n">byte_offset</span><span class="o">=</span><span class="n">w_byte_offset</span><span class="p">[</span><span class="n">fn</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1210</span>         <span class="n">samps_per_frame</span><span class="o">=</span><span class="n">w_samps_per_frame</span><span class="p">[</span><span class="n">fn</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1211</span>         <span class="n">skew</span><span class="o">=</span><span class="n">w_skew</span><span class="p">[</span><span class="n">fn</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1212</span>         <span class="n">init_value</span><span class="o">=</span><span class="n">w_init_value</span><span class="p">[</span><span class="n">fn</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1213</span>         <span class="n">sampfrom</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1214</span>         <span class="n">sampto</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1215</span>         <span class="n">no_file</span><span class="o">=</span><span class="n">no_file</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1216</span>         <span class="n">sig_data</span><span class="o">=</span><span class="n">sig_data</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1217</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1219</span>     <span class="c1"># Copy over the wanted signals</span>
+<span class="g g-Whitespace">   </span><span class="mi">1220</span>     <span class="k">for</span> <span class="n">cn</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out_dat_channel</span><span class="p">[</span><span class="n">fn</span><span class="p">])):</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/_signal.py:1330,</span> in <span class="ni">_rd_dat_signals</span><span class="nt">(file_name, dir_name, pn_dir, fmt, n_sig, sig_len, byte_offset, samps_per_frame, skew, init_value, sampfrom, sampto, no_file, sig_data)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1328</span>     <span class="n">data_to_read</span> <span class="o">=</span> <span class="n">sig_data</span>
+<span class="g g-Whitespace">   </span><span class="mi">1329</span> <span class="k">elif</span> <span class="n">fmt</span> <span class="ow">in</span> <span class="n">COMPRESSED_FMTS</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1330</span>     <span class="n">data_to_read</span> <span class="o">=</span> <span class="n">_rd_compressed_file</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1331</span>         <span class="n">file_name</span><span class="o">=</span><span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1332</span>         <span class="n">dir_name</span><span class="o">=</span><span class="n">dir_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1333</span>         <span class="n">pn_dir</span><span class="o">=</span><span class="n">pn_dir</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1334</span>         <span class="n">fmt</span><span class="o">=</span><span class="n">fmt</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1335</span>         <span class="n">sample_offset</span><span class="o">=</span><span class="n">byte_offset</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1336</span>         <span class="n">n_sig</span><span class="o">=</span><span class="n">n_sig</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1337</span>         <span class="n">samps_per_frame</span><span class="o">=</span><span class="n">samps_per_frame</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1338</span>         <span class="n">start_frame</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1339</span>         <span class="n">end_frame</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1340</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1341</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1342</span>     <span class="n">data_to_read</span> <span class="o">=</span> <span class="n">_rd_dat_file</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1343</span>         <span class="n">file_name</span><span class="p">,</span> <span class="n">dir_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">start_byte</span><span class="p">,</span> <span class="n">n_read_samples</span>
+<span class="g g-Whitespace">   </span><span class="mi">1344</span>     <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/_signal.py:1828,</span> in <span class="ni">_rd_compressed_file</span><span class="nt">(file_name, dir_name, pn_dir, fmt, sample_offset, n_sig, samps_per_frame, start_frame, end_frame)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1776</span> <span class="k">def</span> <span class="nf">_rd_compressed_file</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1777</span>     <span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1778</span>     <span class="n">dir_name</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1785</span>     <span class="n">end_frame</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1786</span> <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1787</span>     <span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1788</span><span class="sd">     Read data from a compressed file into a 1D numpy array.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1789</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1826</span><span class="sd"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1827</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1828</span>     <span class="kn">import</span> <span class="nn">soundfile</span>
+<span class="g g-Whitespace">   </span><span class="mi">1830</span>     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">spf</span> <span class="o">!=</span> <span class="n">samps_per_frame</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">spf</span> <span class="ow">in</span> <span class="n">samps_per_frame</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1831</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1832</span>             <span class="s2">&quot;All channels in a FLAC signal file must have the same &quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1833</span>             <span class="s2">&quot;sampling rate and samples per frame&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1834</span>         <span class="p">)</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.9.13</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">soundfile</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">142</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span>     <span class="n">_libname</span> <span class="o">=</span> <span class="n">_find_library</span><span class="p">(</span><span class="s1">&#39;sndfile&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span>     <span class="k">if</span> <span class="n">_libname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">142</span>         <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">&#39;sndfile library not found&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span>     <span class="n">_snd</span> <span class="o">=</span> <span class="n">_ffi</span><span class="o">.</span><span class="n">dlopen</span><span class="p">(</span><span class="n">_libname</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span> <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+
+<span class="ne">OSError</span>: sndfile library not found
 </pre></div>
 </div>
 </div>
@@ -693,7 +819,7 @@ title="Print to PDF"
 <hr class="docutils" />
 <div class="section" id="create-a-filter">
 <h2>Create a filter<a class="headerlink" href="#create-a-filter" title="Permalink to this headline">¶</a></h2>
-<div class="alert alert-block alert-warning"> <b>Resource:</b> This step is taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/differentiation.html">Differentiation</a> tutorial. </div><ul class="simple">
+<ul class="simple">
 <li><p>Import the <a class="reference external" href="https://docs.scipy.org/doc/scipy/tutorial/signal.html">SciPy signal processing package</a>, which contains functions for filtering and differentiating.</p></li>
 </ul>
 <div class="cell docutils container">
@@ -715,7 +841,7 @@ title="Print to PDF"
 </div>
 </div>
 <ul class="simple">
-<li><p>Create the filter</p></li>
+<li><p>Create a Butterworth filter using the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html">butter</a> function</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -730,8 +856,9 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="mf">1e-5</span><span class="p">)))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Butterworth bandpass filter frequency response&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
@@ -745,12 +872,12 @@ title="Print to PDF"
 <img alt="../../_images/signal-filtering_17_0.png" src="../../_images/signal-filtering_17_0.png" />
 </div>
 </div>
-<div class="alert alert-block alert-info"> <b>Question:</b> What does this plot tell us about the filter characteristics? What types of noise does the filter attenuate? </div><div class="alert alert-block alert-info"> <b>Extension:</b> How could we re-design the filter to retain frequency content of upto 20 Hz, but eliminate mains frequencies? </div></div>
+<div class="alert alert-block alert-info"> <b>Question:</b> What does this plot tell us about the filter characteristics? What types of noise does the filter attenuate? </div><div class="alert alert-block alert-info"> <b>Extension 1:</b> How could we re-design the filter to retain frequency content of upto 20 Hz, but eliminate mains frequencies? </div><div class="alert alert-block alert-info"> <b>Extension 2:</b> What would be appropriate cut-off frequencies when using the PPG for different purposes, e.g. heart rate monitoring, or blood pressure estimation? See <a href="http://peterhcharlton.github.io/publication/wearable_ppg_chapter/">this book chapter</a>, (Sections 2.2.4-2.2.5 on Sampling Frequency and Bandwidth) for details.</div></div>
 <hr class="docutils" />
 <div class="section" id="filter-the-ppg-signal">
 <h2>Filter the PPG signal<a class="headerlink" href="#filter-the-ppg-signal" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Filter the PPG signal in preparation for differentiation using a Butterworth filter provided by the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html">butter</a> function.</p></li>
+<li><p>Filter the PPG signal in preparation for differentiation.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -771,6 +898,7 @@ title="Print to PDF"
 <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">no_seconds_to_load</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;PPG&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -778,10 +906,10 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/signal-filtering_24_0.png" src="../../_images/signal-filtering_24_0.png" />
+<img alt="../../_images/signal-filtering_25_0.png" src="../../_images/signal-filtering_25_0.png" />
 </div>
 </div>
-<div class="alert alert-block alert-warning"> <b>Note:</b> The PPG signals in MIMIC have already been filtered somewhat by the clinical monitors used to record them. </div><div class="alert alert-block alert-info"> <b>Further Work:</b> Several different types of filters have been used to filter the PPG signal (e.g. Chebyshev filter, Butterworth filter). Have a look at [this article](https://doi.org/10.1038/sdata.2018.76) for examples of several filter types (on pp.8-9). Which type of filter do the authors recommend? Can you re-design the filter above to use this type of filter? </div></div>
+<div class="alert alert-block alert-warning"> <b>Note:</b> The PPG signals in MIMIC have already been filtered somewhat by the clinical monitors used to record them. </div><div class="alert alert-block alert-info"> <b>Further Work:</b> Several different types of filters have been used to filter the PPG signal (e.g. Chebyshev filter, Butterworth filter). Have a look at <a href="https://doi.org/10.1038/sdata.2018.76">this article</a> for examples of several filter types (on pp.8-9). Which type of filter do the authors recommend? Can you re-design the filter above to use this type of filter? </div></div>
 </div>
 
     <script type="text/x-thebe-config">
