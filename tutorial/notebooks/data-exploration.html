@@ -824,7 +824,6 @@ title="Print to PDF"
 <p>We’ll import the following:</p>
 <ul class="simple">
 <li><p><em>sys</em>: an essential python package</p></li>
-<li><p><em>wfdb</em>: The WaveForm DataBase Toolbox package, which contains tools for processing waveform data such as those in MIMIC.</p></li>
 <li><p><em>pathlib</em> (well a particular function from <em>pathlib</em>, called <em>Path</em>)</p></li>
 </ul>
 <div class="cell docutils container">
@@ -838,7 +837,9 @@ title="Print to PDF"
 </div>
 <div class="section" id="specify-a-particular-version-of-the-wfdb-toolbox">
 <h3>Specify a particular version of the WFDB Toolbox<a class="headerlink" href="#specify-a-particular-version-of-the-wfdb-toolbox" title="Permalink to this headline">¶</a></h3>
-<p>We’ll specify version 4 of the toolbox:</p>
+<ul class="simple">
+<li><p><em>wfdb</em>: We’ll now specify version 4 of the WaveForm DataBase Toolbox package, which contains tools for processing waveform data such as those in MIMIC:</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install <span class="nv">wfdb</span><span class="o">==</span><span class="m">4</span>.0.0
@@ -852,31 +853,30 @@ title="Print to PDF"
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading wfdb-4.0.0-py3-none-any.whl (161 kB)
 ?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/161.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">161.7/161.7 kB</span> <span class=" -Color -Color-Red">13.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25h
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: matplotlib&lt;4.0.0,&gt;=3.2.2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (3.5.2)
-Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.4.3)
-Requirement already satisfied: scipy&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.8.1)
-Collecting SoundFile&lt;0.12.0,&gt;=0.10.0
-  Downloading SoundFile-0.10.3.post1-py2.py3-none-any.whl (21 kB)
-Requirement already satisfied: numpy&lt;2.0.0,&gt;=1.10.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.23.1)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">161.7/161.7 kB</span> <span class=" -Color -Color-Red">17.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hRequirement already satisfied: matplotlib&lt;4.0.0,&gt;=3.2.2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (3.5.2)
 Requirement already satisfied: requests&lt;3.0.0,&gt;=2.8.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (2.28.1)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (4.34.4)
-Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (21.3)
-Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (9.2.0)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (2.8.2)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (3.0.9)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.4.3)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (0.11.0)
-Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from pandas&lt;2.0.0,&gt;=1.0.0-&gt;wfdb==4.0.0) (2022.1)
-Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2.1.0)
-Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (1.26.10)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting SoundFile&lt;0.12.0,&gt;=0.10.0
+  Downloading SoundFile-0.10.3.post1-py2.py3-none-any.whl (21 kB)
+Requirement already satisfied: scipy&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.8.1)
+Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: numpy&lt;2.0.0,&gt;=1.10.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.23.1)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (21.3)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (3.0.9)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (4.34.4)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (0.11.0)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (2.8.2)
+Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (9.2.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from pandas&lt;2.0.0,&gt;=1.0.0-&gt;wfdb==4.0.0) (2022.1)
 Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (3.3)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (1.26.10)
 Requirement already satisfied: certifi&gt;=2017.4.17 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2022.6.15)
+Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2.1.0)
 Requirement already satisfied: cffi&gt;=1.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (1.15.1)
 Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from cffi&gt;=1.0-&gt;SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (2.21)
 </pre></div>
@@ -885,11 +885,11 @@ Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: SoundFile, wfdb
+  Attempting uninstall: wfdb
+    Found existing installation: wfdb 3.4.1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Attempting uninstall: wfdb
-    Found existing installation: wfdb 3.4.1
-    Uninstalling wfdb-3.4.1:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Uninstalling wfdb-3.4.1:
       Successfully uninstalled wfdb-3.4.1
 </pre></div>
 </div>
@@ -1753,6 +1753,63 @@ Record: waves/p121/p12168037/89464742/89464742
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (met requirements)
 Record: waves/p121/p12173569/88958796/88958796
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - Segment: 88958796_0000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 88958796_0001
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 1.6 mins)
+ - Segment: 88958796_0002
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 6.5 mins)
+ - Segment: 88958796_0003
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.5 mins)
+ - Segment: 88958796_0004
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (met requirements)
+Record: waves/p121/p12188288/88995377/88995377
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> - Segment: 88995377_0000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (too short at 0.0 mins)
+ - Segment: 88995377_0001
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (met requirements)
+Record: waves/p122/p12226163/85982742/85982742
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+   (missing signals)
+Record: waves/p122/p12246674/81515145/81515145
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   (missing signals)
+Record: waves/p122/p12290932/84513510/84513510
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
+   (missing signals)
+Record: waves/p122/p12295067/86906600/86906600
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> (reading data)
