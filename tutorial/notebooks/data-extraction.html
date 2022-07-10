@@ -304,11 +304,6 @@ const thebe_selector_output = ".output, .cell_output"
      Signal Quality Assessment
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="data-extraction-20220710.html">
-     Data Extraction
-    </a>
-   </li>
   </ul>
  </li>
 </ul>
@@ -553,8 +548,8 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
-   Specify an ICU stay and segment
+  <a class="reference internal nav-link" href="#setup">
+   Setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -582,8 +577,8 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#specify-an-icu-stay-and-segment">
-   Specify an ICU stay and segment
+  <a class="reference internal nav-link" href="#setup">
+   Setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -603,77 +598,141 @@ title="Print to PDF"
                 
   <div class="section" id="data-extraction">
 <h1>Data Extraction<a class="headerlink" href="#data-extraction" title="Permalink to this headline">¶</a></h1>
-<p>Extract data from the MIMIC Waveform Database.</p>
-<hr class="docutils" />
-<div class="section" id="specify-an-icu-stay-and-segment">
-<h2>Specify an ICU stay and segment<a class="headerlink" href="#specify-an-icu-stay-and-segment" title="Permalink to this headline">¶</a></h2>
+<p>Extract data from the MIMIC-IV Waveform Database.</p>
+<p>The <strong>objectives</strong> are:</p>
+<ul class="simple">
+<li><p>To extract the signals from one segment of a record</p></li>
+<li><p>To extract only the required duration of the required signals from this segment (<em>i.e.</em> 10 minutes of photoplethysmography and blood presure signals)</p></li>
+</ul>
+<div class="alert alert-block alert-warning"> <b>Context:</b>
+    In the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-exploration.html">Data Exploration</a> tutorial we learnt how to identify segments of waveform data which are suitable for a particular research study (i.e. which have the required duration of the required signals). We extracted metadata for such a segment, providing high-level details of what is contained in the segment (e.g. which signals, their sampling frequency, and their duration). In this tutorial we will go a step further and extract signals in preparation for analysis.
+</div><hr class="docutils" />
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="alert alert-block alert-warning"> <b>Resource:</b> These steps are taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-exploration.html">Data Exploration</a> tutorial. </div><ul class="simple">
 <li><p>Specify the required Python packages</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">wfdb</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 </pre></div>
 </div>
 </div>
 </div>
 <ul class="simple">
-<li><p>Get a list of ICU stays in the database</p></li>
+<li><p>Specify a particular version of the WFDB toolbox</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0&#39;</span> <span class="c1"># The name of the MIMIC III Waveform Database on Physionet (see URL: https://physionet.org/content/mimic3wdb/1.0/)</span>
-<span class="n">icustay_records</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">database_name</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are </span><span class="si">{}</span><span class="s2"> ICU stays in the database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">icustay_records</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install <span class="nv">wfdb</span><span class="o">==</span><span class="m">4</span>.0.0
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 67830 ICU stays in the database
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting wfdb==4.0.0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading wfdb-4.0.0-py3-none-any.whl (161 kB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/161.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">161.7/161.7 kB</span> <span class=" -Color -Color-Red">23.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy&lt;2.0.0,&gt;=1.10.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.23.1)
+Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: scipy&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.8.1)
+Requirement already satisfied: matplotlib&lt;4.0.0,&gt;=3.2.2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (3.5.2)
+Collecting SoundFile&lt;0.12.0,&gt;=0.10.0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading SoundFile-0.10.3.post1-py2.py3-none-any.whl (21 kB)
+Requirement already satisfied: requests&lt;3.0.0,&gt;=2.8.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (2.28.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (4.34.4)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (2.8.2)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (0.11.0)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (3.0.9)
+Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (9.2.0)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (21.3)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from pandas&lt;2.0.0,&gt;=1.0.0-&gt;wfdb==4.0.0) (2022.1)
+Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2.1.0)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (1.26.10)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2022.6.15)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (3.3)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: cffi&gt;=1.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (1.15.1)
+Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from cffi&gt;=1.0-&gt;SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (2.21)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.16.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: SoundFile, wfdb
+  Attempting uninstall: wfdb
+    Found existing installation: wfdb 3.4.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Uninstalling wfdb-3.4.1:
+      Successfully uninstalled wfdb-3.4.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed SoundFile-0.10.3.post1 wfdb-4.0.0
 </pre></div>
 </div>
 </div>
 </div>
 <ul class="simple">
-<li><p>Specify an ICU stay</p></li>
+<li><p>Import the WFDB toolbox</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_no</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># specify the first record (noting that in Python the first index is 0)</span>
-<span class="n">icustay_record</span> <span class="o">=</span> <span class="n">icustay_records</span><span class="p">[</span><span class="n">icustay_no</span><span class="p">]</span>
-<span class="n">icustay_record_dir</span> <span class="o">=</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">icustay_record</span>
-<span class="n">icustay_record_name</span> <span class="o">=</span> <span class="n">icustay_record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified ICU stay: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_record_name</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified ICU stay: 3000003
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">wfdb</span>
 </pre></div>
 </div>
 </div>
 </div>
 <ul class="simple">
-<li><p>Specify a segment of this ICU stay</p></li>
+<li><p>Specify the settings for the MIMIC-IV database</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">icustay_files</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">get_record_list</span><span class="p">(</span><span class="n">icustay_record_dir</span><span class="p">)</span>
-<span class="n">icustay_segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">icustay_files</span> <span class="k">if</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
-<span class="n">icustay_segment_no</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="n">icustay_segment_name</span> <span class="o">=</span> <span class="n">icustay_segments</span><span class="p">[</span><span class="n">icustay_segment_no</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified segment: &#39;</span><span class="si">{}</span><span class="s2">&#39; within ICU stay &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">icustay_record_name</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic4wdb/0.1.0&#39;</span> <span class="c1"># The name of the MIMIC IV Waveform Demo Database on Physionet</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Provide a list of segments which meet the requirements for the study (NB: these are copied from the end of the <a class="reference external" href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-exploration.html">Data Exploration Tutorial</a>).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;83404654_0005&#39;</span><span class="p">]</span>
+<span class="n">segment_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mimic4wdb/0.1.0/waves/p100/p10020306/83404654&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Specify a segment from which to extract data</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rel_segment_no</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">rel_segment_name</span> <span class="o">=</span> <span class="n">segment_names</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
+<span class="n">rel_segment_dir</span> <span class="o">=</span> <span class="n">segment_dirs</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified segment &#39;</span><span class="si">{}</span><span class="s2">&#39; in directory &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">rel_segment_dir</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment: &#39;3000003_0001&#39; within ICU stay &#39;3000003&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment &#39;83404654_0005&#39; in directory &#39;mimic4wdb/0.1.0/waves/p100/p10020306/83404654&#39;
 </pre></div>
 </div>
 </div>
 </div>
-</div>
+<div class="alert alert-block alert-info"> <b>Extension:</b> Have a look at the files which make up this record <a href="https://physionet.org/content/mimic4wdb/0.1.0/waves/p100/p10020306/">here</a> (NB: you will need to scroll to the bottom of the page). </div></div>
 <hr class="docutils" />
 <div class="section" id="extract-data-for-this-segment">
 <h2>Extract data for this segment<a class="headerlink" href="#extract-data-for-this-segment" title="Permalink to this headline">¶</a></h2>
@@ -682,13 +741,115 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">icustay_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">icustay_record_dir</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icustay_segment_name</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data loaded from segment: 3000003_0001
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
+<span class="nn">Input In [7],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">))</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:2065,</span> in <span class="ni">rdrecord</span><span class="nt">(record_name, sampfrom, sampto, channels, physical, pn_dir, m2s, smooth_frames, ignore_skew, return_res, force_channels, channel_names, warn_empty)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2062</span> <span class="n">no_file</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">   </span><span class="mi">2063</span> <span class="n">sig_data</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">2065</span> <span class="n">record</span><span class="o">.</span><span class="n">e_d_signal</span> <span class="o">=</span> <span class="n">_signal</span><span class="o">.</span><span class="n">_rd_segment</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2066</span>     <span class="n">file_name</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2067</span>     <span class="n">dir_name</span><span class="o">=</span><span class="n">dir_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2068</span>     <span class="n">pn_dir</span><span class="o">=</span><span class="n">pn_dir</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2069</span>     <span class="n">fmt</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">fmt</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2070</span>     <span class="n">n_sig</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">n_sig</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2071</span>     <span class="n">sig_len</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">sig_len</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2072</span>     <span class="n">byte_offset</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">byte_offset</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2073</span>     <span class="n">samps_per_frame</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">samps_per_frame</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2074</span>     <span class="n">skew</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">skew</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2075</span>     <span class="n">init_value</span><span class="o">=</span><span class="n">record</span><span class="o">.</span><span class="n">init_value</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2076</span>     <span class="n">sampfrom</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2077</span>     <span class="n">sampto</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2078</span>     <span class="n">channels</span><span class="o">=</span><span class="n">channels</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2079</span>     <span class="n">ignore_skew</span><span class="o">=</span><span class="n">ignore_skew</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2080</span>     <span class="n">no_file</span><span class="o">=</span><span class="n">no_file</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2081</span>     <span class="n">sig_data</span><span class="o">=</span><span class="n">sig_data</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2082</span>     <span class="n">return_res</span><span class="o">=</span><span class="n">return_res</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2083</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2085</span> <span class="c1"># Only 1 sample/frame, or frames are smoothed. Return uniform numpy array</span>
+<span class="g g-Whitespace">   </span><span class="mi">2086</span> <span class="k">if</span> <span class="n">smooth_frames</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2087</span>     <span class="c1"># Arrange/edit the object fields to reflect user channel</span>
+<span class="g g-Whitespace">   </span><span class="mi">2088</span>     <span class="c1"># and/or signal range input</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/_signal.py:1202,</span> in <span class="ni">_rd_segment</span><span class="nt">(file_name, dir_name, pn_dir, fmt, n_sig, sig_len, byte_offset, samps_per_frame, skew, init_value, sampfrom, sampto, channels, ignore_skew, no_file, sig_data, return_res)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1198</span> <span class="n">signals</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1200</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">w_file_name</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1201</span>     <span class="c1"># Get the list of all signals contained in the dat file</span>
+<span class="ne">-&gt; </span><span class="mi">1202</span>     <span class="n">datsignals</span> <span class="o">=</span> <span class="n">_rd_dat_signals</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1203</span>         <span class="n">file_name</span><span class="o">=</span><span class="n">fn</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1204</span>         <span class="n">dir_name</span><span class="o">=</span><span class="n">dir_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1205</span>         <span class="n">pn_dir</span><span class="o">=</span><span class="n">pn_dir</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1206</span>         <span class="n">fmt</span><span class="o">=</span><span class="n">w_fmt</span><span class="p">[</span><span class="n">fn</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1207</span>         <span class="n">n_sig</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">datchannel</span><span class="p">[</span><span class="n">fn</span><span class="p">]),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1208</span>         <span class="n">sig_len</span><span class="o">=</span><span class="n">sig_len</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1209</span>         <span class="n">byte_offset</span><span class="o">=</span><span class="n">w_byte_offset</span><span class="p">[</span><span class="n">fn</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1210</span>         <span class="n">samps_per_frame</span><span class="o">=</span><span class="n">w_samps_per_frame</span><span class="p">[</span><span class="n">fn</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1211</span>         <span class="n">skew</span><span class="o">=</span><span class="n">w_skew</span><span class="p">[</span><span class="n">fn</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1212</span>         <span class="n">init_value</span><span class="o">=</span><span class="n">w_init_value</span><span class="p">[</span><span class="n">fn</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1213</span>         <span class="n">sampfrom</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1214</span>         <span class="n">sampto</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1215</span>         <span class="n">no_file</span><span class="o">=</span><span class="n">no_file</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1216</span>         <span class="n">sig_data</span><span class="o">=</span><span class="n">sig_data</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1217</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1219</span>     <span class="c1"># Copy over the wanted signals</span>
+<span class="g g-Whitespace">   </span><span class="mi">1220</span>     <span class="k">for</span> <span class="n">cn</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out_dat_channel</span><span class="p">[</span><span class="n">fn</span><span class="p">])):</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/_signal.py:1330,</span> in <span class="ni">_rd_dat_signals</span><span class="nt">(file_name, dir_name, pn_dir, fmt, n_sig, sig_len, byte_offset, samps_per_frame, skew, init_value, sampfrom, sampto, no_file, sig_data)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1328</span>     <span class="n">data_to_read</span> <span class="o">=</span> <span class="n">sig_data</span>
+<span class="g g-Whitespace">   </span><span class="mi">1329</span> <span class="k">elif</span> <span class="n">fmt</span> <span class="ow">in</span> <span class="n">COMPRESSED_FMTS</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1330</span>     <span class="n">data_to_read</span> <span class="o">=</span> <span class="n">_rd_compressed_file</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1331</span>         <span class="n">file_name</span><span class="o">=</span><span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1332</span>         <span class="n">dir_name</span><span class="o">=</span><span class="n">dir_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1333</span>         <span class="n">pn_dir</span><span class="o">=</span><span class="n">pn_dir</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1334</span>         <span class="n">fmt</span><span class="o">=</span><span class="n">fmt</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1335</span>         <span class="n">sample_offset</span><span class="o">=</span><span class="n">byte_offset</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1336</span>         <span class="n">n_sig</span><span class="o">=</span><span class="n">n_sig</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1337</span>         <span class="n">samps_per_frame</span><span class="o">=</span><span class="n">samps_per_frame</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1338</span>         <span class="n">start_frame</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1339</span>         <span class="n">end_frame</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1340</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1341</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1342</span>     <span class="n">data_to_read</span> <span class="o">=</span> <span class="n">_rd_dat_file</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1343</span>         <span class="n">file_name</span><span class="p">,</span> <span class="n">dir_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">start_byte</span><span class="p">,</span> <span class="n">n_read_samples</span>
+<span class="g g-Whitespace">   </span><span class="mi">1344</span>     <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/_signal.py:1828,</span> in <span class="ni">_rd_compressed_file</span><span class="nt">(file_name, dir_name, pn_dir, fmt, sample_offset, n_sig, samps_per_frame, start_frame, end_frame)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1776</span> <span class="k">def</span> <span class="nf">_rd_compressed_file</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1777</span>     <span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1778</span>     <span class="n">dir_name</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1785</span>     <span class="n">end_frame</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1786</span> <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1787</span>     <span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1788</span><span class="sd">     Read data from a compressed file into a 1D numpy array.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1789</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1826</span><span class="sd"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1827</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1828</span>     <span class="kn">import</span> <span class="nn">soundfile</span>
+<span class="g g-Whitespace">   </span><span class="mi">1830</span>     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">spf</span> <span class="o">!=</span> <span class="n">samps_per_frame</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">spf</span> <span class="ow">in</span> <span class="n">samps_per_frame</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1831</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1832</span>             <span class="s2">&quot;All channels in a FLAC signal file must have the same &quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1833</span>             <span class="s2">&quot;sampling rate and samples per frame&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1834</span>         <span class="p">)</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.9.13</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">soundfile</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">142</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span>     <span class="n">_libname</span> <span class="o">=</span> <span class="n">_find_library</span><span class="p">(</span><span class="s1">&#39;sndfile&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span>     <span class="k">if</span> <span class="n">_libname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">142</span>         <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">&#39;sndfile library not found&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span>     <span class="n">_snd</span> <span class="o">=</span> <span class="n">_ffi</span><span class="o">.</span><span class="n">dlopen</span><span class="p">(</span><span class="n">_libname</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span> <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+
+<span class="ne">OSError</span>: sndfile library not found
 </pre></div>
 </div>
 </div>
@@ -698,7 +859,7 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data stored in class of type: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">record_data</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data stored in class of type: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">segment_data</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -714,15 +875,73 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This segment contains waveform data for the following </span><span class="si">{}</span><span class="s2"> signals: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">n_sig</span><span class="p">,</span> <span class="n">record_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The signals are sampled at </span><span class="si">{}</span><span class="s2"> Hz&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">fs</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The signals are sampled at a base rate of </span><span class="si">{}</span><span class="s2"> Hz (and some are sampled at multiples of this)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">fs</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;They last for </span><span class="si">{:.1f}</span><span class="s2"> minutes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record_data</span><span class="o">.</span><span class="n">sig_len</span><span class="o">/</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="n">record_data</span><span class="o">.</span><span class="n">fs</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This segment contains waveform data for the following 2 signals: [&#39;II&#39;, &#39;V&#39;]
-The signals are sampled at 125 Hz
-They last for 2.3 minutes
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This segment contains waveform data for the following 6 signals: [&#39;II&#39;, &#39;V&#39;, &#39;aVR&#39;, &#39;ABP&#39;, &#39;Pleth&#39;, &#39;Resp&#39;]
+The signals are sampled at a base rate of 62.4725 Hz (and some are sampled at multiples of this)
+They last for 52.4 minutes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-info"> <b>Question:</b> Can you find out which signals are sampled at multiples of the base sampling frequency by looking at the following contents of the 'segment_data' variable? </div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="n">pprint</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">segment_data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;adc_gain&#39;: [200.0, 200.0, 200.0, 16.0, 4096.0, 4093.0],
+ &#39;adc_res&#39;: [14, 14, 14, 13, 12, 12],
+ &#39;adc_zero&#39;: [8192, 8192, 8192, 4096, 2048, 2048],
+ &#39;base_counter&#39;: 10219520.0,
+ &#39;base_date&#39;: None,
+ &#39;base_time&#39;: None,
+ &#39;baseline&#39;: [8192, 8192, 8192, 800, 0, 2],
+ &#39;block_size&#39;: [0, 0, 0, 0, 0, 0],
+ &#39;byte_offset&#39;: [None, None, None, None, None, None],
+ &#39;checksum&#39;: [10167, 1300, 56956, 35887, 29987, 21750],
+ &#39;comments&#39;: [&#39;signal 0 (II): channel=0 bandpass=[0.5,35]&#39;,
+              &#39;signal 1 (V): channel=1 bandpass=[0.5,35]&#39;,
+              &#39;signal 2 (aVR): channel=2 bandpass=[0.5,35]&#39;],
+ &#39;counter_freq&#39;: 999.56,
+ &#39;d_signal&#39;: None,
+ &#39;e_d_signal&#39;: None,
+ &#39;e_p_signal&#39;: None,
+ &#39;file_name&#39;: [&#39;83404654_0005e.dat&#39;,
+               &#39;83404654_0005e.dat&#39;,
+               &#39;83404654_0005e.dat&#39;,
+               &#39;83404654_0005p.dat&#39;,
+               &#39;83404654_0005p.dat&#39;,
+               &#39;83404654_0005r.dat&#39;],
+ &#39;fmt&#39;: [&#39;516&#39;, &#39;516&#39;, &#39;516&#39;, &#39;516&#39;, &#39;516&#39;, &#39;516&#39;],
+ &#39;fs&#39;: 62.4725,
+ &#39;init_value&#39;: [0, 0, 0, 0, 0, 0],
+ &#39;n_sig&#39;: 6,
+ &#39;p_signal&#39;: array([[ 0.00000000e+00, -6.50000000e-02, -5.00000000e-03,
+                    nan,  5.02929688e-01,  1.56120205e-01],
+       [ 5.00000000e-03, -4.50000000e-02, -5.00000000e-03,
+                    nan,  5.02929688e-01,  1.56853164e-01],
+       [ 1.50000000e-02, -2.50000000e-02,  5.00000000e-03,
+                    nan,  5.02929688e-01,  1.57097484e-01],
+       ...,
+       [-1.50000000e-02,  7.00000000e-02, -4.00000000e-02,
+         7.25000000e+01,  5.74951172e-01,  3.57683850e-01],
+       [-1.50000000e-02,  5.50000000e-02, -4.50000000e-02,
+         7.25000000e+01,  5.70800781e-01,  3.61104324e-01],
+       [ 0.00000000e+00,  9.00000000e-02, -5.50000000e-02,
+         7.25000000e+01,  5.62255859e-01,  3.63791840e-01]]),
+ &#39;record_name&#39;: &#39;83404654_0005&#39;,
+ &#39;samps_per_frame&#39;: [4, 4, 4, 2, 2, 1],
+ &#39;sig_len&#39;: 196480,
+ &#39;sig_name&#39;: [&#39;II&#39;, &#39;V&#39;, &#39;aVR&#39;, &#39;ABP&#39;, &#39;Pleth&#39;, &#39;Resp&#39;],
+ &#39;skew&#39;: [None, None, None, None, None, None],
+ &#39;units&#39;: [&#39;mV&#39;, &#39;mV&#39;, &#39;mV&#39;, &#39;mmHg&#39;, &#39;NU&#39;, &#39;Ohm&#39;]}
 </pre></div>
 </div>
 </div>
