@@ -201,11 +201,6 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="data-extraction-20220710.html">
-     Data Extraction
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="data-visualisation.html">
      Data Visualisation
     </a>
@@ -227,17 +222,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="beat-detection.html">
-     Detecting beats in the PPG signal
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="qrs-detection.html">
-     QRS peak detection
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../signal-quality-assessment.html">
-     Signal Quality Assessment
+     Beat detection
     </a>
    </li>
    <li class="toctree-l2">
@@ -295,6 +280,33 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="../../about/about-maintenance.html">
      Maintenance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../tutorials-for-the-future.html">
+   Future Tutorials
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="qrs-detection.html">
+     QRS peak detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../signal-quality-assessment.html">
+     Signal Quality Assessment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="data-extraction-20220710.html">
+     Data Extraction
     </a>
    </li>
   </ul>
@@ -556,8 +568,8 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#detect-beats-in-the-abp-signal">
-     Detect beats in the ABP signal
+    <a class="reference internal nav-link" href="#detect-beats-in-the-bp-signal">
+     Detect beats in the BP signal
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -607,8 +619,8 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#detect-beats-in-the-abp-signal">
-     Detect beats in the ABP signal
+    <a class="reference internal nav-link" href="#detect-beats-in-the-bp-signal">
+     Detect beats in the BP signal
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -656,8 +668,7 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.signal</span> <span class="k">as</span> <span class="nn">sp</span>
 
@@ -719,7 +730,23 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">no_seconds_to_load</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">fs</span> <span class="o">=</span> <span class="mi">125</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Find out the sampling frequency of the waveform data</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_metadata</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="n">segment_metadata</span><span class="o">.</span><span class="n">fs</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sampling frequency is </span><span class="si">{}</span><span class="s2"> Hz&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fs</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling frequency is 125 Hz
 </pre></div>
 </div>
 </div>
@@ -729,19 +756,13 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span> <span class="o">=</span> <span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_time</span><span class="p">,</span> <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span> <span class="o">+</span> <span class="n">no_seconds_to_load</span><span class="p">),</span> <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">rel_segment_dir</span><span class="p">)</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span> <span class="o">=</span> <span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_time</span><span class="p">,</span> <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_time</span> <span class="o">+</span> <span class="n">no_seconds_to_load</span><span class="p">),</span> <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">rel_segment_dir</span><span class="p">)</span> 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data loaded from segment &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">rel_segment_name</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">Input In [6],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span> <span class="o">=</span> <span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_time</span><span class="p">,</span> <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span> <span class="o">+</span> <span class="n">no_seconds_to_load</span><span class="p">),</span> <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">rel_segment_dir</span><span class="p">)</span> 
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data loaded from segment &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">rel_segment_name</span><span class="p">))</span>
-
-<span class="ne">NameError</span>: name &#39;start_seconds&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 seconds of data loaded from segment &#39;3000063_0013&#39;
 </pre></div>
 </div>
 </div>
@@ -757,7 +778,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/extracting-reference-bp_17_0.png" src="../../_images/extracting-reference-bp_17_0.png" />
+<img alt="../../_images/extracting-reference-bp_19_0.png" src="../../_images/extracting-reference-bp_19_0.png" />
 </div>
 </div>
 <div class="alert alert-block alert-warning"> <b>Explanation:</b>
@@ -792,10 +813,10 @@ title="Print to PDF"
 <div class="section" id="derive-bp-values">
 <h2>Derive BP values<a class="headerlink" href="#derive-bp-values" title="Permalink to this headline">¶</a></h2>
 <p>Derive BP values from the ABP signal</p>
-<div class="section" id="detect-beats-in-the-abp-signal">
-<h3>Detect beats in the ABP signal<a class="headerlink" href="#detect-beats-in-the-abp-signal" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="detect-beats-in-the-bp-signal">
+<h3>Detect beats in the BP signal<a class="headerlink" href="#detect-beats-in-the-bp-signal" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Import the functions required to detect beats:</p></li>
+<li><p>Import the functions required to detect beats (from <a class="reference external" href="https://github.com/wfdb/mimic_wfdb_tutorials/blob/main/content/tutorial/notebooks/beat_detection_functions.py">this file</a>):</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -827,12 +848,12 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="nb">len</span><span class="p">(</span><span class="n">abp</span><span class="p">)</span><span class="o">/</span><span class="n">fs</span><span class="p">),</span><span class="mf">1.0</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
 <span class="n">line1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ABP&#39;</span><span class="p">)</span>
-<span class="n">line2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="p">((</span><span class="n">pks</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">fs</span><span class="p">),</span> <span class="n">x</span><span class="p">[</span><span class="n">pks</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;peaks&#39;</span><span class="p">)</span>
+<span class="n">line2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="p">((</span><span class="n">pks</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">fs</span><span class="p">),</span> <span class="n">abp</span><span class="p">[</span><span class="n">pks</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;peaks&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/extracting-reference-bp_28_0.png" src="../../_images/extracting-reference-bp_28_0.png" />
+<img alt="../../_images/extracting-reference-bp_30_0.png" src="../../_images/extracting-reference-bp_30_0.png" />
 </div>
 </div>
 </div>
@@ -867,16 +888,16 @@ title="Print to PDF"
 <span class="n">ons</span> <span class="o">=</span> <span class="n">fidp</span><span class="p">[</span><span class="s2">&quot;ons&quot;</span><span class="p">]</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="nb">len</span><span class="p">(</span><span class="n">abp</span><span class="p">)</span><span class="o">/</span><span class="n">fs</span><span class="p">),</span><span class="mf">1.0</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">pks</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">pks</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">ons</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">ons</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">pks</span><span class="p">],</span> <span class="n">abp</span><span class="p">[</span><span class="n">pks</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">ons</span><span class="p">],</span> <span class="n">abp</span><span class="p">[</span><span class="n">ons</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fea0e231fa0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f6d2902a040&gt;]
 </pre></div>
 </div>
-<img alt="../../_images/extracting-reference-bp_35_1.png" src="../../_images/extracting-reference-bp_35_1.png" />
+<img alt="../../_images/extracting-reference-bp_37_1.png" src="../../_images/extracting-reference-bp_37_1.png" />
 </div>
 </div>
 </div>
