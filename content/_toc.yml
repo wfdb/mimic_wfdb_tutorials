@@ -39,4 +39,3 @@
   sections:
     - file: tutorial/notebooks/qrs-detection
     - file: tutorial/signal-quality-assessment
-    - file: tutorial/notebooks/data-extraction-20220710
