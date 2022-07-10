@@ -1,25 +1,52 @@
-# Data formatting
+# Waveform Data Formats
 
-There are a few important concepts that should be well understood before using the WFDB software. These concepts include records; signals, samples, and time; and annotations.
+The waveform database is organized into "records".  Each record represents a single patient and roughly corresponds to a single ICU stay (not always, because the bedside monitor may be temporarily shut off.)  Each record is stored in a separate subdirectory.
 
-## Records
+To avoid providing information that could identify individual patients, the record does not include any actual date or time information.  Instead, measurements are recorded according to the "elapsed time" from the beginning of the record.  To allow cross-referencing events with the other MIMIC-IV modules, the *surrogate date and time* for the start of the record are also provided.
 
-The databases for which the WFDB library was designed consist of a number of records. Each record contains a continuous recording from a single subject, which might be only a few seconds or might be multiple days in length. A typical application program accesses only a single record, and in most cases, it reads the record in order from beginning to end. Each record is identified by a name consisting of letters, digits, and/or underscores. For example, record names in the MIT-BIH Arrhythmia Database are three-digit numbers.
+An example of the file structure is shown below.  Here there are two patients (`subject_id` 10014354 and 10039708).  There is one record (81739927) belonging to the first patient, and two records (83411188 and 85583557) belonging to the second.
 
-Case is significant in record names that contain letters, even in environments such as MS-Windows for which case translation is normally performed by the operating system on file names; thus ‘e0104’ is the name of a record found in the European ST-T Database, whereas ‘E0104’ is not. A record is made up of several files, which contain signals, annotations, and specifications of signal attributes; each file belonging to a given record normally includes the record name as the first part of its name. A record is an extensible collection of files, which need not all be located in the same directory, or even on the same physical device.
+```
+waves
+└── p100
+    ├── p10014354
+    │   └── 81739927
+    │       ├── 81739927.dat
+    │       ├── 81739927_0000.hea
+    │       ├── 81739927_0001.hea
+    │       ├── 81739927_0001e.dat
+    │       ├── 81739927_0001r.dat
+    │       ├── 81739927_0002.hea
+    │       ├── 81739927_0002e.dat
+    │       ├── 81739927_0002p.dat
+    │       ├── 81739927_0002r.dat
+    │       ├── ...
+    │       └── 81739927n.csv.gz
+    └── p10039708
+        ├── 83411188
+        │   ├── 83411188.hea
+        │   ├── ...
+        │   └── 83411188n.csv.gz
+        └── 85583557
+            ├── 85583557.hea
+            ├── ...
+            └── 85583557n.csv.gz
+```
 
-## Signals, Samples, and Time
+## Numerics
 
-Signals are commonly understood to be functions of time obtained by observation of physical variables. In our case, a signal is defined more restrictively as a finite sequence of integer samples, usually obtained by digitizing a continuous observed function of time at a fixed sampling frequency expressed in Hz (samples per second). The time interval between any pair of adjacent samples in a given signal is a sample interval; all sample intervals for a given signal are equal. The integer value of each sample is usually interpreted as a voltage, and the units are called analog-to-digital converter units, or adu. The gain defined for each signal specifies how many adus correspond to one physical unit (usually one millivolt, the nominal amplitude of a normal QRS complex on a body-surface ECG lead roughly parallel to the mean cardiac electrical axis). All signals in a given record are usually sampled at the same frequency, but not necessarily at the same gain. Records in the MIT-BIH Arrhythmia Database are sampled at 360 Hz; other database records may be sampled at 250 Hz or even 500 Hz.
+"Numerics" are defined as measurements that are sampled irregularly or infrequently (less than once per second.)  These measurements are stored as a single table, such as [83411188n.csv.gz](https://physionet.org/content/mimic4wdb/0.1.0/waves/p100/p10039708/83411188/83411188n.csv.gz).
 
-The sample number is an attribute of a sample, defined as the number of samples of the same signal that precede it; thus the sample number of the first sample in each signal is zero. The units of time are sample intervals; hence the “time” of a sample is synonymous with its sample number.
+This file is a gzip-compressed CSV file, which can be loaded using software packages such as [Pandas](https://pandas.pydata.org/), or it can be unpacked using [gzip](https://www.gnu.org/software/gzip/) and parsed as you would parse any CSV file.  Note that in contrast to most other MIMIC-IV data tables, the list of *columns* in this table are not the same from one patient to another.
 
-Samples having the same sample number in different signals of the same record are treated as simultaneous. In truth, they are usually not precisely simultaneous, since most multi-channel digitizers sample signals in “round-robin” fashion. If this subtlety makes a difference to you, you should be prepared to compensate for inter-signal sampling skew in your programs.
+Note that "elapsed time" for numeric values is measured in counter ticks (1/999.52 second, or about one millisecond.)
 
-## Annotations
+## Waveforms
 
-Annotation files provide additional information about a record, for example providing beat labels or highlighting when an alarm was triggered. The “time” of an annotation is simply the sample number of the sample with which the annotation is associated. Annotations may be associated with a single signal, if desired. No more than one annotation in a given annotation file may be associated with any given sample of any given signal. There may be many annotation files associated with the same record, however; they are distinguished by annotator names. The annotator name ‘atr’ is reserved to identify reference annotation files supplied by the developers of the databases to document correct beat labels. You may use other annotator names (which may contain letters, digits and underscores, as for record names) to identify annotation files that you create. You may wish to adopt the convention that the annotator name is the name of the file’s creator (a program or a person).
+"Waveforms" are defined as measurements that are sampled regularly at high resolution (62.47 samples per second or more.)  These measurements are stored as a set of files in WFDB (Waveform Database) format.
 
-Annotations are visible to the WFDB library user as C structures, the fields of which specify time, beat type, and several user-definable variables. The WFDB library performs efficient conversions between these structures and a compact bit-packed representation used for storage of annotations in annotation files.
+For the sake of storage and processing efficiency, waveforms are broken into multiple *segments* representing different time intervals.  It's common for some signals not to be available for the entire duration of a patient's ICU stay, but within a given segment, the available signals are sampled continously and the list of available signals doesn't change.
 
+A segment, in turn, consists of a *header file* (such as [83411188_0001.hea](https://physionet.org/content/mimic4wdb/0.1.0/waves/p100/p10039708/83411188/83411188_0001.hea) and one or more *signal files* (such as [83411188_0001e.dat](https://physionet.org/content/mimic4wdb/0.1.0/waves/p100/p10039708/83411188/83411188_0001e.dat) and [83411188_0001r.dat](https://physionet.org/content/mimic4wdb/0.1.0/waves/p100/p10039708/83411188/83411188_0001r.dat).
 
+In general, you do not need to parse these files yourself, and it is easiest to use one of the existing software packages for doing so: the [WFDB Python Package](https://github.com/MIT-LCP/wfdb-python) or the original [WFDB Software Package](https://physionet.org/content/wfdb/).  Data can also be converted into other formats using tools such as `rdsamp` or `wfdb2mat` from the WFDB Software Package.
