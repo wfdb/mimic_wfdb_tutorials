@@ -19,14 +19,11 @@
   sections:
     - file: tutorial/notebooks/data-exploration
     - file: tutorial/notebooks/data-extraction
-    - file: tutorial/notebooks/data-extraction-20220710
     - file: tutorial/notebooks/data-visualisation
     - file: tutorial/notebooks/identifying-suitable-data
     - file: tutorial/notebooks/signal-filtering
     - file: tutorial/notebooks/differentiation
     - file: tutorial/notebooks/beat-detection
-    - file: tutorial/notebooks/qrs-detection
-    - file: tutorial/signal-quality-assessment
     - file: tutorial/notebooks/pulse-wave-analysis
     - file: tutorial/notebooks/extracting-reference-bp
     - file: tutorial/data-modelling
@@ -38,3 +35,8 @@
   sections:
     - file: about/about-contributing
     - file: about/about-maintenance
+- file: tutorials-for-the-future
+  sections:
+    - file: tutorial/notebooks/qrs-detection
+    - file: tutorial/signal-quality-assessment
+    - file: tutorial/notebooks/data-extraction-20220710
