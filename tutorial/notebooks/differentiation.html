@@ -570,6 +570,11 @@ title="Print to PDF"
    Plot the PPG and its derivatives
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#comparison-with-typical-ppg-pulse-wave">
+   Comparison with typical PPG pulse wave
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -619,6 +624,11 @@ title="Print to PDF"
    Plot the PPG and its derivatives
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#comparison-with-typical-ppg-pulse-wave">
+   Comparison with typical PPG pulse wave
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -631,8 +641,14 @@ title="Print to PDF"
                 
   <div class="section" id="differentiating-the-ppg-signal">
 <h1>Differentiating the PPG signal<a class="headerlink" href="#differentiating-the-ppg-signal" title="Permalink to this headline">¶</a></h1>
-<p>Differentiating the PPG signal is a key step in identifying fiducial points on PPG pulse waves.</p>
-<hr class="docutils" />
+<p>In this tutorial we will learn how to differentiate physiological signals.</p>
+<p>The <strong>objectives</strong> are:</p>
+<ul class="simple">
+<li><p>To become familiar with a <a class="reference external" href="https://docs.scipy.org/doc/scipy/index.html">SciPy</a> function for differentiating signals.</p></li>
+<li><p>To use this function to differentiate signals</p></li>
+<li><p>To see typical shapes of the first and second derivatives of PPG signals.</p></li>
+</ul>
+<div class="alert alert-block alert-warning"> <b>Context:</b> Differentiating the PPG signal is a key step in identifying fiducial points on PPG pulse waves.</div><hr class="docutils" />
 <div class="section" id="specify-an-icu-stay-and-segment">
 <h2>Specify an ICU stay and segment<a class="headerlink" href="#specify-an-icu-stay-and-segment" title="Permalink to this headline">¶</a></h2>
 <div class="alert alert-block alert-warning"> <b>Resource:</b> These steps are taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-visualisation.html">Data Visualisation</a> tutorial. </div><ul class="simple">
@@ -785,7 +801,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<ul class="simple">
+<div class="alert alert-block alert-info"> <b>Question:</b> Look at the documentation on this function <a href =https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html#scipy.signal.butter>here</a>. Can you work out what the first three inputs mean: '10', '0.7', and '10'?</div><ul class="simple">
 <li><p>Import the packages required to plot the signal: <a class="reference external" href="https://matplotlib.org/stable/index.html">matplotlib</a> which is used to create plots, and <a class="reference external" href="https://numpy.org/">NumPy</a> which is used to create a time vector in this example.</p></li>
 </ul>
 <div class="cell docutils container">
@@ -815,7 +831,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/differentiation_29_0.png" src="../../_images/differentiation_29_0.png" />
+<img alt="../../_images/differentiation_31_0.png" src="../../_images/differentiation_31_0.png" />
 </div>
 </div>
 <ul class="simple">
@@ -836,7 +852,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-warning"> <b>Resource:</b> Savitzky-Golay filtering, which is used here to calculate derivatives, is described in <a href="https://doi.org/10.1021/ac60214a047">this article</a>. </div></div>
+<div class="alert alert-block alert-warning"> <b>Resource:</b> Savitzky-Golay filtering, which is used here to calculate derivatives, is described in <a href="https://doi.org/10.1021/ac60214a047">this article</a>. </div><div class="alert alert-block alert-info"> <b>Question:</b> Can you summarise how Savitzky-Golay filtering works? What are its advantages in physiological signal processing? </div></div>
 <hr class="docutils" />
 <div class="section" id="plot-the-ppg-and-its-derivatives">
 <h2>Plot the PPG and its derivatives<a class="headerlink" href="#plot-the-ppg-and-its-derivatives" title="Permalink to this headline">¶</a></h2>
@@ -864,13 +880,19 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/differentiation_37_0.png" src="../../_images/differentiation_37_0.png" />
+<img alt="../../_images/differentiation_40_0.png" src="../../_images/differentiation_40_0.png" />
 </div>
 </div>
-<div class="alert alert-block alert-info"> <b>Q:</b> How would the derivatives have looked different if the PPG signal hadn't been filtered before differentiation? <br> <b>Hint:</b> Above, try replacing 'ppg = ppg_ff' with 'ppg = ppg'. </div><div class="alert alert-block alert-info"> <b>Q:</b> How would the derivatives have been different if the PPG signal had been filtered using different co-efficients?
+<div class="alert alert-block alert-info"> <b>Question:</b> How would the derivatives have looked different if the PPG signal hadn't been filtered before differentiation? <br> <b>Hint:</b> Above, try replacing 'ppg = ppg_ff' with 'ppg = ppg'. </div><div class="alert alert-block alert-info"> <b>Question:</b> How would the derivatives have been different if the PPG signal had been filtered using different co-efficients?
     <br> <b>Hint:</b> Above, try replacing the relatively wide band-pass frequencies '[0.7, 10]' with '[0.8, 3]'. 
     <br> <b>Consider:</b> Which band-pass frequencies would be most suitable for pulse wave analysis? How about heart rate estimation?
 </div></div>
+<div class="section" id="comparison-with-typical-ppg-pulse-wave">
+<h2>Comparison with typical PPG pulse wave<a class="headerlink" href="#comparison-with-typical-ppg-pulse-wave" title="Permalink to this headline">¶</a></h2>
+<p>The figure below shows a typical PPG pulse wave recorded from a young, healthy subject.</p>
+<p><img alt="pic" src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Photoplethysmogram_%28PPG%29_pulse_wave_fiducial_points.svg" /></p>
+<p><em>Source: Charlton PH, <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Photoplethysmogram_(PPG)_pulse_wave_fiducial_points.svg">Photoplethysmogram (PPG) pulse wave fiducial points</a>, Wikimedia Commons (CC BY 4.0).</em></p>
+<div class="alert alert-block alert-info"> <b>Question:</b> How does this pulse wave shape and derivatives compare to the shape of those obtained from MIMIC data above? What might explain the differences?</div><div class="alert alert-block alert-warning"> <b>Further reading:</b> [This article](https://doi.org/10.1161/01.HYP.32.2.365) provides further information on how age affects the shape of the PPG's second derivative.</div></div>
 </div>
 
     <script type="text/x-thebe-config">
