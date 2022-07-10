@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data Filtering &#8212; MIMIC WFDB Tutorials</title>
+    <title>Filtering Signals &#8212; MIMIC WFDB Tutorials</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -217,7 +217,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Data Filtering
+     Filtering Signals
     </a>
    </li>
    <li class="toctree-l2">
@@ -540,29 +540,29 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Data Filtering
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#download-records">
-   Download records
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#download-data">
+   Download data
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#separate-records">
-   Separate records
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-the-ppg-signal">
+   Extract the PPG signal
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#filter-data">
-   Filter data
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-a-filter">
+   Create a filter
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#suggestions-for-further-work">
-   Suggestions for further work
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filter-the-ppg-signal">
+   Filter the PPG signal
   </a>
  </li>
 </ul>
@@ -574,7 +574,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Data Filtering</h1>
+                <h1>Filtering Signals</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -584,29 +584,29 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Data Filtering
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#download-records">
-   Download records
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#download-data">
+   Download data
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#separate-records">
-   Separate records
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-the-ppg-signal">
+   Extract the PPG signal
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#filter-data">
-   Filter data
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-a-filter">
+   Create a filter
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#suggestions-for-further-work">
-   Suggestions for further work
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filter-the-ppg-signal">
+   Filter the PPG signal
   </a>
  </li>
 </ul>
@@ -619,9 +619,11 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="section" id="data-filtering">
-<h1>Data Filtering<a class="headerlink" href="#data-filtering" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="filtering-signals">
+<h1>Filtering Signals<a class="headerlink" href="#filtering-signals" title="Permalink to this headline">¶</a></h1>
 <p>Filtering signals from MIMIC waveform data.</p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup</span>
@@ -637,246 +639,139 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="section" id="download-records">
-<h1>Download records<a class="headerlink" href="#download-records" title="Permalink to this headline">¶</a></h1>
-<p>Identify and download records in the MIMIC III Waveform Database</p>
+<div class="section" id="download-data">
+<h2>Download data<a class="headerlink" href="#download-data" title="Permalink to this headline">¶</a></h2>
+<p>Download data from a segment in the MIMIC III Waveform Database</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the first record</span>
-<span class="n">selected_record</span> <span class="o">=</span> <span class="s1">&#39;3000063_0013&#39;</span>
-<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0/30/3000063/&#39;</span>
+<span class="n">selected_record</span> <span class="o">=</span> <span class="s1">&#39;3000125_0005&#39;</span>
+<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0/30/3000125/&#39;</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected record: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selected_record</span><span class="p">))</span>
 
 <span class="c1"># load data from this record</span>
-<span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">no_seconds_to_load</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">no_seconds_to_load</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">125</span>
-<span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span> <span class="o">=</span> <span class="n">selected_record</span><span class="p">,</span> <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_seconds</span><span class="p">,</span> <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span> <span class="o">+</span> <span class="n">no_seconds_to_load</span><span class="p">),</span> <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">database_name</span><span class="p">)</span> 
+<span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span> <span class="o">=</span> <span class="n">selected_record</span><span class="p">,</span> <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_seconds</span><span class="p">,</span> <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span> <span class="o">+</span> <span class="n">no_seconds_to_load</span><span class="p">),</span> <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">database_name</span><span class="p">)</span> 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data loaded from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">selected_record</span><span class="p">))</span>
-
-<span class="c1"># Plot the data loaded from this record</span>
-<span class="c1"># title_text = &quot;First record from &quot; + database_name + &quot; (record: &quot; + selected_record + &quot;)&quot;</span>
-<span class="c1"># wfdb.plot_wfdb(record=record_data, title=title_text, time_units=&#39;seconds&#39;) </span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Selected record: 3000063_0013
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Selected record: 3000125_0005
+5 seconds of data loaded from: 3000125_0005
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30 seconds of data loaded from: 3000063_0013
-</pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="separate-records">
-<h1>Separate records<a class="headerlink" href="#separate-records" title="Permalink to this headline">¶</a></h1>
-<p>Separate ECG, PPG and ABP signals</p>
+<hr class="docutils" />
+<div class="section" id="extract-the-ppg-signal">
+<h2>Extract the PPG signal<a class="headerlink" href="#extract-the-ppg-signal" title="Permalink to this headline">¶</a></h2>
+<div class="alert alert-block alert-warning"> <b>Resource:</b> This step is taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/differentiation.html">Differentiation</a> tutorial. </div><ul class="simple">
+<li><p>Extract the PPG signal from the segment data</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ECG, PPG and ABP extraction</span>
-<span class="n">h</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">record_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;II&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ECG at position &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
-        <span class="n">ecg</span> <span class="o">=</span> <span class="n">record_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="n">h</span><span class="p">]</span>
-    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;PLETH&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PPG at position &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
-        <span class="n">ppg</span> <span class="o">=</span> <span class="n">record_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="n">h</span><span class="p">]</span>
-    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;ABP&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ABP at position &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
-        <span class="n">abp</span> <span class="o">=</span> <span class="n">record_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="n">h</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Other signal (&#39;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;) at position &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
-    <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span>
-
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">no_seconds_to_load</span> <span class="o">-</span> <span class="n">start_seconds</span><span class="p">),</span><span class="mf">1.0</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">,</span><span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ecg</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;ECG&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;PPG&#39;</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time [s]&#39;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;ABP&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ppg</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ECG at position 0
-ABP at position 1
-PPG at position 2
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Time [s]&#39;), Text(0, 0.5, &#39;ABP&#39;)]
-</pre></div>
-</div>
-<img alt="../../_images/signal-filtering_5_2.png" src="../../_images/signal-filtering_5_2.png" />
 </div>
 </div>
+<hr class="docutils" />
+<div class="section" id="create-a-filter">
+<h2>Create a filter<a class="headerlink" href="#create-a-filter" title="Permalink to this headline">¶</a></h2>
+<div class="alert alert-block alert-warning"> <b>Resource:</b> This step is taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/differentiation.html">Differentiation</a> tutorial. </div><ul class="simple">
+<li><p>Import the <a class="reference external" href="https://docs.scipy.org/doc/scipy/tutorial/signal.html">SciPy signal processing package</a>, which contains functions for filtering and differentiating.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove NaNs</span>
-<span class="n">x</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ecg</span><span class="p">))</span>
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NaNs in ECG: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
-        <span class="n">ecg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ecg</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">x</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ppg</span><span class="p">))</span>
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NaNs in PPG: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
-        <span class="n">ppg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ppg</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">x</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">abp</span><span class="p">))</span>
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NaNs in ABP: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
-        <span class="n">abp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">abp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NaNs in ECG: [ 120  398  745  884 1232]
-NaNs in ABP: [ 0  1  2  3  4  5  6  7  8  9 10 11]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.signal</span> <span class="k">as</span> <span class="nn">sp</span>
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="filter-data">
-<h1>Filter data<a class="headerlink" href="#filter-data" title="Permalink to this headline">¶</a></h1>
-<p>Filter ECG signals</p>
+<ul class="simple">
+<li><p>Specify the high- and low-pass filter cut-offs</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter ECG</span>
-<span class="n">sos_ecg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="n">btype</span> <span class="o">=</span> <span class="s1">&#39;bp&#39;</span><span class="p">,</span> <span class="n">analog</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;sos&#39;</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="p">)</span>
-<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfreqz</span><span class="p">(</span><span class="n">sos_ecg</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="p">)</span>
-<span class="n">ecg_ff</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfiltfilt</span><span class="p">(</span><span class="n">sos_ecg</span><span class="p">,</span> <span class="n">ecg</span><span class="p">)</span>
-<span class="n">ecg_f</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfilt</span><span class="p">(</span><span class="n">sos_ecg</span><span class="p">,</span> <span class="n">ecg</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;ECG&#39;</span><span class="p">)</span>
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="mf">1e-5</span><span class="p">)))</span>
-<span class="c1">#ax1.set_title(&#39;ECG Butterworth bandpass frequency response&#39;)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude [dB]&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">axis</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
-
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ecg</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ecg_ff</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;orange&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ecg_f</span><span class="p">,</span>  <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude [V]&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
-                    <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> 
-                    <span class="n">right</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> 
-                    <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> 
-                    <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> 
-                    <span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
-
-<span class="c1">#plt.show()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lpf_cutoff</span> <span class="o">=</span> <span class="mf">0.7</span> <span class="c1"># Hz</span>
+<span class="n">hpf_cutoff</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># Hz</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../_images/signal-filtering_8_0.png" src="../../_images/signal-filtering_8_0.png" />
 </div>
-</div>
-<p>Filter PPG signals</p>
+<ul class="simple">
+<li><p>Create the filter</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter PPG</span>
-<span class="n">sos_ppg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">btype</span> <span class="o">=</span> <span class="s1">&#39;bp&#39;</span><span class="p">,</span> <span class="n">analog</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;sos&#39;</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sos_ppg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">[</span><span class="n">lpf_cutoff</span><span class="p">,</span> <span class="n">hpf_cutoff</span><span class="p">],</span> <span class="n">btype</span> <span class="o">=</span> <span class="s1">&#39;bp&#39;</span><span class="p">,</span> <span class="n">analog</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;sos&#39;</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span><span class="p">)</span>
 <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfreqz</span><span class="p">(</span><span class="n">sos_ppg</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="p">)</span>
-<span class="n">ppg_ff</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfiltfilt</span><span class="p">(</span><span class="n">sos_ppg</span><span class="p">,</span> <span class="n">ppg</span><span class="p">)</span>
-<span class="n">ppg_f</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfilt</span><span class="p">(</span><span class="n">sos_ppg</span><span class="p">,</span> <span class="n">ppg</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;PPG&#39;</span><span class="p">)</span>
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="mf">1e-5</span><span class="p">)))</span>
-<span class="c1">#ax1.set_title(&#39;PPG Butterworth bandpass frequency response&#39;)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude [dB]&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">axis</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
-
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg_ff</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;orange&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg_f</span><span class="p">,</span>  <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude [V]&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
-                    <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> 
-                    <span class="n">right</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> 
-                    <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> 
-                    <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> 
-                    <span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
-
-<span class="c1">#plt.show()</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../_images/signal-filtering_10_0.png" src="../../_images/signal-filtering_10_0.png" />
 </div>
-</div>
-<p>Filter ABP signals</p>
+<ul class="simple">
+<li><p>Plot filter characteristics</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter ABP</span>
-<span class="n">sos_abp</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">btype</span> <span class="o">=</span> <span class="s1">&#39;low&#39;</span><span class="p">,</span> <span class="n">analog</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;sos&#39;</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="p">)</span>
-<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfreqz</span><span class="p">(</span><span class="n">sos_abp</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="p">)</span>
-<span class="n">abp_ff</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfiltfilt</span><span class="p">(</span><span class="n">sos_abp</span><span class="p">,</span> <span class="n">abp</span><span class="p">)</span>
-<span class="n">abp_f</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfilt</span><span class="p">(</span><span class="n">sos_abp</span><span class="p">,</span> <span class="n">abp</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;ABP&#39;</span><span class="p">)</span> 
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="mf">1e-5</span><span class="p">)))</span>
-<span class="c1">#ax1.set_title(&#39;ABP Butterworth bandpass frequency response&#39;)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude [dB]&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">axis</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span> <span class="o">=</span> <span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;both&#39;</span><span class="p">)</span>
-
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp_ff</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;orange&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp_f</span><span class="p">,</span>  <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude [V]&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
-                    <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> 
-                    <span class="n">right</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> 
-                    <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> 
-                    <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> 
-                    <span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
-
-<span class="c1">#plt.show()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="mf">1e-5</span><span class="p">)))</span>
+<span class="c1">#ax1.set_title(&#39;PPG Butterworth bandpass frequency response&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude [dB]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/signal-filtering_12_0.png" src="../../_images/signal-filtering_12_0.png" />
+<img alt="../../_images/signal-filtering_16_0.png" src="../../_images/signal-filtering_16_0.png" />
 </div>
 </div>
 </div>
-<div class="section" id="suggestions-for-further-work">
-<h1>Suggestions for further work<a class="headerlink" href="#suggestions-for-further-work" title="Permalink to this headline">¶</a></h1>
-<p>I’d suggest we use filtering functions from <code class="docutils literal notranslate"><span class="pre">scipy.signal</span></code>.
-Perhaps we could allow the user to specify the filter type (from a couple of options), and also the cut-off frequencies (as both the filter type and cut-off frequencies influence the shape of the filtered PPG pulse wave).</p>
-<p>We should note that the PPG signals in MIMIC have already been filtered somewhat by the clinical monitors used to record them.</p>
-<p>Ideally, it would be nice to:</p>
-<ol class="simple">
-<li><p>Provide options for different types of filters (e.g. Chebyshev filter, Butterworth filter). <a class="reference external" href="https://doi.org/10.1038/sdata.2018.76">This article</a> lists potential filter types (on pp.8-9).</p></li>
-<li><p>Allow the user to adjust the filter cut-off frequencies (e.g. low and high pass filter cut-offs).</p></li>
-</ol>
+<hr class="docutils" />
+<div class="section" id="filter-the-ppg-signal">
+<h2>Filter the PPG signal<a class="headerlink" href="#filter-the-ppg-signal" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Filter the PPG signal in preparation for differentiation using a Butterworth filter provided by the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html">butter</a> function.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ppg_filt</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfiltfilt</span><span class="p">(</span><span class="n">sos_ppg</span><span class="p">,</span> <span class="n">ppg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Plot original and filtered PPG signals</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">))</span><span class="o">/</span><span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;original PPG&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg_filt</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;filtered PPG&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">no_seconds_to_load</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;PPG&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/signal-filtering_21_0.png" src="../../_images/signal-filtering_21_0.png" />
+</div>
+</div>
+<div class="alert alert-block alert-warning"> <b>Note:</b> The PPG signals in MIMIC have already been filtered somewhat by the clinical monitors used to record them. </div><div class="alert alert-block alert-warning"> <b>Further Work:</b> Several different types of filters have been used to filter the PPG signal (e.g. Chebyshev filter, Butterworth filter). Have a look at [this article](https://doi.org/10.1038/sdata.2018.76) for examples of several filter types (on pp.8-9). </div></div>
 </div>
 
     <script type="text/x-thebe-config">
