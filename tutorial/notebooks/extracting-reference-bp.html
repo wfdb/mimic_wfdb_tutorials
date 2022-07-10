@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ABP extraction &#8212; MIMIC WFDB Tutorials</title>
+    <title>Extracting BP values &#8212; MIMIC WFDB Tutorials</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -247,7 +247,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     ABP extraction
+     Extracting BP values
     </a>
    </li>
    <li class="toctree-l2">
@@ -540,30 +540,37 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   ABP extraction
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#download-records">
-   Download records
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-data">
+   Extract data
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#separate-records">
-   Separate records
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#derive-bp-values">
+   Derive BP values
   </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#filter-data">
-   Filter data
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#abp-values-extraction">
-   ABP values extraction
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#detect-beats-in-the-abp-signal">
+     Detect beats in the ABP signal
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#detect-pulse-onsets-and-peaks">
+     Detect pulse onsets and peaks
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#calculate-bp-values">
+     Calculate BP values
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -574,7 +581,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>ABP extraction</h1>
+                <h1>Extracting BP values</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -584,30 +591,37 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   ABP extraction
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#download-records">
-   Download records
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-data">
+   Extract data
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#separate-records">
-   Separate records
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#derive-bp-values">
+   Derive BP values
   </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#filter-data">
-   Filter data
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#abp-values-extraction">
-   ABP values extraction
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#detect-beats-in-the-abp-signal">
+     Detect beats in the ABP signal
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#detect-pulse-onsets-and-peaks">
+     Detect pulse onsets and peaks
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#calculate-bp-values">
+     Calculate BP values
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -619,24 +633,27 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="section" id="abp-extraction">
-<h1>ABP extraction<a class="headerlink" href="#abp-extraction" title="Permalink to this headline">¶</a></h1>
-<p>Extraction of systolic, diastolic and mean arterial blood pressure values</p>
-<p>There are two potential approaches:</p>
-<ol class="simple">
-<li><p>Obtaining BPs directly from the numerics:</p>
+  <div class="section" id="extracting-bp-values">
+<h1>Extracting BP values<a class="headerlink" href="#extracting-bp-values" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial we will extract reference blood pressure (BP) values from an arterial blood pressure (ABP) signal.</p>
+<p>The <strong>objectives</strong> are:</p>
 <ul class="simple">
-<li><p>This has the advantage that no signal processing is required</p></li>
-<li><p>But the disadvantage that it does require reading additional numerics files (although perhaps it would be helpful to provide an example of this anyway).</p></li>
+<li><p>To extract an ABP signal from a segment</p></li>
+<li><p>To identify beats in the ABP signal</p></li>
+<li><p>To identify pulse onsets and peaks in the ABP signal</p></li>
+<li><p>To derive reference systolic, diastolic and mean BP values from the ABP signal</p></li>
 </ul>
-</li>
-<li><p>Obtaining BPs from the ABP signal</p>
+<div class="alert alert-block alert-warning"> <b>Context:</b>
+    There are two potential approaches to obtain reference BP values:
+    <ol>
+      <li>Obtaining BPs directly from numerics data:</li> The MIMIC Waveform Database contains 'numerics' data, which is the numerical values which the patient monitor derives from the waveforms and displays on the screen. This approach has the advantage that no signal processing is required, but the disadvantages that it involves reading additional numerics files, and that we don't know how these values are derived by the monitor (since the algorithms are proprietary).
+      <li>Obtaining BPs from the ABP signal:</li> This has the advantage that no additional files are required, since all signals are stored in the same file. However, it does involve signal processing to obtain the values from the ABP signal.
+    </ol>
+</div><div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>This has the advantage that the BP signal data are already in the waveform files containing PPG signals.</p></li>
-<li><p>But it would require signal processing. At a minimum, it would require detecting the maximum and minimum values of the BP signal in a given period (to give SBP and DBP), and potentially the signal processing could be much more complex, <em>e.g.</em> BP beat detection, signal quality assessment, detection of systolic peaks and diastolic troughs.</p></li>
+<li><p>Specify the required Python packages</p></li>
 </ul>
-</li>
-</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup</span>
@@ -651,236 +668,270 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="download-records">
-<h1>Download records<a class="headerlink" href="#download-records" title="Permalink to this headline">¶</a></h1>
-<p>Identify and download records in the MIMIC III Waveform Database</p>
+<ul class="simple">
+<li><p>Specify the settings for the MIMIC-III database</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the first record</span>
-<span class="n">selected_record</span> <span class="o">=</span> <span class="s1">&#39;3000063_0013&#39;</span>
-<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0/30/3000063/&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected record: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selected_record</span><span class="p">))</span>
-
-<span class="c1"># load data from this record</span>
-<span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">20</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wfdb</span><span class="o">.</span><span class="n">set_db_index_url</span><span class="p">(</span><span class="s1">&#39;https://physionet.org/files&#39;</span><span class="p">)</span> <span class="c1"># use the version of the WFDB toolbox which corresponds to MIMIC IV.</span>
+<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0&#39;</span> <span class="c1"># The name of the MIMIC III Waveform Database on Physionet (see URL: https://physionet.org/content/mimic3wdb/1.0/)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Provide a list of segments which meet the requirements for the study</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;3000063_0013&#39;</span><span class="p">]</span>
+<span class="n">segment_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mimic3wdb/1.0/30/3000063/&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Specify a segment from which to extract data</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rel_segment_no</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">rel_segment_name</span> <span class="o">=</span> <span class="n">segment_names</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
+<span class="n">rel_segment_dir</span> <span class="o">=</span> <span class="n">segment_dirs</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified segment &#39;</span><span class="si">{}</span><span class="s2">&#39; in directory &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">rel_segment_dir</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment &#39;3000063_0013&#39; in directory &#39;mimic3wdb/1.0/30/3000063/&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="extract-data">
+<h2>Extract data<a class="headerlink" href="#extract-data" title="Permalink to this headline">¶</a></h2>
+<p>Extract data from this segment</p>
+<ul class="simple">
+<li><p>Specify the duration of data to be extracted:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">no_seconds_to_load</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">125</span>
-<span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span> <span class="o">=</span> <span class="n">selected_record</span><span class="p">,</span> <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_seconds</span><span class="p">,</span> <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span> <span class="o">+</span> <span class="n">no_seconds_to_load</span><span class="p">),</span> <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">database_name</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data loaded from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">selected_record</span><span class="p">))</span>
-
-<span class="c1"># Plot the data loaded from this record</span>
-<span class="n">title_text</span> <span class="o">=</span> <span class="s2">&quot;First record from &quot;</span> <span class="o">+</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s2">&quot; (record: &quot;</span> <span class="o">+</span> <span class="n">selected_record</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
-<span class="n">wfdb</span><span class="o">.</span><span class="n">plot_wfdb</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="n">record_data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title_text</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Selected record: 3000063_0013
-</pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 seconds of data loaded from: 3000063_0013
-</pre></div>
-</div>
-<img alt="../../_images/extracting-reference-bp_3_2.png" src="../../_images/extracting-reference-bp_3_2.png" />
-</div>
-</div>
-</div>
-<div class="section" id="separate-records">
-<h1>Separate records<a class="headerlink" href="#separate-records" title="Permalink to this headline">¶</a></h1>
-<p>Separate ECG, PPG and ABP signals</p>
+<ul class="simple">
+<li><p>Extract this duration of signals from the longer segment</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ECG, PPG and ABP extraction</span>
-<span class="n">h</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">record_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;II&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ECG at position &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
-        <span class="n">ecg</span> <span class="o">=</span> <span class="n">record_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="n">h</span><span class="p">]</span>
-    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;PLETH&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PPG at position &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
-        <span class="n">ppg</span> <span class="o">=</span> <span class="n">record_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="n">h</span><span class="p">]</span>
-    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;ABP&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ABP at position &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
-        <span class="n">abp</span> <span class="o">=</span> <span class="n">record_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="n">h</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Other signal (&#39;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;) at position &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
-    <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span>
-
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start_seconds</span><span class="p">,(</span><span class="n">start_seconds</span> <span class="o">+</span> <span class="n">no_seconds_to_load</span><span class="p">),</span><span class="mf">1.0</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">,</span><span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ecg</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;ECG&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;PPG&#39;</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time [s]&#39;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;ABP&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ECG at position 0
-ABP at position 1
-PPG at position 2
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Time [s]&#39;), Text(0, 0.5, &#39;ABP&#39;)]
-</pre></div>
-</div>
-<img alt="../../_images/extracting-reference-bp_5_2.png" src="../../_images/extracting-reference-bp_5_2.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove NaNs</span>
-<span class="n">x</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ecg</span><span class="p">))</span>
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NaNs in ECG: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
-        <span class="n">ecg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ecg</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">x</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ppg</span><span class="p">))</span>
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NaNs in PPG: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
-        <span class="n">ppg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ppg</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">x</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">abp</span><span class="p">))</span>
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NaNs in ABP: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
-        <span class="n">abp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">abp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="filter-data">
-<h1>Filter data<a class="headerlink" href="#filter-data" title="Permalink to this headline">¶</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter ECG</span>
-<span class="n">sos_ecg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="n">btype</span> <span class="o">=</span> <span class="s1">&#39;bp&#39;</span><span class="p">,</span> <span class="n">analog</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;sos&#39;</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="p">)</span>
-<span class="n">ecg_ff</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfiltfilt</span><span class="p">(</span><span class="n">sos_ecg</span><span class="p">,</span> <span class="n">ecg</span><span class="p">)</span>
-
-<span class="c1"># Filter PPG</span>
-<span class="n">sos_ppg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">btype</span> <span class="o">=</span> <span class="s1">&#39;bp&#39;</span><span class="p">,</span> <span class="n">analog</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;sos&#39;</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="p">)</span>
-<span class="n">ppg_ff</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfiltfilt</span><span class="p">(</span><span class="n">sos_ppg</span><span class="p">,</span> <span class="n">ppg</span><span class="p">)</span>
-
-<span class="c1"># Filter ABP</span>
-<span class="n">sos_abp</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">btype</span> <span class="o">=</span> <span class="s1">&#39;low&#39;</span><span class="p">,</span> <span class="n">analog</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;sos&#39;</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="p">)</span>
-<span class="n">abp_ff</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfiltfilt</span><span class="p">(</span><span class="n">sos_abp</span><span class="p">,</span> <span class="n">abp</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">,</span><span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Filtered signals&#39;</span><span class="p">)</span> 
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ecg</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ecg_ff</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;orange&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;ECG [V]&#39;</span><span class="p">)</span>
-
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg_ff</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;orange&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;PPG [V]&#39;</span><span class="p">)</span>
-
-<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp_ff</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;orange&#39;</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;ABP [V]&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
-                    <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> 
-                    <span class="n">right</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> 
-                    <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> 
-                    <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> 
-                    <span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
-
-<span class="c1">#plt.show()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/extracting-reference-bp_8_0.png" src="../../_images/extracting-reference-bp_8_0.png" />
-</div>
-</div>
-</div>
-<div class="section" id="abp-values-extraction">
-<h1>ABP values extraction<a class="headerlink" href="#abp-values-extraction" title="Permalink to this headline">¶</a></h1>
-<p>Peaks and onsets detection from ABP signals</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> pulse_processing.ipynb
-<span class="n">ibis</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">abp_ff</span><span class="p">,</span><span class="n">fs</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;delineator&#39;</span><span class="p">)</span>
-<span class="n">fidp</span> <span class="o">=</span> <span class="n">fiducial_points</span><span class="p">(</span><span class="n">abp_ff</span><span class="p">,</span><span class="n">ibis</span><span class="p">,</span><span class="n">fs</span><span class="p">,</span><span class="n">vis</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;IBIs detection&#39;</span><span class="p">)</span> 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">fidp</span><span class="p">[</span><span class="s1">&#39;pks&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">fs</span><span class="p">,</span> <span class="n">abp_ff</span><span class="p">[</span><span class="n">fidp</span><span class="p">[</span><span class="s1">&#39;pks&#39;</span><span class="p">]],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">fidp</span><span class="p">[</span><span class="s1">&#39;ons&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">fs</span><span class="p">,</span> <span class="n">abp_ff</span><span class="p">[</span><span class="n">fidp</span><span class="p">[</span><span class="s1">&#39;ons&#39;</span><span class="p">]],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span> <span class="o">=</span> <span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_time</span><span class="p">,</span> <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span> <span class="o">+</span> <span class="n">no_seconds_to_load</span><span class="p">),</span> <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">rel_segment_dir</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data loaded from segment &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">rel_segment_name</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
-<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/IPython/core/magics/execution.py:696,</span> in <span class="ni">ExecutionMagics.run</span><span class="nt">(self, parameter_s, runner, file_finder)</span>
-<span class="g g-Whitespace">    </span><span class="mi">695</span>     <span class="n">fpath</span> <span class="o">=</span> <span class="n">arg_lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="ne">--&gt; </span><span class="mi">696</span>     <span class="n">filename</span> <span class="o">=</span> <span class="n">file_finder</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">697</span> <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-
-<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/IPython/utils/path.py:91,</span> in <span class="ni">get_py_filename</span><span class="nt">(name)</span>
-<span class="g g-Whitespace">     </span><span class="mi">90</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">91</span>     <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;File `</span><span class="si">%r</span><span class="s1">` not found.&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
-
-<span class="ne">OSError</span>: File `&#39;pulse_processing.ipynb.py&#39;` not found.
-
-<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
-
-<span class="ne">Exception</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
 <span class="nn">Input In [6],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="s1">&#39;pulse_processing.ipynb&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">ibis</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">abp_ff</span><span class="p">,</span><span class="n">fs</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;delineator&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">fidp</span> <span class="o">=</span> <span class="n">fiducial_points</span><span class="p">(</span><span class="n">abp_ff</span><span class="p">,</span><span class="n">ibis</span><span class="p">,</span><span class="n">fs</span><span class="p">,</span><span class="n">vis</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span> <span class="o">=</span> <span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_time</span><span class="p">,</span> <span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span> <span class="o">+</span> <span class="n">no_seconds_to_load</span><span class="p">),</span> <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">rel_segment_dir</span><span class="p">)</span> 
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data loaded from segment &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">rel_segment_name</span><span class="p">))</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/IPython/core/interactiveshell.py:2305,</span> in <span class="ni">InteractiveShell.run_line_magic</span><span class="nt">(self, magic_name, line, _stack_depth)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2303</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;local_ns&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_local_scope</span><span class="p">(</span><span class="n">stack_depth</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2304</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">builtin_trap</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">2305</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2306</span> <span class="k">return</span> <span class="n">result</span>
-
-<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/IPython/core/magics/execution.py:707,</span> in <span class="ni">ExecutionMagics.run</span><span class="nt">(self, parameter_s, runner, file_finder)</span>
-<span class="g g-Whitespace">    </span><span class="mi">705</span>     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^&#39;.*&#39;$&quot;</span><span class="p">,</span><span class="n">fpath</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">706</span>         <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;For Windows, use double quotes to wrap a filename: </span><span class="si">%r</span><span class="s1">un &quot;mypath</span><span class="se">\\</span><span class="s1">myfile.py&quot;&#39;</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">707</span>     <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-<span class="g g-Whitespace">    </span><span class="mi">708</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">709</span>     <span class="k">if</span> <span class="n">fpath</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">meta_path</span><span class="p">:</span>
-
-<span class="ne">Exception</span>: File `&#39;pulse_processing.ipynb.py&#39;` not found.
+<span class="ne">NameError</span>: name &#39;start_seconds&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
-<p>Assessment of blood pressure magnitudes</p>
+<ul class="simple">
+<li><p>Plot the extracted data</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abp_sbp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">abp</span><span class="p">[</span><span class="n">fidp</span><span class="p">[</span><span class="s1">&#39;pks&#39;</span><span class="p">]])</span>
-<span class="n">abp_dbp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">abp</span><span class="p">[</span><span class="n">fidp</span><span class="p">[</span><span class="s1">&#39;ons&#39;</span><span class="p">]])</span>
-<span class="n">abp_map</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">abp_sbp</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">abp_dbp</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Systolic blood pressure: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">abp_sbp</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> 
-      <span class="s1">&#39;Diastolic blood pressure:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">abp_dbp</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span>  
-      <span class="s1">&#39;Mean arterial pressure:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">abp_map</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">title_text</span> <span class="o">=</span> <span class="s2">&quot;Segment: &quot;</span> <span class="o">+</span> <span class="n">rel_segment_name</span>
+<span class="n">wfdb</span><span class="o">.</span><span class="n">plot_wfdb</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="n">segment_data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title_text</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Systolic blood pressure: 92.86764705882354
-Diastolic blood pressure:52.24609375
-Mean arterial pressure:65.78661151960785
+<img alt="../../_images/extracting-reference-bp_17_0.png" src="../../_images/extracting-reference-bp_17_0.png" />
+</div>
+</div>
+<div class="alert alert-block alert-warning"> <b>Explanation:</b>
+    This plot shows 10 seconds of data exracted from a longer segment. It contains three simultaneously recorded signals:
+        <ul>
+            <li> II: The ECG signal (lead II), measured in mV
+            <li> ABP: The arterial blood pressure signal, measured in mmHg
+            <li> PLETH: The photoplethysmogram (a.k.a PPG) signal, measured in (?) normalised units
+        </ul>
+</div><ul class="simple">
+<li><p>Extract the ABP signal</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">sig_no</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="s2">&quot;ABP&quot;</span> <span class="ow">in</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">[</span><span class="n">sig_no</span><span class="p">]:</span>
+        <span class="k">break</span>
+<span class="n">abp</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="n">sig_no</span><span class="p">]</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracted the ABP signal from column </span><span class="si">{}</span><span class="s2"> of the matrix of waveform data, and it&#39;s sampled at </span><span class="si">{}</span><span class="s2"> Hz.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sig_no</span><span class="p">,</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracted the ABP signal from column 1 of the matrix of waveform data, and it&#39;s sampled at 125 Hz.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="derive-bp-values">
+<h2>Derive BP values<a class="headerlink" href="#derive-bp-values" title="Permalink to this headline">¶</a></h2>
+<p>Derive BP values from the ABP signal</p>
+<div class="section" id="detect-beats-in-the-abp-signal">
+<h3>Detect beats in the ABP signal<a class="headerlink" href="#detect-beats-in-the-abp-signal" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Import the functions required to detect beats:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> beat_detection_functions
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Detect beats in the ABP signal:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pks</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">abp</span><span class="p">,</span><span class="n">fs</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;delineator&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Detected </span><span class="si">{}</span><span class="s2"> beats in the ABP signal&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pks</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Detected 17 beats in the ABP signal
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Make a plot showing the ABP signal and the beats detected</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="nb">len</span><span class="p">(</span><span class="n">abp</span><span class="p">)</span><span class="o">/</span><span class="n">fs</span><span class="p">),</span><span class="mf">1.0</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">line1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ABP&#39;</span><span class="p">)</span>
+<span class="n">line2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="p">((</span><span class="n">pks</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">fs</span><span class="p">),</span> <span class="n">x</span><span class="p">[</span><span class="n">pks</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;peaks&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/extracting-reference-bp_28_0.png" src="../../_images/extracting-reference-bp_28_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="detect-pulse-onsets-and-peaks">
+<h3>Detect pulse onsets and peaks<a class="headerlink" href="#detect-pulse-onsets-and-peaks" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Import the functions required to detect fiducial points:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> fiducial_point_functions
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Detect fiducial points:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fidp</span> <span class="o">=</span> <span class="n">fiducial_points</span><span class="p">(</span><span class="n">abp</span><span class="p">,</span><span class="n">pks</span><span class="p">,</span><span class="n">fs</span><span class="p">,</span><span class="n">vis</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Plot the ABP signal and the pulse peaks and onsets:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pks</span> <span class="o">=</span> <span class="n">fidp</span><span class="p">[</span><span class="s2">&quot;pks&quot;</span><span class="p">]</span>
+<span class="n">ons</span> <span class="o">=</span> <span class="n">fidp</span><span class="p">[</span><span class="s2">&quot;ons&quot;</span><span class="p">]</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="nb">len</span><span class="p">(</span><span class="n">abp</span><span class="p">)</span><span class="o">/</span><span class="n">fs</span><span class="p">),</span><span class="mf">1.0</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">abp</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">pks</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">pks</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">ons</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">ons</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fea0e231fa0&gt;]
+</pre></div>
+</div>
+<img alt="../../_images/extracting-reference-bp_35_1.png" src="../../_images/extracting-reference-bp_35_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="calculate-bp-values">
+<h3>Calculate BP values<a class="headerlink" href="#calculate-bp-values" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Extract systolic and diastolic BPs:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sbp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">abp</span><span class="p">[</span><span class="n">fidp</span><span class="p">[</span><span class="s1">&#39;pks&#39;</span><span class="p">]])</span>
+<span class="n">dbp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">abp</span><span class="p">[</span><span class="n">fidp</span><span class="p">[</span><span class="s1">&#39;ons&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Extract mean BPs:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ons</span> <span class="o">=</span> <span class="n">fidp</span><span class="p">[</span><span class="s1">&#39;ons&#39;</span><span class="p">]</span>
+<span class="n">off</span> <span class="o">=</span> <span class="n">fidp</span><span class="p">[</span><span class="s1">&#39;off&#39;</span><span class="p">]</span>
+<span class="n">mbps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ons</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">beat_no</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">ons</span><span class="p">)):</span>
+    <span class="n">mbps</span><span class="p">[</span><span class="n">beat_no</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">abp</span><span class="p">[</span><span class="n">ons</span><span class="p">[</span><span class="n">beat_no</span><span class="p">]:</span><span class="n">off</span><span class="p">[</span><span class="n">beat_no</span><span class="p">]])</span>
+<span class="n">mbp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">mbps</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Print results:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Systolic blood pressure  (SBP): </span><span class="si">{:.1f}</span><span class="s1"> mmHg&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sbp</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Diastolic blood pressure (DBP): </span><span class="si">{:.1f}</span><span class="s1"> mmHg&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dbp</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean blood pressure      (MBP): </span><span class="si">{:.1f}</span><span class="s1"> mmHg&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mbp</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Systolic blood pressure  (SBP): 91.9 mmHg
+Diastolic blood pressure (DBP): 52.2 mmHg
+Mean blood pressure      (MBP): 64.9 mmHg
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-warning"> <b>Question:</b>
+    Often MBP is approximated as: MBP = ((2/3)*DBP)+((1/3)*SBP).
+    Would it have made much difference if we had used this approximation?
+    What is the basis for this approximation?
+</div></div>
 </div>
 </div>
 

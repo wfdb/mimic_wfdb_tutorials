@@ -17,58 +17,16 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# e.g. record_data = wfdb.rdrecord(record_name='83411188',pn_dir='mimic4wdb/0.1.0/p100/p10039708/83411188')
-record_data = wfdb.rdrecord(record_name=rel_segment_name, pn_dir=rel_segment_dir) 
-print("Data loaded from segment: {}".format(rel_segment_name))
+wfdb.set_db_index_url('https://challenge.physionet.org/benjamin/db') # use the version of the WFDB toolbox which corresponds to MIMIC IV.
+database_name = 'mimic4wdb/0.1.0' # The name of the MIMIC IV Waveform Demo Database on Physionet
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mHTTPError[0m                                 Traceback (most recent call last)
-Input [0;32mIn [6][0m, in [0;36m<cell line: 2>[0;34m()[0m
-[1;32m      1[0m [38;5;66;03m# e.g. record_data = wfdb.rdrecord(record_name='83411188',pn_dir='mimic4wdb/0.1.0/p100/p10039708/83411188')[39;00m
-[0;32m----> 2[0m record_data [38;5;241m=[39m [43mwfdb[49m[38;5;241;43m.[39;49m[43mrdrecord[49m[43m([49m[43mrecord_name[49m[38;5;241;43m=[39;49m[43mrel_segment_name[49m[43m,[49m[43m [49m[43mpn_dir[49m[38;5;241;43m=[39;49m[43mrel_segment_dir[49m[43m)[49m 
-[1;32m      3[0m [38;5;28mprint[39m([38;5;124m"[39m[38;5;124mData loaded from segment: [39m[38;5;132;01m{}[39;00m[38;5;124m"[39m[38;5;241m.[39mformat(rel_segment_name))
+[0;31mNameError[0m                                 Traceback (most recent call last)
+Input [0;32mIn [3][0m, in [0;36m<cell line: 1>[0;34m()[0m
+[0;32m----> 1[0m [43mwfdb[49m[38;5;241m.[39mset_db_index_url([38;5;124m'[39m[38;5;124mhttps://challenge.physionet.org/benjamin/db[39m[38;5;124m'[39m) [38;5;66;03m# use the version of the WFDB toolbox which corresponds to MIMIC IV.[39;00m
+[1;32m      2[0m database_name [38;5;241m=[39m [38;5;124m'[39m[38;5;124mmimic4wdb/0.1.0[39m[38;5;124m'[39m
 
-File [0;32m/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:3433[0m, in [0;36mrdrecord[0;34m(record_name, sampfrom, sampto, channels, physical, pn_dir, m2s, smooth_frames, ignore_skew, return_res, force_channels, channel_names, warn_empty)[0m
-[1;32m   3431[0m     record [38;5;241m=[39m wav2mit(record_name, pn_dir[38;5;241m=[39mpn_dir, record_only[38;5;241m=[39m[38;5;28;01mTrue[39;00m)
-[1;32m   3432[0m [38;5;28;01melse[39;00m:
-[0;32m-> 3433[0m     record [38;5;241m=[39m [43mrdheader[49m[43m([49m[43mrecord_name[49m[43m,[49m[43m [49m[43mpn_dir[49m[38;5;241;43m=[39;49m[43mpn_dir[49m[43m,[49m[43m [49m[43mrd_segments[49m[38;5;241;43m=[39;49m[38;5;28;43;01mFalse[39;49;00m[43m)[49m
-[1;32m   3435[0m [38;5;66;03m# Set defaults for sampto and channels input variables[39;00m
-[1;32m   3436[0m [38;5;28;01mif[39;00m sampto [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
-[1;32m   3437[0m     [38;5;66;03m# If the header does not contain the signal length, figure it[39;00m
-[1;32m   3438[0m     [38;5;66;03m# out from the first dat file. This is only possible for single[39;00m
-[1;32m   3439[0m     [38;5;66;03m# segment records. If there are no signals, sig_len is 0.[39;00m
-
-File [0;32m/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:3259[0m, in [0;36mrdheader[0;34m(record_name, pn_dir, rd_segments)[0m
-[1;32m   3256[0m     pn_dir [38;5;241m=[39m posixpath[38;5;241m.[39mjoin(dir_list[[38;5;241m0[39m], get_version(dir_list[[38;5;241m0[39m]), [38;5;241m*[39mdir_list[[38;5;241m1[39m:])
-[1;32m   3258[0m [38;5;66;03m# Read the header file. Separate comment and non-comment lines[39;00m
-[0;32m-> 3259[0m header_lines, comment_lines [38;5;241m=[39m [43m_header[49m[38;5;241;43m.[39;49m[43m_read_header_lines[49m[43m([49m[43mbase_record_name[49m[43m,[49m
-[1;32m   3260[0m [43m                                                         [49m[43mdir_name[49m[43m,[49m[43m [49m[43mpn_dir[49m[43m)[49m
-[1;32m   3262[0m [38;5;66;03m# Get fields from record line[39;00m
-[1;32m   3263[0m record_fields [38;5;241m=[39m _header[38;5;241m.[39m_parse_record_line(header_lines[[38;5;241m0[39m])
-
-File [0;32m/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/_header.py:874[0m, in [0;36m_read_header_lines[0;34m(base_record_name, dir_name, pn_dir)[0m
-[1;32m    871[0m                     header_lines[38;5;241m.[39mappend(line)
-[1;32m    872[0m [38;5;66;03m# Read online header file[39;00m
-[1;32m    873[0m [38;5;28;01melse[39;00m:
-[0;32m--> 874[0m     header_lines, comment_lines [38;5;241m=[39m [43mdownload[49m[38;5;241;43m.[39;49m[43m_stream_header[49m[43m([49m[43mfile_name[49m[43m,[49m
-[1;32m    875[0m [43m                                                          [49m[43mpn_dir[49m[43m)[49m
-[1;32m    877[0m [38;5;28;01mreturn[39;00m header_lines, comment_lines
-
-File [0;32m/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/download.py:114[0m, in [0;36m_stream_header[0;34m(file_name, pn_dir)[0m
-[1;32m    111[0m response [38;5;241m=[39m requests[38;5;241m.[39mget(url)
-[1;32m    113[0m [38;5;66;03m# Raise HTTPError if invalid url[39;00m
-[0;32m--> 114[0m [43mresponse[49m[38;5;241;43m.[39;49m[43mraise_for_status[49m[43m([49m[43m)[49m
-[1;32m    116[0m [38;5;66;03m# Get each line as a string[39;00m
-[1;32m    117[0m filelines [38;5;241m=[39m response[38;5;241m.[39mcontent[38;5;241m.[39mdecode([38;5;124m'[39m[38;5;124miso-8859-1[39m[38;5;124m'[39m)[38;5;241m.[39msplitlines()
-
-File [0;32m/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/requests/models.py:1021[0m, in [0;36mResponse.raise_for_status[0;34m(self)[0m
-[1;32m   1016[0m     http_error_msg [38;5;241m=[39m (
-[1;32m   1017[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00m[38;5;28mself[39m[38;5;241m.[39mstatus_code[38;5;132;01m}[39;00m[38;5;124m Server Error: [39m[38;5;132;01m{[39;00mreason[38;5;132;01m}[39;00m[38;5;124m for url: [39m[38;5;132;01m{[39;00m[38;5;28mself[39m[38;5;241m.[39murl[38;5;132;01m}[39;00m[38;5;124m"[39m
-[1;32m   1018[0m     )
-[1;32m   1020[0m [38;5;28;01mif[39;00m http_error_msg:
-[0;32m-> 1021[0m     [38;5;28;01mraise[39;00m HTTPError(http_error_msg, response[38;5;241m=[39m[38;5;28mself[39m)
-
-[0;31mHTTPError[0m: 404 Client Error: Not Found for url: https://physionet.org/files/mimic4wdb/0.1.0/p100/p10020306/83404654/83404654_0005.hea
-HTTPError: 404 Client Error: Not Found for url: https://physionet.org/files/mimic4wdb/0.1.0/p100/p10020306/83404654/83404654_0005.hea
+[0;31mNameError[0m: name 'wfdb' is not defined
+NameError: name 'wfdb' is not defined
 

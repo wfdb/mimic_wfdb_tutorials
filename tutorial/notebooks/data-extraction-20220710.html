@@ -247,7 +247,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="extracting-reference-bp.html">
-     ABP extraction
+     Extracting BP values
     </a>
    </li>
    <li class="toctree-l2">
@@ -608,8 +608,66 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">wfdb</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Specify a particular version of the WFDB toolbox</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install <span class="nv">wfdb</span><span class="o">==</span><span class="m">4</span>.0.0
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting wfdb==4.0.0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading wfdb-4.0.0-py3-none-any.whl (161 kB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/161.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">161.7/161.7 kB</span> <span class=" -Color -Color-Red">13.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: scipy&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.8.1)
+Requirement already satisfied: matplotlib&lt;4.0.0,&gt;=3.2.2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (3.5.2)
+Requirement already satisfied: requests&lt;3.0.0,&gt;=2.8.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (2.28.1)
+Requirement already satisfied: numpy&lt;2.0.0,&gt;=1.10.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.23.1)
+Collecting SoundFile&lt;0.12.0,&gt;=0.10.0
+  Downloading SoundFile-0.10.3.post1-py2.py3-none-any.whl (21 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (0.11.0)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (3.0.9)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (2.8.2)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (4.34.4)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (21.3)
+Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (9.2.0)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from pandas&lt;2.0.0,&gt;=1.0.0-&gt;wfdb==4.0.0) (2022.1)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2022.6.15)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (3.3)
+Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2.1.0)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (1.26.10)
+Requirement already satisfied: cffi&gt;=1.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (1.15.1)
+Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from cffi&gt;=1.0-&gt;SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (2.21)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.16.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: SoundFile, wfdb
+  Attempting uninstall: wfdb
+    Found existing installation: wfdb 3.4.1
+    Uninstalling wfdb-3.4.1:
+      Successfully uninstalled wfdb-3.4.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed SoundFile-0.10.3.post1 wfdb-4.0.0
 </pre></div>
 </div>
 </div>
@@ -621,6 +679,17 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wfdb</span><span class="o">.</span><span class="n">set_db_index_url</span><span class="p">(</span><span class="s1">&#39;https://challenge.physionet.org/benjamin/db&#39;</span><span class="p">)</span> <span class="c1"># use the version of the WFDB toolbox which corresponds to MIMIC IV.</span>
 <span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic4wdb/0.1.0&#39;</span> <span class="c1"># The name of the MIMIC IV Waveform Demo Database on Physionet</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [3],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">set_db_index_url</span><span class="p">(</span><span class="s1">&#39;https://challenge.physionet.org/benjamin/db&#39;</span><span class="p">)</span> <span class="c1"># use the version of the WFDB toolbox which corresponds to MIMIC IV.</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic4wdb/0.1.0&#39;</span>
+
+<span class="ne">NameError</span>: name &#39;wfdb&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -654,14 +723,6 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wfdb</span><span class="o">.</span><span class="n">set_db_index_url</span><span class="p">(</span><span class="s1">&#39;https://physionet.org/files&#39;</span><span class="p">)</span> <span class="c1"># use the version of the WFDB toolbox which corresponds to MIMIC IV.</span>
-<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic3wdb/1.0&#39;</span>
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 <hr class="docutils" />
 <div class="section" id="extract-data-for-this-segment">
@@ -679,53 +740,55 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">HTTPError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">Input In [6],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># e.g. record_data = wfdb.rdrecord(record_name=&#39;83411188&#39;,pn_dir=&#39;mimic4wdb/0.1.0/p100/p10039708/83411188&#39;)</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">))</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">6</span><span class="o">-</span><span class="mi">6</span><span class="n">d17efab823c</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">record_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="s1">&#39;83411188&#39;</span><span class="p">,</span><span class="n">pn_dir</span><span class="o">=</span><span class="s1">&#39;mimic4wdb/0.1.0/p100/p10039708/83411188&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1">#record_data = wfdb.rdrecord(record_name=rel_segment_name, pn_dir=rel_segment_dir)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1">#print(&quot;Data loaded from segment: {}&quot;.format(rel_segment_name))</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:3433,</span> in <span class="ni">rdrecord</span><span class="nt">(record_name, sampfrom, sampto, channels, physical, pn_dir, m2s, smooth_frames, ignore_skew, return_res, force_channels, channel_names, warn_empty)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3431</span>     <span class="n">record</span> <span class="o">=</span> <span class="n">wav2mit</span><span class="p">(</span><span class="n">record_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">pn_dir</span><span class="p">,</span> <span class="n">record_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3432</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3433</span>     <span class="n">record</span> <span class="o">=</span> <span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">pn_dir</span><span class="p">,</span> <span class="n">rd_segments</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3435</span> <span class="c1"># Set defaults for sampto and channels input variables</span>
-<span class="g g-Whitespace">   </span><span class="mi">3436</span> <span class="k">if</span> <span class="n">sampto</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3437</span>     <span class="c1"># If the header does not contain the signal length, figure it</span>
-<span class="g g-Whitespace">   </span><span class="mi">3438</span>     <span class="c1"># out from the first dat file. This is only possible for single</span>
-<span class="g g-Whitespace">   </span><span class="mi">3439</span>     <span class="c1"># segment records. If there are no signals, sig_len is 0.</span>
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/wfdb/io/record.py</span> in <span class="ni">rdrecord</span><span class="nt">(record_name, sampfrom, sampto, channels, physical, pn_dir, m2s, smooth_frames, ignore_skew, return_res, force_channels, channel_names, warn_empty)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3616</span>                 <span class="n">record</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="n">seg_num</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">3617</span>             <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3618</span>                 <span class="n">record</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="n">seg_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">rdrecord</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3619</span>                     <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_name</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">seg_name</span><span class="p">[</span><span class="n">seg_num</span><span class="p">]),</span>
+<span class="g g-Whitespace">   </span><span class="mi">3620</span>                     <span class="n">sampfrom</span><span class="o">=</span><span class="n">seg_ranges</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">sampto</span><span class="o">=</span><span class="n">seg_ranges</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:3259,</span> in <span class="ni">rdheader</span><span class="nt">(record_name, pn_dir, rd_segments)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3256</span>     <span class="n">pn_dir</span> <span class="o">=</span> <span class="n">posixpath</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">get_version</span><span class="p">(</span><span class="n">dir_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="o">*</span><span class="n">dir_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-<span class="g g-Whitespace">   </span><span class="mi">3258</span> <span class="c1"># Read the header file. Separate comment and non-comment lines</span>
-<span class="ne">-&gt; </span><span class="mi">3259</span> <span class="n">header_lines</span><span class="p">,</span> <span class="n">comment_lines</span> <span class="o">=</span> <span class="n">_header</span><span class="o">.</span><span class="n">_read_header_lines</span><span class="p">(</span><span class="n">base_record_name</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">3260</span>                                                          <span class="n">dir_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3262</span> <span class="c1"># Get fields from record line</span>
-<span class="g g-Whitespace">   </span><span class="mi">3263</span> <span class="n">record_fields</span> <span class="o">=</span> <span class="n">_header</span><span class="o">.</span><span class="n">_parse_record_line</span><span class="p">(</span><span class="n">header_lines</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/wfdb/io/record.py</span> in <span class="ni">rdrecord</span><span class="nt">(record_name, sampfrom, sampto, channels, physical, pn_dir, m2s, smooth_frames, ignore_skew, return_res, force_channels, channel_names, warn_empty)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3518</span>                                                       <span class="n">return_res</span><span class="o">=</span><span class="n">return_res</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3519</span>             <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3520</span>                 <span class="n">record</span><span class="o">.</span><span class="n">d_signal</span> <span class="o">=</span> <span class="n">_signal</span><span class="o">.</span><span class="n">_rd_segment</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3521</span>                                                       <span class="n">dir_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3522</span>                                                       <span class="n">record</span><span class="o">.</span><span class="n">fmt</span><span class="p">,</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/_header.py:874,</span> in <span class="ni">_read_header_lines</span><span class="nt">(base_record_name, dir_name, pn_dir)</span>
-<span class="g g-Whitespace">    </span><span class="mi">871</span>                     <span class="n">header_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">872</span> <span class="c1"># Read online header file</span>
-<span class="g g-Whitespace">    </span><span class="mi">873</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">874</span>     <span class="n">header_lines</span><span class="p">,</span> <span class="n">comment_lines</span> <span class="o">=</span> <span class="n">download</span><span class="o">.</span><span class="n">_stream_header</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">875</span>                                                           <span class="n">pn_dir</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">877</span> <span class="k">return</span> <span class="n">header_lines</span><span class="p">,</span> <span class="n">comment_lines</span>
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/wfdb/io/_signal.py</span> in <span class="ni">_rd_segment</span><span class="nt">(file_name, dir_name, pn_dir, fmt, n_sig, sig_len, byte_offset, samps_per_frame, skew, sampfrom, sampto, channels, smooth_frames, ignore_skew, no_file, sig_data, return_res)</span>
+<span class="g g-Whitespace">    </span><span class="mi">991</span>     <span class="k">if</span> <span class="n">smooth_frames</span> <span class="ow">or</span> <span class="nb">sum</span><span class="p">(</span><span class="n">samps_per_frame</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_sig</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">992</span>         <span class="c1"># Figure out the largest required dtype for the segment to minimize memory usage</span>
+<span class="ne">--&gt; </span><span class="mi">993</span>         <span class="n">max_dtype</span> <span class="o">=</span> <span class="n">_np_dtype</span><span class="p">(</span><span class="n">_fmt_res</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">max_res</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">994</span>         <span class="c1"># Allocate signal array. Minimize dtype</span>
+<span class="g g-Whitespace">    </span><span class="mi">995</span>         <span class="n">signals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">sampto</span><span class="o">-</span><span class="n">sampfrom</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">channels</span><span class="p">)],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">max_dtype</span><span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/download.py:114,</span> in <span class="ni">_stream_header</span><span class="nt">(file_name, pn_dir)</span>
-<span class="g g-Whitespace">    </span><span class="mi">111</span> <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="c1"># Raise HTTPError if invalid url</span>
-<span class="ne">--&gt; </span><span class="mi">114</span> <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">116</span> <span class="c1"># Get each line as a string</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span> <span class="n">filelines</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;iso-8859-1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/wfdb/io/_signal.py</span> in <span class="ni">_fmt_res</span><span class="nt">(fmt, max_res)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1824</span>         <span class="k">if</span> <span class="n">max_res</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1825</span>             <span class="c1"># Allow None</span>
+<span class="ne">-&gt; </span><span class="mi">1826</span>             <span class="n">bit_res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">_fmt_res</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fmt</span> <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">])</span>
+<span class="g g-Whitespace">   </span><span class="mi">1827</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1828</span>             <span class="n">bit_res</span> <span class="o">=</span> <span class="p">[</span><span class="n">_fmt_res</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fmt</span><span class="p">]</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/requests/models.py:1021,</span> in <span class="ni">Response.raise_for_status</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1016</span>     <span class="n">http_error_msg</span> <span class="o">=</span> <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1017</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> Server Error: </span><span class="si">{</span><span class="n">reason</span><span class="si">}</span><span class="s2"> for url: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1018</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1020</span> <span class="k">if</span> <span class="n">http_error_msg</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1021</span>     <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="n">http_error_msg</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/wfdb/io/_signal.py</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1824</span>         <span class="k">if</span> <span class="n">max_res</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1825</span>             <span class="c1"># Allow None</span>
+<span class="ne">-&gt; </span><span class="mi">1826</span>             <span class="n">bit_res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">_fmt_res</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fmt</span> <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">])</span>
+<span class="g g-Whitespace">   </span><span class="mi">1827</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1828</span>             <span class="n">bit_res</span> <span class="o">=</span> <span class="p">[</span><span class="n">_fmt_res</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fmt</span><span class="p">]</span>
 
-<span class="ne">HTTPError</span>: 404 Client Error: Not Found for url: https://physionet.org/files/mimic4wdb/0.1.0/p100/p10020306/83404654/83404654_0005.hea
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/wfdb/io/_signal.py</span> in <span class="ni">_fmt_res</span><span class="nt">(fmt, max_res)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1829</span>         <span class="k">return</span> <span class="n">bit_res</span>
+<span class="g g-Whitespace">   </span><span class="mi">1830</span> 
+<span class="ne">-&gt; </span><span class="mi">1831</span>     <span class="k">return</span> <span class="n">BIT_RES</span><span class="p">[</span><span class="n">fmt</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1832</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1833</span> 
+
+<span class="ne">KeyError</span>: &#39;516&#39;
 </pre></div>
 </div>
 </div>
