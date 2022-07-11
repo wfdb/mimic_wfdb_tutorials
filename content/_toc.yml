@@ -4,10 +4,10 @@
 - file: intro
 - file: workshop
   sections:
-    - file: workshop/aims
-    - file: workshop/synopsis
-    - file: workshop/schedule
-    - file: workshop/prep
+    - file: workshop/workshop-aims
+    - file: workshop/workshop-synopsis
+    - file: workshop/workshop-schedule
+    - file: workshop/workshop-prep
 - file: mimic-database
   sections:
     - file: mimic/physionet
@@ -25,9 +25,6 @@
     - file: tutorial/notebooks/beat-detection
     - file: tutorial/notebooks/pulse-wave-analysis
     - file: tutorial/notebooks/extracting-reference-bp
-    - file: tutorial/data-modelling
-    - file: tutorial/data-analysis
-    - file: tutorial/data-interpretation
 - file: case-study
 - file: additional-resources
 - file: about
@@ -38,3 +35,6 @@
   sections:
     - file: tutorial/notebooks/qrs-detection
     - file: tutorial/signal-quality-assessment
+    - file: tutorial/data-modelling
+    - file: tutorial/data-analysis
+    - file: tutorial/data-interpretation
