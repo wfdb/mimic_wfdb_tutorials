@@ -1,4 +1,4 @@
-# Workshop Preparation
+# Preparation
 
 ## In advance
 
