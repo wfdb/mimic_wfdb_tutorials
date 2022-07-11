@@ -4,10 +4,10 @@
 - file: intro
 - file: workshop
   sections:
-    - file: workshop/workshop-aims
-    - file: workshop/workshop-synopsis
-    - file: workshop/workshop-schedule
-    - file: workshop/workshop-prep
+    - file: workshop/aims
+    - file: workshop/synopsis
+    - file: workshop/schedule
+    - file: workshop/prep
 - file: mimic-database
   sections:
     - file: mimic/physionet
