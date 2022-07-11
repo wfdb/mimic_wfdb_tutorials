@@ -1,4 +1,4 @@
-# Workshop Aims
+# Aims
 
 This interactive workshop provides key knowledge, skills, and tools for conducting open research in the field of biomedical signal processing.
 

@@ -1,4 +1,4 @@
-# Workshop Schedule
+# Schedule
 
 The workshop will last 3.5 hours.
 

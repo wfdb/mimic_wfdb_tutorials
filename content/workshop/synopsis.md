@@ -1,4 +1,4 @@
-# Workshop Synopsis
+# Synopsis
 
 The field of Biomedical Signal Processing stands to benefit greatly from open research. Reproducible studies, accompanied by code and data, allow others to build on the state-of-the-art and to quickly translate between academia and industry. Openly available tools are widely used. Indeed, the MIMIC Waveform Database (WFDB) was referenced in 125 EMBC papers between 2016 and 2020.
 
