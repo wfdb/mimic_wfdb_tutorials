@@ -656,12 +656,12 @@ title="Print to PDF"
   <div class="section" id="pulse-wave-analysis">
 <h1>Pulse Wave Analysis<a class="headerlink" href="#pulse-wave-analysis" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial we will learn how to extract features from PPG pulse waves.</p>
-<p>The <strong>objectives</strong> are:</p>
+<p>Our <strong>objectives</strong> are to:</p>
 <ul class="simple">
-<li><p>To use a function to detect several fiducial points on PPG pulse waves</p></li>
-<li><p>To calculate pulse wave features from the fiducial points</p></li>
+<li><p>Detect several fiducial points on PPG pulse waves</p></li>
+<li><p>Calculate pulse wave features from the fiducial points</p></li>
 </ul>
-<div class="alert alert-block alert-warning"> <b>Context:</b> One approach to estimating BP from PPG signals consists of extracting features from PPG pulse waves, and then using these as inputs to BP estimation model. This tutorial covers the first of these steps: extracting features from PPG pulse waves.</div><div class="alert alert-block alert-info"> <b>Resource:</b> You can read more about pulse wave analysis in Sections 3.2.2 and 3.2.3 of <a href="https://peterhcharlton.github.io/publication/ppg_sig_proc_chapter/">this book</a>.</div><hr class="docutils" />
+<div class="alert alert-block alert-warning"><p><b>Context:</b> One approach to estimating BP from PPG signals consists of extracting features from PPG pulse waves, and then using these as inputs to BP estimation model. This tutorial covers the first of these steps: extracting features from PPG pulse waves.</p></div><div class="alert alert-block alert-info"><p><b>Resource:</b> You can read more about pulse wave analysis in Sections 3.2.2 and 3.2.3 of <a href="https://peterhcharlton.github.io/publication/ppg_sig_proc_chapter/">this book</a>.</p></div><hr class="docutils" />
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p><em>These steps have been covered in previous tutorials, so we’ll just re-use the code here.</em></p>
@@ -680,28 +680,26 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: wfdb==4.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (4.0.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: SoundFile&lt;0.12.0,&gt;=0.10.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (0.10.3.post1)
+Requirement already satisfied: requests&lt;3.0.0,&gt;=2.8.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (2.28.1)
 Requirement already satisfied: numpy&lt;2.0.0,&gt;=1.10.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.23.1)
 Requirement already satisfied: scipy&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.8.1)
+Requirement already satisfied: SoundFile&lt;0.12.0,&gt;=0.10.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (0.10.3.post1)
 Requirement already satisfied: matplotlib&lt;4.0.0,&gt;=3.2.2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (3.5.2)
-Requirement already satisfied: requests&lt;3.0.0,&gt;=2.8.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (2.28.1)
 Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.4.3)
-Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (0.11.0)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (3.0.9)
-Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (9.2.0)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.4.3)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (2.8.2)
-Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (21.3)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (4.34.4)
-Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from pandas&lt;2.0.0,&gt;=1.0.0-&gt;wfdb==4.0.0) (2022.1)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (3.3)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (4.34.4)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (0.11.0)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (3.0.9)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (2.8.2)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (21.3)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (9.2.0)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from pandas&lt;2.0.0,&gt;=1.0.0-&gt;wfdb==4.0.0) (2022.1)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (3.3)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (1.26.10)
 Requirement already satisfied: certifi&gt;=2017.4.17 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2022.6.15)
 Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2.1.0)
-Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (1.26.10)
 Requirement already satisfied: cffi&gt;=1.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (1.15.1)
 Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from cffi&gt;=1.0-&gt;SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (2.21)
 </pre></div>
@@ -713,14 +711,15 @@ Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># MIMIC info</span>
-<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic4wdb/0.1.0&#39;</span> <span class="c1"># The name of the MIMIC IV Waveform Database on Physionet</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The name of the MIMIC-IV Waveform Database on PhysioNet</span>
+<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic4wdb/0.1.0&#39;</span>
 
 <span class="c1"># Segment for analysis</span>
 <span class="n">segment_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;83404654_0005&#39;</span><span class="p">,</span> <span class="s1">&#39;82924339_0007&#39;</span><span class="p">,</span> <span class="s1">&#39;84248019_0005&#39;</span><span class="p">,</span> <span class="s1">&#39;82439920_0004&#39;</span><span class="p">,</span> <span class="s1">&#39;82800131_0002&#39;</span><span class="p">,</span> <span class="s1">&#39;84304393_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;89464742_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;88958796_0004&#39;</span><span class="p">,</span> <span class="s1">&#39;88995377_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;85230771_0004&#39;</span><span class="p">,</span> <span class="s1">&#39;86643930_0004&#39;</span><span class="p">,</span> <span class="s1">&#39;81250824_0005&#39;</span><span class="p">,</span> <span class="s1">&#39;87706224_0003&#39;</span><span class="p">,</span> <span class="s1">&#39;83058614_0005&#39;</span><span class="p">,</span> <span class="s1">&#39;82803505_0017&#39;</span><span class="p">,</span> <span class="s1">&#39;88574629_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;87867111_0012&#39;</span><span class="p">,</span> <span class="s1">&#39;84560969_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;87562386_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;88685937_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;86120311_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;89866183_0014&#39;</span><span class="p">,</span> <span class="s1">&#39;89068160_0002&#39;</span><span class="p">,</span> <span class="s1">&#39;86380383_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;85078610_0008&#39;</span><span class="p">,</span> <span class="s1">&#39;87702634_0007&#39;</span><span class="p">,</span> <span class="s1">&#39;84686667_0002&#39;</span><span class="p">,</span> <span class="s1">&#39;84802706_0002&#39;</span><span class="p">,</span> <span class="s1">&#39;81811182_0004&#39;</span><span class="p">,</span> <span class="s1">&#39;84421559_0005&#39;</span><span class="p">,</span> <span class="s1">&#39;88221516_0007&#39;</span><span class="p">,</span> <span class="s1">&#39;80057524_0005&#39;</span><span class="p">,</span> <span class="s1">&#39;84209926_0018&#39;</span><span class="p">,</span> <span class="s1">&#39;83959636_0010&#39;</span><span class="p">,</span> <span class="s1">&#39;89989722_0016&#39;</span><span class="p">,</span> <span class="s1">&#39;89225487_0007&#39;</span><span class="p">,</span> <span class="s1">&#39;84391267_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;80889556_0002&#39;</span><span class="p">,</span> <span class="s1">&#39;85250558_0011&#39;</span><span class="p">,</span> <span class="s1">&#39;84567505_0005&#39;</span><span class="p">,</span> <span class="s1">&#39;85814172_0007&#39;</span><span class="p">,</span> <span class="s1">&#39;88884866_0005&#39;</span><span class="p">,</span> <span class="s1">&#39;80497954_0012&#39;</span><span class="p">,</span> <span class="s1">&#39;80666640_0014&#39;</span><span class="p">,</span> <span class="s1">&#39;84939605_0004&#39;</span><span class="p">,</span> <span class="s1">&#39;82141753_0018&#39;</span><span class="p">,</span> <span class="s1">&#39;86874920_0014&#39;</span><span class="p">,</span> <span class="s1">&#39;84505262_0010&#39;</span><span class="p">,</span> <span class="s1">&#39;86288257_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;89699401_0001&#39;</span><span class="p">,</span> <span class="s1">&#39;88537698_0013&#39;</span><span class="p">,</span> <span class="s1">&#39;83958172_0001&#39;</span><span class="p">]</span>
 <span class="n">segment_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mimic4wdb/0.1.0/waves/p100/p10020306/83404654&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p101/p10126957/82924339&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p102/p10209410/84248019&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p109/p10952189/82439920&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p111/p11109975/82800131&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p113/p11392990/84304393&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p121/p12168037/89464742&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p121/p12173569/88958796&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p121/p12188288/88995377&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p128/p12872596/85230771&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p129/p12933208/86643930&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p130/p13016481/81250824&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p132/p13240081/87706224&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p136/p13624686/83058614&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p137/p13791821/82803505&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p141/p14191565/88574629&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p142/p14285792/87867111&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p143/p14356077/84560969&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p143/p14363499/87562386&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p146/p14695840/88685937&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p149/p14931547/86120311&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p151/p15174162/89866183&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p153/p15312343/89068160&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p153/p15342703/86380383&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p155/p15552902/85078610&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p156/p15649186/87702634&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p158/p15857793/84686667&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p158/p15865327/84802706&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p158/p15896656/81811182&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p159/p15920699/84421559&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p160/p16034243/88221516&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p165/p16566444/80057524&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p166/p16644640/84209926&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p167/p16709726/83959636&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p167/p16715341/89989722&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p168/p16818396/89225487&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p170/p17032851/84391267&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p172/p17229504/80889556&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p173/p17301721/85250558&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p173/p17325001/84567505&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p174/p17490822/85814172&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p177/p17738824/88884866&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p177/p17744715/80497954&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p179/p17957832/80666640&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p180/p18080257/84939605&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p181/p18109577/82141753&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p183/p18324626/86874920&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p187/p18742074/84505262&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p188/p18824975/86288257&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p191/p19126489/89699401&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p193/p19313794/88537698&#39;</span><span class="p">,</span> <span class="s1">&#39;mimic4wdb/0.1.0/waves/p196/p19619764/83958172&#39;</span><span class="p">]</span>
 
-<span class="n">rel_segment_no</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># 3 and 8 are helpful</span>
+<span class="c1"># 3 and 8 are helpful</span>
+<span class="n">rel_segment_no</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">rel_segment_name</span> <span class="o">=</span> <span class="n">segment_names</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
 <span class="n">rel_segment_dir</span> <span class="o">=</span> <span class="n">segment_dirs</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
 </pre></div>
@@ -734,22 +733,33 @@ Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x
 <p><em>These steps have been covered in previous tutorials, so we’ll just re-use the code here.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># time since the start of the segment at which to begin extracting data</span>
-<span class="n">no_seconds_to_load</span> <span class="o">=</span> <span class="mi">20</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># time since the start of the segment at which to begin extracting data</span>
+<span class="n">start_seconds</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">n_seconds_to_load</span> <span class="o">=</span> <span class="mi">20</span>
+
 <span class="n">segment_metadata</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdheader</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Metadata loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metadata loaded from segment: </span><span class="si">{</span><span class="n">rel_segment_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
 <span class="n">fs</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">segment_metadata</span><span class="o">.</span><span class="n">fs</span><span class="p">)</span>
 <span class="n">sampfrom</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="n">start_seconds</span>
-<span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span><span class="o">*</span><span class="p">(</span><span class="n">start_seconds</span><span class="o">+</span><span class="n">no_seconds_to_load</span><span class="p">)</span>
-<span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">sampfrom</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span> <span class="n">sampto</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data extracted from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_seconds_to_load</span><span class="p">,</span> <span class="n">rel_segment_name</span><span class="p">))</span>
+<span class="n">sampto</span> <span class="o">=</span> <span class="n">fs</span> <span class="o">*</span> <span class="p">(</span><span class="n">start_seconds</span> <span class="o">+</span> <span class="n">n_seconds_to_load</span><span class="p">)</span>
+<span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span>
+                             <span class="n">sampfrom</span><span class="o">=</span><span class="n">sampfrom</span><span class="p">,</span>
+                             <span class="n">sampto</span><span class="o">=</span><span class="n">sampto</span><span class="p">,</span>
+                             <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> seconds of data extracted from: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_seconds_to_load</span><span class="p">,</span>
+                                                     <span class="n">rel_segment_name</span><span class="p">))</span>
+
 <span class="n">ppg_col</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">sig_no</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">)):</span>
+<span class="k">for</span> <span class="n">sig_no</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">)):</span>
     <span class="k">if</span> <span class="s2">&quot;Pleth&quot;</span> <span class="ow">in</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">[</span><span class="n">sig_no</span><span class="p">]:</span>
         <span class="n">ppg_col</span> <span class="o">=</span> <span class="n">sig_no</span>
-<span class="n">ppg</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="n">ppg_col</span><span class="p">]</span>
+
+<span class="n">ppg</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span> <span class="n">ppg_col</span><span class="p">]</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracted the PPG signal from column </span><span class="si">{}</span><span class="s2"> of the matrix of waveform data at </span><span class="si">{:.1f}</span><span class="s2"> Hz.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ppg_col</span><span class="p">,</span> <span class="n">fs</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracted the PPG signal from column </span><span class="si">{</span><span class="n">ppg_col</span><span class="si">}</span><span class="s2"> of the matrix of waveform data at </span><span class="si">{</span><span class="n">fs</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> Hz.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -773,12 +783,17 @@ Extracted the PPG signal from column 6 of the matrix of waveform data at 62.5 Hz
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># package</span>
 <span class="kn">import</span> <span class="nn">scipy.signal</span> <span class="k">as</span> <span class="nn">sp</span>
 
-<span class="c1"># filter cut-offs</span>
-<span class="n">lpf_cutoff</span> <span class="o">=</span> <span class="mf">0.7</span> <span class="c1"># Hz</span>
-<span class="n">hpf_cutoff</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># Hz</span>
+<span class="c1"># filter cut-offs, hertz</span>
+<span class="n">lpf_cutoff</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="n">hpf_cutoff</span> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="c1"># create filter</span>
-<span class="n">sos_filter</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">[</span><span class="n">lpf_cutoff</span><span class="p">,</span> <span class="n">hpf_cutoff</span><span class="p">],</span> <span class="n">btype</span> <span class="o">=</span> <span class="s1">&#39;bp&#39;</span><span class="p">,</span> <span class="n">analog</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;sos&#39;</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">sos_filter</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">[</span><span class="n">lpf_cutoff</span><span class="p">,</span> <span class="n">hpf_cutoff</span><span class="p">],</span>
+                       <span class="n">btype</span> <span class="o">=</span> <span class="s1">&#39;bp&#39;</span><span class="p">,</span>
+                       <span class="n">analog</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                       <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;sos&#39;</span><span class="p">,</span>
+                       <span class="n">fs</span> <span class="o">=</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span><span class="p">)</span>
+
 <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sosfreqz</span><span class="p">(</span><span class="n">sos_filter</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="p">)</span>
 
 <span class="c1"># filter PPG</span>
@@ -794,16 +809,15 @@ Extracted the PPG signal from column 6 of the matrix of waveform data at 62.5 Hz
 <p><em>These steps have been covered in previous tutorials, so we’ll just re-use the code here.</em></p>
 <ul class="simple">
 <li><p>Import the functions required to detect beats by running the cell containing the required functions at the end of this tutorial.</p></li>
-</ul>
-<ul class="simple">
 <li><p>Detect beats</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp_fs</span> <span class="o">=</span> <span class="mi">125</span>
 <span class="n">alg</span> <span class="o">=</span> <span class="s1">&#39;d2max&#39;</span>
-<span class="n">ibis</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span><span class="n">temp_fs</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">alg</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Detected </span><span class="si">{}</span><span class="s2"> beats in the PPG signal using the </span><span class="si">{}</span><span class="s2"> algorithm&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ibis</span><span class="p">),</span> <span class="n">alg</span><span class="p">))</span>
+<span class="n">ibis</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span> <span class="n">temp_fs</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">alg</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ibis</span><span class="p">)</span><span class="si">}</span><span class="s2"> beats in the PPG signal using the </span><span class="si">{</span><span class="n">alg</span><span class="si">}</span><span class="s2"> algorithm&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -813,8 +827,8 @@ Extracted the PPG signal from column 6 of the matrix of waveform data at 62.5 Hz
 <span class="nn">Input In [5],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">temp_fs</span> <span class="o">=</span> <span class="mi">125</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">alg</span> <span class="o">=</span> <span class="s1">&#39;d2max&#39;</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">ibis</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span><span class="n">temp_fs</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">alg</span><span class="p">)</span>
-<span class="nn">      4 print(&quot;Detected {} beats</span> in <span class="ni">the PPG signal using the {} algorithm&quot;.format(len</span><span class="nt">(ibis), alg))</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">ibis</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span> <span class="n">temp_fs</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">alg</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ibis</span><span class="p">)</span><span class="si">}</span><span class="s2"> beats in the PPG signal using the </span><span class="si">{</span><span class="n">alg</span><span class="si">}</span><span class="s2"> algorithm&quot;</span><span class="p">)</span>
 
 <span class="ne">NameError</span>: name &#39;pulse_detect&#39; is not defined
 </pre></div>
@@ -824,7 +838,12 @@ Extracted the PPG signal from column 6 of the matrix of waveform data at 62.5 Hz
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+                          <span class="n">sharex</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                          <span class="n">sharey</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                          <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+
 <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;IBIs detection&#39;</span><span class="p">)</span> 
 
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">)</span><span class="o">/</span><span class="n">fs</span><span class="p">,</span><span class="mf">1.0</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
@@ -840,7 +859,7 @@ Extracted the PPG signal from column 6 of the matrix of waveform data at 62.5 Hz
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;d2max&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/pulse-wave-analysis_18_1.png" src="../../_images/pulse-wave-analysis_18_1.png" />
+<img alt="../../_images/pulse-wave-analysis_17_1.png" src="../../_images/pulse-wave-analysis_17_1.png" />
 </div>
 </div>
 </div>
@@ -848,18 +867,16 @@ Extracted the PPG signal from column 6 of the matrix of waveform data at 62.5 Hz
 <h2>Identify fiducial points on pulse waves<a class="headerlink" href="#identify-fiducial-points-on-pulse-waves" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Import the functions required to detect beats by running the cell containing the required functions at the end of this tutorial.</p></li>
-</ul>
-<ul class="simple">
 <li><p>Identify and visualise fiducial points</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fidp</span> <span class="o">=</span> <span class="n">fiducial_points</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span><span class="n">ibis</span><span class="p">,</span><span class="n">fs</span><span class="p">,</span><span class="n">vis</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fidp</span> <span class="o">=</span> <span class="n">fiducial_points</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span> <span class="n">ibis</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">vis</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/pulse-wave-analysis_22_0.png" src="../../_images/pulse-wave-analysis_22_0.png" />
+<img alt="../../_images/pulse-wave-analysis_20_0.png" src="../../_images/pulse-wave-analysis_20_0.png" />
 </div>
 </div>
 <ul class="simple">
@@ -972,7 +989,7 @@ Extracted the PPG signal from column 6 of the matrix of waveform data at 62.5 Hz
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-warning"> <b>Explanation:</b> See the figure above for an illustration of how Delta T is calculated.</div><ul class="simple">
+<div class="alert alert-block alert-warning"><p><b>Explanation:</b> See the figure above for an illustration of how Delta T is calculated.</p></div><ul class="simple">
 <li><p>Now we’ll calculate a second pulse wave feature, the aging index:</p></li>
 </ul>
 <div class="cell docutils container">
@@ -995,7 +1012,7 @@ Extracted the PPG signal from column 6 of the matrix of waveform data at 62.5 Hz
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-info"> <b>Question:</b> Can you implement any more pulse wave features (e.g. 'CT')?</div></div>
+<div class="alert alert-block alert-info"><p><b>Question:</b> Can you implement any more pulse wave features (e.g. 'CT')?</p></div></div>
 <hr class="docutils" />
 <div class="section" id="beat-detection-functions">
 <h2>Beat Detection Functions<a class="headerlink" href="#beat-detection-functions" title="Permalink to this headline">¶</a></h2>

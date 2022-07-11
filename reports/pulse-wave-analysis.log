@@ -19,8 +19,9 @@ nbclient.exceptions.CellExecutionError: An error occurred while executing the fo
 ------------------
 temp_fs = 125
 alg = 'd2max'
-ibis = pulse_detect(ppg_filt,temp_fs,5,alg)
-print("Detected {} beats in the PPG signal using the {} algorithm".format(len(ibis), alg))
+ibis = pulse_detect(ppg_filt, temp_fs, 5, alg)
+
+print(f"Detected {len(ibis)} beats in the PPG signal using the {alg} algorithm")
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
@@ -28,8 +29,8 @@ print("Detected {} beats in the PPG signal using the {} algorithm".format(len(ib
 Input [0;32mIn [5][0m, in [0;36m<cell line: 3>[0;34m()[0m
 [1;32m      1[0m temp_fs [38;5;241m=[39m [38;5;241m125[39m
 [1;32m      2[0m alg [38;5;241m=[39m [38;5;124m'[39m[38;5;124md2max[39m[38;5;124m'[39m
-[0;32m----> 3[0m ibis [38;5;241m=[39m [43mpulse_detect[49m(ppg_filt,temp_fs,[38;5;241m5[39m,alg)
-[1;32m      4[0m [38;5;28mprint[39m([38;5;124m"[39m[38;5;124mDetected [39m[38;5;132;01m{}[39;00m[38;5;124m beats in the PPG signal using the [39m[38;5;132;01m{}[39;00m[38;5;124m algorithm[39m[38;5;124m"[39m[38;5;241m.[39mformat([38;5;28mlen[39m(ibis), alg))
+[0;32m----> 3[0m ibis [38;5;241m=[39m [43mpulse_detect[49m(ppg_filt, temp_fs, [38;5;241m5[39m, alg)
+[1;32m      5[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mDetected [39m[38;5;132;01m{[39;00m[38;5;28mlen[39m(ibis)[38;5;132;01m}[39;00m[38;5;124m beats in the PPG signal using the [39m[38;5;132;01m{[39;00malg[38;5;132;01m}[39;00m[38;5;124m algorithm[39m[38;5;124m"[39m)
 
 [0;31mNameError[0m: name 'pulse_detect' is not defined
 NameError: name 'pulse_detect' is not defined
