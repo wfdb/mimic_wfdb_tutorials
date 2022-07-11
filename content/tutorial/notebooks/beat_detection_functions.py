@@ -53,7 +53,7 @@ def pulse_detect(x,fs,w,alg):
     for i in range(int(n_int)):
         start = i*fs*w
         stop = (i + 1)*fs*w - 1
-        #print('Start: ' + str(start) + ', stop: ' + str(stop))
+        # print('Start: ' + str(start) + ', stop: ' + str(stop) + ', fs: ' + str(fs))
         aux = x_f[range(start,stop)]
         if alg == 'heartpy':
             locs = heartpy(aux,fs,40,180,5)
