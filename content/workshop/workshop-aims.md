@@ -1,8 +1,8 @@
 # Workshop Aims
 
-The aim of this interactive workshop is to provide participants with the knowledge, skills and tools required to conduct open research in the field of Biomedical Signal Processing.
+This interactive workshop provides key knowledge, skills, and tools for conducting open research in the field of biomedical signal processing.
 
-The objectives are:
-1. To provide participants with an understanding of publicly available datasets containing physiological signals, focusing on those on _PhysioNet_.
-2. To provide participants with essential skills for conducting high quality research with openly available data.
-3. To give participants the opportunity to work in groups on a cuffless blood pressure estimation case study.
+Broadly, the workshop:
+1. Introduces publicly accessible datasets of physiological signals, focusing on those on _PhysioNet_ ([https://www.physionet.org](https://www.physionet.org)).
+2. Teaches essential skills for conducting high quality research using open source software.
+3. Offers an opportunity to work in groups on a cuffless blood pressure estimation case study.
