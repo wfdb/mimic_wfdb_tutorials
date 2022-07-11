@@ -1,6 +1,16 @@
 # Case Study
 
-Follow the links to explore this case study on cuffless blood pressure estimation using the MIMIC Waveform Database.
+In the tutorials we have explored different steps which would commonly be encountered when developing techniques for cuffless blood pressure estimation.
+
+For the remainder of the workshop we would like you to work together in groups to train and test a model for estimating BP from the PPG.
+
+Forming groups:
+- Please could any coders spread themselves between groups
+- We recommend groups of between 4 and 6 people
+
+A suggested workflow is provided below - feel free to use this or ignore it!
+
+We will be on hand to help, and we will ask groups to share their experiences shortly before the end of the session.
 
 # Suggested workflow
 
