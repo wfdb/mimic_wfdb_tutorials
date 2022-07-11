@@ -26,13 +26,14 @@ sampfrom = fs*start_seconds
 sampto = fs*(start_seconds+no_seconds_to_load)
 segment_data = wfdb.rdrecord(record_name=rel_segment_name, sampfrom=sampfrom, sampto=sampto, pn_dir=rel_segment_dir) 
 print("{} seconds of data extracted from: {}".format(no_seconds_to_load, rel_segment_name))
+abp_col = []
 ppg_col = []
 for sig_no in range(0,len(segment_data.sig_name)):
-    if "Pleth" in segment_data.sig_name[sig_no]:
-        ppg_col = sig_no
-ppg = segment_data.p_signal[:,ppg_col]
+    if "ABP" in segment_data.sig_name[sig_no]:
+        abp_col = sig_no
+abp = segment_data.p_signal[:,abp_col]
 fs = segment_data.fs
-print("Extracted the PPG signal from column {} of the matrix of waveform data at {:.1f} Hz.".format(ppg_col, fs))
+print("Extracted the ABP signal from column {} of the matrix of waveform data at {:.1f} Hz.".format(abp_col, fs))
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
@@ -42,7 +43,7 @@ Input [0;32mIn [3][0m, in [0;36m<cell line: 8>[0;34m()[0m
 [1;32m      7[0m sampto [38;5;241m=[39m fs[38;5;241m*[39m(start_seconds[38;5;241m+[39mno_seconds_to_load)
 [0;32m----> 8[0m segment_data [38;5;241m=[39m [43mwfdb[49m[38;5;241;43m.[39;49m[43mrdrecord[49m[43m([49m[43mrecord_name[49m[38;5;241;43m=[39;49m[43mrel_segment_name[49m[43m,[49m[43m [49m[43msampfrom[49m[38;5;241;43m=[39;49m[43msampfrom[49m[43m,[49m[43m [49m[43msampto[49m[38;5;241;43m=[39;49m[43msampto[49m[43m,[49m[43m [49m[43mpn_dir[49m[38;5;241;43m=[39;49m[43mrel_segment_dir[49m[43m)[49m 
 [1;32m      9[0m [38;5;28mprint[39m([38;5;124m"[39m[38;5;132;01m{}[39;00m[38;5;124m seconds of data extracted from: [39m[38;5;132;01m{}[39;00m[38;5;124m"[39m[38;5;241m.[39mformat(no_seconds_to_load, rel_segment_name))
-[1;32m     10[0m ppg_col [38;5;241m=[39m []
+[1;32m     10[0m abp_col [38;5;241m=[39m []
 
 File [0;32m/opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:2065[0m, in [0;36mrdrecord[0;34m(record_name, sampfrom, sampto, channels, physical, pn_dir, m2s, smooth_frames, ignore_skew, return_res, force_channels, channel_names, warn_empty)[0m
 [1;32m   2062[0m no_file [38;5;241m=[39m [38;5;28;01mFalse[39;00m

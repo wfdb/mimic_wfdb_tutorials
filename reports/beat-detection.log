@@ -36,8 +36,8 @@ for sig_no in range(0,len(segment_data.sig_name)):
 abp = segment_data.p_signal[:,abp_col]
 ppg = segment_data.p_signal[:,ppg_col]
 fs = segment_data.fs
-print("Extracted the ABP signal from column {} of the matrix of waveform data.".format(abp_col))
-print("Extracted the PPG signal from column {} of the matrix of waveform data.".format(ppg_col))
+print("Extracted the ABP signal from column {} of the matrix of waveform data at {:.1f} Hz.".format(abp_col, fs))
+print("Extracted the PPG signal from column {} of the matrix of waveform data at {:.1f} Hz.".format(ppg_col, fs))
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
