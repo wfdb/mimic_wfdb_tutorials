@@ -18,6 +18,12 @@ The WFDB specification is openly-licensed, so anyone can implement and modify so
 
 ## WFDB-Python
 
-For the purposes of this workshop, we will be using the [WFDB Python Package](https://wfdb.readthedocs.io/en/stable/).
+For the purposes of this workshop, we will be using the [WFDB Python Package](https://wfdb.readthedocs.io/en/stable/), a library of tools for reading, writing, and processing physiological signals and annotations. 
 
-[More detail about Python package.]
+The distribution is hosted on PyPI, the package manager for Python. The software can be installed directly from PyPI using the following command:
+
+```python
+$ pip install wfdb
+```
+
+
