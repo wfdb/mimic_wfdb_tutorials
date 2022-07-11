@@ -473,12 +473,58 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#welcome">
+   Welcome
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introductions">
+     Introductions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#outline">
+     Outline
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#questions">
+     Questions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#in-person-event">
+   In-person event
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -490,6 +536,41 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#welcome">
+   Welcome
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introductions">
+     Introductions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#outline">
+     Outline
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#questions">
+     Questions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#in-person-event">
+   In-person event
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -499,6 +580,41 @@ title="Print to PDF"
                 
   <div class="section" id="workshop">
 <h1>Workshop<a class="headerlink" href="#workshop" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="welcome">
+<h2>Welcome<a class="headerlink" href="#welcome" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="introductions">
+<h3>Introductions<a class="headerlink" href="#introductions" title="Permalink to this headline">¶</a></h3>
+<p>This workshop is being run by researchers from MIT, the University of Cambridge, and City, University of London. You can find details of the individuals who have contributed <a class="reference external" href="https://github.com/wfdb/mimic_wfdb_tutorials#contributors-">here</a>.</p>
+</div>
+<div class="section" id="outline">
+<h3>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h3>
+<p>The workshop brings together three themes:</p>
+<p><strong>Open research:</strong> Facilitating high quality research through the sharing of data and code. This may include the use of online repositories such as <a class="reference external" href="https://physionet.org/">PhysioNet</a>, collaborative code development using tools and platforms such as Git and <a class="reference external" href="https://github.com/">GitHub</a>, and making research reproducible through the sharing of the data and code used in studies. Indeed, the tools used in this workshop are hosted in a GitHub repository <a class="reference external" href="https://github.com/wfdb/mimic_wfdb_tutorials">here</a>.</p>
+<p><strong>Biomedical signal processing:</strong> Research into techniques to derive information from physiological signals, often for health or well-being purposes. In this workshop, we’ll be referring to physiological signals which are sampled many times per second, such as the electrocardiogram (ECG).</p>
+<p><img alt="PPG signals at rest and during exercise" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Photoplethysmogram_signals_at_rest_and_during_exercise.svg" />
+Source: <em>Charlton PH, <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Photoplethysmogram_signals_at_rest_and_during_exercise.svg">Photoplethysmogram signals at rest and during exercise</a>, Wikimedia Commons (CC BY 4.0).</em></p>
+<p><strong>Cuffless blood pressure estimation:</strong> Estimating blood pressure from physiological signals which can be acquired unobtrusively without the use of a blood pressure cuff. Broadly, there are three approaches for cuffless blood pressure estimation. These are based on the observation that the speed with which the pulse wave propagates increases with blood pressure:</p>
+<ul class="simple">
+<li><p>measuring the pulse transit time (PTT) between two arterial pulse waves (one closer to the heart and one further away).</p></li>
+<li><p>measuring the pulse arrival time (PAT) between a marker of ventricular contraction, and the arrival of a pulse wave (preferably at a peripheral site)</p></li>
+<li><p>estimating BP from the shape of a pulse wave (such as a photoplethysmography, PPG, pulse wave), since changes in pulse wave velocity and BP influence the shapes of pulse waves.</p></li>
+</ul>
+<p><img alt="Deriving indicators of BP" src="https://journals.physiology.org/cms/10.1152/ajpheart.00392.2021/asset/images/large/ajpheart.00392.2021_f003.jpeg" />
+Source: <em>Charlton PH et al., <a class="reference external" href="https://doi.org/10.1152/ajpheart.00392.2021">Assessing hemodynamics from the photoplethysmogram to gain insights into vascular age: a review from VascAgeNet</a>, AJP Heart Circ, 2022 (CC BY 4.0).</em></p>
+</div>
+<div class="section" id="questions">
+<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h3>
+<p>Consider the following to familiarise yourself with the concepts of this workshop:</p>
+<ul class="simple">
+<li><p>Have you used publicly available data or code before?</p></li>
+<li><p>Have you shared data or code from your research?</p></li>
+<li><p>How would you rate your biomedical signal processing skills?</p></li>
+<li><p>Have you ever worked on estimating BP from PPG signals?</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="in-person-event">
+<h2>In-person event<a class="headerlink" href="#in-person-event" title="Permalink to this headline">¶</a></h2>
 <p>These resources were designed for the following workshop at the <a class="reference external" href="https://embc.embs.org/2022/">2022 IEEE EMBC Conference</a> in Glasgow, UK:</p>
 <p><strong>‘Open research in Biomedical Signal Processing: Cuffless Blood Pressure Estimation Using the MIMIC-IV Database’</strong></p>
 <ul class="simple">
@@ -509,6 +625,7 @@ title="Print to PDF"
 </ul>
 <p>Follow the links on the left for further details of the workshop.</p>
 <div class="toctree-wrapper compound">
+</div>
 </div>
 </div>
 
