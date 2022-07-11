@@ -17,26 +17,57 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-temp_fs = 125
+from matplotlib import pyplot as plt
 
-ppg_ibis_d2max = pulse_detect(ppg_filt, temp_fs, 5, 'd2max')
-print(f"Detected {len(ppg_ibis_d2max)} beats in the PPG signal using the {'D2max'} algorithm")
+fig, (ax1,ax2,ax3) = plt.subplots(3, 1,
+                                  sharex = False,
+                                  sharey = False,
+                                  figsize = (8,8))
+fig.suptitle('IBIs detection') 
 
-ppg_ibis_upslopes = pulse_detect(ppg_filt, temp_fs, 5,'upslopes')
-print(f"Detected {len(ppg_ibis_upslopes)} beats in the PPG signal using the {'Upslopes'} algorithm")
+t = np.arange(0, len(ppg_filt)/fs,1.0/fs)
 
-ppg_ibis_delineator = pulse_detect(ppg_filt, temp_fs, 5, 'delineator')
-print(f"Detected {len(ppg_ibis_delineator)} beats in the PPG signal using the {'Delineator'} algorithm")
+ax1.plot(t, ppg_filt, color = 'black')
+ax1.scatter(t[0] + ppg_ibis_d2max/fs,
+            ppg_filt[ppg_ibis_d2max],
+            color = 'orange',
+            marker = 'o')
+ax1.set_ylabel('PPG [V]')
+ax1.set_title('D2Max')
+
+ax2.plot(t, ppg_filt, color = 'black')
+ax2.scatter(t[0] + ppg_ibis_upslopes/fs,
+            ppg_filt[ppg_ibis_upslopes],
+            color = 'orange',
+            marker = 'o')
+ax2.set_ylabel('PPG [V]')
+ax2.set_title('Upslopes')
+
+ax3.plot(t, ppg_filt, color = 'black')
+ax3.scatter(t[0] + ppg_ibis_delineator/fs,
+            ppg_filt[ppg_ibis_delineator],
+            color = 'orange',
+            marker = 'o')
+ax3.set_xlabel('Time [s]')
+ax3.set_ylabel('PPG [V]')
+ax3.set_title('Delineator')
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-Input [0;32mIn [5][0m, in [0;36m<cell line: 3>[0;34m()[0m
-[1;32m      1[0m temp_fs [38;5;241m=[39m [38;5;241m125[39m
-[0;32m----> 3[0m ppg_ibis_d2max [38;5;241m=[39m [43mpulse_detect[49m(ppg_filt, temp_fs, [38;5;241m5[39m, [38;5;124m'[39m[38;5;124md2max[39m[38;5;124m'[39m)
-[1;32m      4[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mDetected [39m[38;5;132;01m{[39;00m[38;5;28mlen[39m(ppg_ibis_d2max)[38;5;132;01m}[39;00m[38;5;124m beats in the PPG signal using the [39m[38;5;132;01m{[39;00m[38;5;124m'[39m[38;5;124mD2max[39m[38;5;124m'[39m[38;5;132;01m}[39;00m[38;5;124m algorithm[39m[38;5;124m"[39m)
-[1;32m      6[0m ppg_ibis_upslopes [38;5;241m=[39m pulse_detect(ppg_filt, temp_fs, [38;5;241m5[39m,[38;5;124m'[39m[38;5;124mupslopes[39m[38;5;124m'[39m)
+Input [0;32mIn [7][0m, in [0;36m<cell line: 9>[0;34m()[0m
+[1;32m      3[0m fig, (ax1,ax2,ax3) [38;5;241m=[39m plt[38;5;241m.[39msubplots([38;5;241m3[39m, [38;5;241m1[39m,
+[1;32m      4[0m                                   sharex [38;5;241m=[39m [38;5;28;01mFalse[39;00m,
+[1;32m      5[0m                                   sharey [38;5;241m=[39m [38;5;28;01mFalse[39;00m,
+[1;32m      6[0m                                   figsize [38;5;241m=[39m ([38;5;241m8[39m,[38;5;241m8[39m))
+[1;32m      7[0m fig[38;5;241m.[39msuptitle([38;5;124m'[39m[38;5;124mIBIs detection[39m[38;5;124m'[39m) 
+[0;32m----> 9[0m t [38;5;241m=[39m [43mnp[49m[38;5;241m.[39marange([38;5;241m0[39m, [38;5;28mlen[39m(ppg_filt)[38;5;241m/[39mfs,[38;5;241m1.0[39m[38;5;241m/[39mfs)
+[1;32m     11[0m ax1[38;5;241m.[39mplot(t, ppg_filt, color [38;5;241m=[39m [38;5;124m'[39m[38;5;124mblack[39m[38;5;124m'[39m)
+[1;32m     12[0m ax1[38;5;241m.[39mscatter(t[[38;5;241m0[39m] [38;5;241m+[39m ppg_ibis_d2max[38;5;241m/[39mfs,
+[1;32m     13[0m             ppg_filt[ppg_ibis_d2max],
+[1;32m     14[0m             color [38;5;241m=[39m [38;5;124m'[39m[38;5;124morange[39m[38;5;124m'[39m,
+[1;32m     15[0m             marker [38;5;241m=[39m [38;5;124m'[39m[38;5;124mo[39m[38;5;124m'[39m)
 
-[0;31mNameError[0m: name 'pulse_detect' is not defined
-NameError: name 'pulse_detect' is not defined
+[0;31mNameError[0m: name 'np' is not defined
+NameError: name 'np' is not defined
 

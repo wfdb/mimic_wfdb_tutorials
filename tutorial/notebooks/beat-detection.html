@@ -668,7 +668,7 @@ title="Print to PDF"
   <div class="section" id="beat-detection">
 <h1>Beat detection<a class="headerlink" href="#beat-detection" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial we will learn how to detect beats in PPG and BP signals.</p>
-<p>our <strong>objectives</strong> are to:</p>
+<p>Our <strong>objectives</strong> are to:</p>
 <ul class="simple">
 <li><p>Call Python functions that are stored in a separate file</p></li>
 <li><p>Use beat detection algorithms to detect beats in PPG and BP signals</p></li>
@@ -696,31 +696,33 @@ title="Print to PDF"
 ?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/161.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">161.7/161.7 kB</span> <span class=" -Color -Color-Red">5.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">161.7/161.7 kB</span> <span class=" -Color -Color-Red">7.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
 ?25hRequirement already satisfied: numpy&lt;2.0.0,&gt;=1.10.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.23.1)
-Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: requests&lt;3.0.0,&gt;=2.8.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (2.28.1)
+Requirement already satisfied: scipy&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.8.1)
 Requirement already satisfied: matplotlib&lt;4.0.0,&gt;=3.2.2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (3.5.2)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting SoundFile&lt;0.12.0,&gt;=0.10.0
   Downloading SoundFile-0.10.3.post1-py2.py3-none-any.whl (21 kB)
-Requirement already satisfied: scipy&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.8.1)
-Requirement already satisfied: requests&lt;3.0.0,&gt;=2.8.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (2.28.1)
-Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (21.3)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (4.34.4)
-Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (0.11.0)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.4.3)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (3.0.9)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (2.8.2)
-Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (9.2.0)
-Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from pandas&lt;2.0.0,&gt;=1.0.0-&gt;wfdb==4.0.0) (2022.1)
+Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.4.3)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: certifi&gt;=2017.4.17 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2022.6.15)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (2.8.2)
+Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (9.2.0)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (3.0.9)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (0.11.0)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (21.3)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (4.34.4)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from pandas&lt;2.0.0,&gt;=1.0.0-&gt;wfdb==4.0.0) (2022.1)
 Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (3.3)
 Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (1.26.10)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2022.6.15)
 Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2.1.0)
-Requirement already satisfied: cffi&gt;=1.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (1.15.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: cffi&gt;=1.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (1.15.1)
 Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from cffi&gt;=1.0-&gt;SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (2.21)
 </pre></div>
 </div>
@@ -858,29 +860,45 @@ Extracted the PPG signal from column 4 of the matrix of waveform data at 62.5 Hz
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pulse_detect</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Placeholder for a pulse detection function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Override the pulse_detect function with the example </span>
+<span class="s2">          provided at the bottom of this notebook.</span><span class="se">\n</span><span class="s2">&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp_fs</span> <span class="o">=</span> <span class="mi">125</span>
 
 <span class="n">ppg_ibis_d2max</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span> <span class="n">temp_fs</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;d2max&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ppg_ibis_d2max</span><span class="p">)</span><span class="si">}</span><span class="s2"> beats in the PPG signal using the </span><span class="si">{</span><span class="s1">&#39;D2max&#39;</span><span class="si">}</span><span class="s2"> algorithm&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">ppg_ibis_d2max</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ppg_ibis_d2max</span><span class="p">)</span><span class="si">}</span><span class="s2"> beats in the PPG signal using the </span><span class="si">{</span><span class="s1">&#39;D2max&#39;</span><span class="si">}</span><span class="s2"> algorithm&quot;</span><span class="p">)</span>
 
 <span class="n">ppg_ibis_upslopes</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span> <span class="n">temp_fs</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span><span class="s1">&#39;upslopes&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ppg_ibis_upslopes</span><span class="p">)</span><span class="si">}</span><span class="s2"> beats in the PPG signal using the </span><span class="si">{</span><span class="s1">&#39;Upslopes&#39;</span><span class="si">}</span><span class="s2"> algorithm&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">ppg_ibis_upslopes</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ppg_ibis_upslopes</span><span class="p">)</span><span class="si">}</span><span class="s2"> beats in the PPG signal using the </span><span class="si">{</span><span class="s1">&#39;Upslopes&#39;</span><span class="si">}</span><span class="s2"> algorithm&quot;</span><span class="p">)</span>
 
 <span class="n">ppg_ibis_delineator</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span> <span class="n">temp_fs</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;delineator&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ppg_ibis_delineator</span><span class="p">)</span><span class="si">}</span><span class="s2"> beats in the PPG signal using the </span><span class="si">{</span><span class="s1">&#39;Delineator&#39;</span><span class="si">}</span><span class="s2"> algorithm&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">ppg_ibis_delineator</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ppg_ibis_delineator</span><span class="p">)</span><span class="si">}</span><span class="s2"> beats in the PPG signal using the </span><span class="si">{</span><span class="s1">&#39;Delineator&#39;</span><span class="si">}</span><span class="s2"> algorithm&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">Input In [5],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">temp_fs</span> <span class="o">=</span> <span class="mi">125</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">ppg_ibis_d2max</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span> <span class="n">temp_fs</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;d2max&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ppg_ibis_d2max</span><span class="p">)</span><span class="si">}</span><span class="s2"> beats in the PPG signal using the </span><span class="si">{</span><span class="s1">&#39;D2max&#39;</span><span class="si">}</span><span class="s2"> algorithm&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">ppg_ibis_upslopes</span> <span class="o">=</span> <span class="n">pulse_detect</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">,</span> <span class="n">temp_fs</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span><span class="s1">&#39;upslopes&#39;</span><span class="p">)</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Override the pulse_detect function with the example 
+          provided at the bottom of this notebook.
 
-<span class="ne">NameError</span>: name &#39;pulse_detect&#39; is not defined
+Override the pulse_detect function with the example 
+          provided at the bottom of this notebook.
+
+Override the pulse_detect function with the example 
+          provided at the bottom of this notebook.
 </pre></div>
 </div>
 </div>
@@ -928,10 +946,25 @@ Extracted the PPG signal from column 4 of the matrix of waveform data at 62.5 Hz
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Delineator&#39;)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [7],</span> in <span class="ni">&lt;cell line: 9&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">,</span><span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                                   <span class="n">sharex</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                                   <span class="n">sharey</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                                   <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;IBIs detection&#39;</span><span class="p">)</span> 
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ppg_filt</span><span class="p">)</span><span class="o">/</span><span class="n">fs</span><span class="p">,</span><span class="mf">1.0</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ppg_filt</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">ppg_ibis_d2max</span><span class="o">/</span><span class="n">fs</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>             <span class="n">ppg_filt</span><span class="p">[</span><span class="n">ppg_ibis_d2max</span><span class="p">],</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>             <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>             <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;np&#39; is not defined
 </pre></div>
 </div>
-<img alt="../../_images/beat-detection_20_1.png" src="../../_images/beat-detection_20_1.png" />
+<img alt="../../_images/beat-detection_21_1.png" src="../../_images/beat-detection_21_1.png" />
 </div>
 </div>
 <p>We’ll use the ‘D2max’ algorithm in the rest of this tutorial</p>
@@ -988,7 +1021,7 @@ Extracted the PPG signal from column 4 of the matrix of waveform data at 62.5 Hz
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;ABP [au]&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/beat-detection_26_1.png" src="../../_images/beat-detection_26_1.png" />
+<img alt="../../_images/beat-detection_27_1.png" src="../../_images/beat-detection_27_1.png" />
 </div>
 </div>
 <div class="alert alert-block alert-warning"> <b>Note:</b> In this case, beats are accurately detected in both BP and PPG signals.</div></div>
