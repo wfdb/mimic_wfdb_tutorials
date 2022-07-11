@@ -310,7 +310,7 @@ def fiducial_points(x,pks,fs,vis):
     cmag2d = np.zeros(len(b2d))
     dmag2d = np.zeros(len(b2d))
     emag2d = np.zeros(len(b2d))
-    for beat_no in range(0,len(b2d)):
+    for beat_no in range(0,len(d2d)):
         bmag2d[beat_no] = d2x[b2d[beat_no]]/d2x[a2d[beat_no]]
         cmag2d[beat_no] = d2x[c2d[beat_no]]/d2x[a2d[beat_no]]
         dmag2d[beat_no] = d2x[d2d[beat_no]]/d2x[a2d[beat_no]]
