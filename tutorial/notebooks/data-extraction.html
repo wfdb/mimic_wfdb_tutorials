@@ -593,18 +593,20 @@ title="Print to PDF"
                 
   <div class="section" id="data-extraction">
 <h1>Data Extraction<a class="headerlink" href="#data-extraction" title="Permalink to this headline">¶</a></h1>
-<p>In this tutorial we will extract data from the MIMIC-IV Waveform Database.</p>
-<p>The <strong>objectives</strong> are:</p>
+<p>In this tutorial we’ll extract data from the MIMIC-IV Waveform Database.</p>
+<p>Our <strong>objectives</strong> are to:</p>
 <ul class="simple">
-<li><p>To extract the signals from one segment of a record</p></li>
-<li><p>To extract only the required duration of the required signals from this segment (<em>i.e.</em> 10 minutes of photoplethysmography and blood presure signals)</p></li>
+<li><p>Extract signals from one segment of a record.</p></li>
+<li><p>Limit the segment to only the required duration of relevant signals (<em>i.e.</em> 10 min of photoplethysmography and blood pressure signals).</p></li>
 </ul>
-<div class="alert alert-block alert-warning"> <b>Context:</b>
-    In the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-exploration.html">Data Exploration</a> tutorial we learnt how to identify segments of waveform data which are suitable for a particular research study (i.e. which have the required duration of the required signals). We extracted metadata for such a segment, providing high-level details of what is contained in the segment (e.g. which signals, their sampling frequency, and their duration). In this tutorial we will go a step further and extract signals in preparation for analysis.
+<div class="alert alert-block alert-warning">
+<p><b>Context:</b>
+    In the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-exploration.html">Data Exploration</a> tutorial we learnt how to identify segments of waveform data which are suitable for a particular research study (i.e. which have the required duration of the required signals). We extracted metadata for such a segment, providing high-level details of what is contained in the segment (e.g. which signals, their sampling frequency, and their duration). Now we will go a step further to extract signals for analysis.</p>
 </div><hr class="docutils" />
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
-<div class="alert alert-block alert-warning"> <b>Resource:</b> These steps are taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-exploration.html">Data Exploration</a> tutorial. </div><ul class="simple">
+<div class="alert alert-block alert-warning">
+<p><b>Resource:</b> These steps are taken from the <a href="https://wfdb.io/mimic_wfdb_tutorials/tutorial/notebooks/data-exploration.html">Data Exploration</a> tutorial.</p></div><ul class="simple">
 <li><p>Specify the required Python packages</p></li>
 </ul>
 <div class="cell docutils container">
@@ -616,36 +618,37 @@ title="Print to PDF"
 </div>
 </div>
 <ul class="simple">
-<li><p>Specify a particular version of the WFDB toolbox</p></li>
+<li><p>Install and import the WFDB toolbox</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install <span class="nv">wfdb</span><span class="o">==</span><span class="m">4</span>.0.0
+<span class="kn">import</span> <span class="nn">wfdb</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: wfdb==4.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (4.0.0)
-Requirement already satisfied: scipy&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.8.1)
 Requirement already satisfied: numpy&lt;2.0.0,&gt;=1.10.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.23.1)
-Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.4.3)
 Requirement already satisfied: requests&lt;3.0.0,&gt;=2.8.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (2.28.1)
-Requirement already satisfied: matplotlib&lt;4.0.0,&gt;=3.2.2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (3.5.2)
 Requirement already satisfied: SoundFile&lt;0.12.0,&gt;=0.10.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (0.10.3.post1)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.4.3)
-Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (9.2.0)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (2.8.2)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (4.34.4)
-Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (0.11.0)
+Requirement already satisfied: scipy&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.8.1)
+Requirement already satisfied: matplotlib&lt;4.0.0,&gt;=3.2.2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (3.5.2)
+Requirement already satisfied: pandas&lt;2.0.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from wfdb==4.0.0) (1.4.3)
 Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (21.3)
+Requirement already satisfied: pillow&gt;=6.2.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (9.2.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (1.4.3)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (0.11.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (4.34.4)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (2.8.2)
 Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from matplotlib&lt;4.0.0,&gt;=3.2.2-&gt;wfdb==4.0.0) (3.0.9)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from pandas&lt;2.0.0,&gt;=1.0.0-&gt;wfdb==4.0.0) (2022.1)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from pandas&lt;2.0.0,&gt;=1.0.0-&gt;wfdb==4.0.0) (2022.1)
-Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (3.3)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (3.3)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (1.26.10)
 Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2.1.0)
 Requirement already satisfied: certifi&gt;=2017.4.17 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (2022.6.15)
-Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from requests&lt;3.0.0,&gt;=2.8.1-&gt;wfdb==4.0.0) (1.26.10)
 Requirement already satisfied: cffi&gt;=1.0 in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (1.15.1)
 Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages (from cffi&gt;=1.0-&gt;SoundFile&lt;0.12.0,&gt;=0.10.0-&gt;wfdb==4.0.0) (2.21)
 </pre></div>
@@ -656,21 +659,12 @@ Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x
 </div>
 </div>
 <ul class="simple">
-<li><p>Import the WFDB toolbox</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">wfdb</span>
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
 <li><p>Specify the settings for the MIMIC-IV database</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic4wdb/0.1.0&#39;</span> <span class="c1"># The name of the MIMIC IV Waveform Database on Physionet</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The name of the MIMIC-IV Waveform Database on PhysioNet</span>
+<span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;mimic4wdb/0.1.0&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -694,17 +688,19 @@ Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rel_segment_no</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">rel_segment_name</span> <span class="o">=</span> <span class="n">segment_names</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
 <span class="n">rel_segment_dir</span> <span class="o">=</span> <span class="n">segment_dirs</span><span class="p">[</span><span class="n">rel_segment_no</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specified segment &#39;</span><span class="si">{}</span><span class="s2">&#39; in directory &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">rel_segment_dir</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Specified segment &#39;</span><span class="si">{</span><span class="n">rel_segment_name</span><span class="si">}</span><span class="s2">&#39; in directory: &#39;</span><span class="si">{</span><span class="n">rel_segment_dir</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment &#39;83404654_0005&#39; in directory &#39;mimic4wdb/0.1.0/waves/p100/p10020306/83404654&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specified segment &#39;83404654_0005&#39; in directory: &#39;mimic4wdb/0.1.0/waves/p100/p10020306/83404654&#39;
 </pre></div>
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-info"> <b>Extension:</b> Have a look at the files which make up this record <a href="https://physionet.org/content/mimic4wdb/0.1.0/waves/p100/p10020306/">here</a> (NB: you will need to scroll to the bottom of the page). </div></div>
+<div class="alert alert-block alert-info">
+<p><b>Extension:</b> Have a look at the files which make up this record <a href="https://physionet.org/content/mimic4wdb/0.1.0/waves/p100/p10020306/">here</a> (NB: you will need to scroll to the bottom of the page).</p>
+</div></div>
 <hr class="docutils" />
 <div class="section" id="extract-data-for-this-segment">
 <h2>Extract data for this segment<a class="headerlink" href="#extract-data-for-this-segment" title="Permalink to this headline">¶</a></h2>
@@ -714,16 +710,16 @@ Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{</span><span class="n">rel_segment_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
-<span class="nn">Input In [7],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="nn">Input In [6],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">segment_data</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="o">=</span><span class="n">rel_segment_name</span><span class="p">,</span> <span class="n">pn_dir</span><span class="o">=</span><span class="n">rel_segment_dir</span><span class="p">)</span> 
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rel_segment_name</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data loaded from segment: </span><span class="si">{</span><span class="n">rel_segment_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="nn">File /opt/hostedtoolcache/Python/3.9.13/x64/lib/python3.9/site-packages/wfdb/io/record.py:2065,</span> in <span class="ni">rdrecord</span><span class="nt">(record_name, sampfrom, sampto, channels, physical, pn_dir, m2s, smooth_frames, ignore_skew, return_res, force_channels, channel_names, warn_empty)</span>
 <span class="g g-Whitespace">   </span><span class="mi">2062</span> <span class="n">no_file</span> <span class="o">=</span> <span class="kc">False</span>
@@ -831,7 +827,7 @@ Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data stored in class of type: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">segment_data</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data stored in class of type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">segment_data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -841,14 +837,16 @@ Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.9.13/x
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-warning"> <b>Resource:</b> You can find out more about the class representing single segment WFDB records <a href="https://wfdb.readthedocs.io/en/stable/io.html?highlight=class#wfdb.io.Record">here</a>. </div><ul class="simple">
+<div class="alert alert-block alert-warning">
+<p><b>Resource:</b> You can find out more about the class representing single segment WFDB records <a href="https://wfdb.readthedocs.io/en/stable/io.html?highlight=class#wfdb.io.Record">here</a>.</p>
+</div><ul class="simple">
 <li><p>Find out about the signals which have been extracted</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This segment contains waveform data for the following </span><span class="si">{}</span><span class="s2"> signals: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">segment_data</span><span class="o">.</span><span class="n">n_sig</span><span class="p">,</span> <span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The signals are sampled at a base rate of </span><span class="si">{}</span><span class="s2"> Hz (and some are sampled at multiples of this)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;They last for </span><span class="si">{:.1f}</span><span class="s2"> minutes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">segment_data</span><span class="o">.</span><span class="n">sig_len</span><span class="o">/</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;This segment contains waveform data for the following </span><span class="si">{</span><span class="n">segment_data</span><span class="o">.</span><span class="n">n_sig</span><span class="si">}</span><span class="s2"> signals: </span><span class="si">{</span><span class="n">segment_data</span><span class="o">.</span><span class="n">sig_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The signals are sampled at a base rate of </span><span class="si">{</span><span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span><span class="si">}</span><span class="s2"> Hz (and some are sampled at multiples of this)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;They last for </span><span class="si">{</span><span class="n">segment_data</span><span class="o">.</span><span class="n">sig_len</span><span class="o">/</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="n">segment_data</span><span class="o">.</span><span class="n">fs</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> minutes&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -860,7 +858,9 @@ They last for 52.4 minutes
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-info"> <b>Question:</b> Can you find out which signals are sampled at multiples of the base sampling frequency by looking at the following contents of the 'segment_data' variable? </div><div class="cell docutils container">
+<div class="alert alert-block alert-info">
+<p><b>Question:</b> Can you find out which signals are sampled at multiples of the base sampling frequency by looking at the following contents of the 'segment_data' variable?</p>
+</div><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="n">pprint</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">segment_data</span><span class="p">))</span>
