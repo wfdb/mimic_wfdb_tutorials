@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
-        python-version: ["3.8", "3.9"]
+        python-version: ["3.10"]
     steps:
       # Checkout the latest code from the repo
       # https://github.com/actions/checkout
@@ -26,7 +26,7 @@ jobs:
       # Setup which version of Python to use
       # https://github.com/actions/setup-python
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       # Display the Python version being used
