@@ -1,40 +1,39 @@
-# Table of content
-# Learn more at https://jupyterbook.org/customize/toc.html
-#
-- file: intro
+format: jb-article
+root: intro
+sections:
 - file: workshop
   sections:
-    - file: workshop/aims
-    - file: workshop/synopsis
-    - file: workshop/schedule
-    - file: workshop/prep
+  - file: workshop/aims
+  - file: workshop/synopsis
+  - file: workshop/schedule
+  - file: workshop/prep
 - file: mimic-database
   sections:
-    - file: mimic/physionet
-    - file: mimic/context
-    - file: mimic/structure
-    - file: mimic/formatting
-    - file: mimic/wfdb-toolbox
+  - file: mimic/physionet
+  - file: mimic/context
+  - file: mimic/structure
+  - file: mimic/formatting
+  - file: mimic/wfdb-toolbox
 - file: tutorials
   sections:
-    - file: tutorial/notebooks/data-exploration
-    - file: tutorial/notebooks/data-extraction
-    - file: tutorial/notebooks/data-visualisation
-    - file: tutorial/notebooks/signal-filtering
-    - file: tutorial/notebooks/differentiation
-    - file: tutorial/notebooks/beat-detection
-    - file: tutorial/notebooks/pulse-wave-analysis
-    - file: tutorial/notebooks/extracting-reference-bp
+  - file: tutorial/notebooks/data-exploration
+  - file: tutorial/notebooks/data-extraction
+  - file: tutorial/notebooks/data-visualisation
+  - file: tutorial/notebooks/signal-filtering
+  - file: tutorial/notebooks/differentiation
+  - file: tutorial/notebooks/beat-detection
+  - file: tutorial/notebooks/pulse-wave-analysis
+  - file: tutorial/notebooks/extracting-reference-bp
 - file: case-study
 - file: additional-resources
 - file: about
   sections:
-    - file: about/about-contributing
-    - file: about/about-maintenance
+  - file: about/about-contributing
+  - file: about/about-maintenance
 - file: tutorials-for-the-future
   sections:
-    - file: tutorial/notebooks/qrs-detection
-    - file: tutorial/signal-quality-assessment
-    - file: tutorial/data-modelling
-    - file: tutorial/data-analysis
-    - file: tutorial/data-interpretation
+  - file: tutorial/notebooks/qrs-detection
+  - file: tutorial/signal-quality-assessment
+  - file: tutorial/data-modelling
+  - file: tutorial/data-analysis
+  - file: tutorial/data-interpretation
